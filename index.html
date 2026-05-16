@@ -2738,5 +2738,1318 @@ if ('ontouchstart' in window) {
     .forEach(el => el.style.cursor = 'pointer');
 }
 </script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     OWNER ADMIN PANEL — INVISIBLE TO VISITORS
+     Access: yoursite.com?admin=bharatadmin  → then enter password
+     Password: bharat2026  (change ADMIN_PASSWORD below)
+     All edits auto-save to localStorage and apply on every visit.
+═══════════════════════════════════════════════════════════════ -->
+
+<style>
+/* ── Admin Panel Styles — zero impact on visitor view ── */
+#admin-lock-screen,
+#admin-panel,
+#admin-fab,
+#admin-click-hint {
+  display: none !important;
+}
+body.admin-mode #admin-fab { display: flex !important; }
+body.admin-mode #admin-panel.open { display: flex !important; }
+body.admin-mode #admin-lock-screen.show { display: flex !important; }
+
+/* Lock Screen */
+#admin-lock-screen {
+  position: fixed; inset: 0; z-index: 99999;
+  background: #0a0a0a;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 1.5rem;
+}
+.lock-logo {
+  font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800;
+  color: #c8ff00; letter-spacing: .2em; text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.lock-title {
+  font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700;
+  color: #f0ede8; letter-spacing: -.02em;
+}
+.lock-sub { font-size: .8rem; color: #6b6b6b; letter-spacing: .05em; }
+.lock-input-wrap { position: relative; }
+.lock-input {
+  background: #181818; border: 1px solid #333; color: #f0ede8;
+  font-family: 'DM Sans', sans-serif; font-size: 1rem;
+  padding: .9rem 3rem .9rem 1.2rem; border-radius: 12px;
+  width: 280px; outline: none; letter-spacing: .05em;
+  transition: border-color .3s;
+}
+.lock-input:focus { border-color: #c8ff00; }
+.lock-input.error { border-color: #ff4d00; animation: shake .4s; }
+@keyframes shake {
+  0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)}
+}
+.lock-btn {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  background: #c8ff00; color: #0a0a0a; border: none;
+  border-radius: 8px; padding: .4rem .8rem;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: .75rem;
+  cursor: pointer; letter-spacing: .08em;
+}
+.lock-error { color: #ff4d00; font-size: .78rem; height: 1rem; }
+.lock-hint { font-size: .7rem; color: #333; margin-top: 1rem; }
+
+/* FAB (Floating Action Button) */
+#admin-fab {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 99998;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #c8ff00; color: #0a0a0a;
+  border: none; cursor: pointer;
+  align-items: center; justify-content: center;
+  font-size: 1.3rem; font-weight: 700;
+  box-shadow: 0 4px 20px rgba(200,255,0,.35);
+  transition: transform .3s, box-shadow .3s;
+}
+#admin-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(200,255,0,.5);
+}
+#admin-fab-icon { pointer-events: none; }
+
+/* Admin Panel Sidebar */
+#admin-panel {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 99997;
+  width: 340px; background: #0e0e0e;
+  border-left: 1px solid #222;
+  flex-direction: column;
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+}
+.ap-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 1.25rem; border-bottom: 1px solid #1e1e1e;
+  flex-shrink: 0;
+}
+.ap-title {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: .95rem;
+  color: #c8ff00; letter-spacing: .08em; text-transform: uppercase;
+}
+.ap-header-right { display: flex; gap: .5rem; align-items: center; }
+.ap-save-btn {
+  background: #c8ff00; color: #0a0a0a; border: none;
+  border-radius: 8px; padding: .35rem .85rem;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: .72rem;
+  cursor: pointer; letter-spacing: .08em; transition: opacity .2s;
+}
+.ap-save-btn:hover { opacity: .85; }
+.ap-reset-btn {
+  background: #1e1e1e; color: #6b6b6b; border: 1px solid #2a2a2a;
+  border-radius: 8px; padding: .35rem .75rem;
+  font-family: 'Syne', sans-serif; font-weight: 600; font-size: .7rem;
+  cursor: pointer; letter-spacing: .06em; transition: color .2s, border-color .2s;
+}
+.ap-reset-btn:hover { color: #ff4d00; border-color: #ff4d00; }
+.ap-close-btn {
+  background: #1e1e1e; color: #6b6b6b; border: 1px solid #2a2a2a;
+  border-radius: 8px; padding: .35rem .6rem;
+  font-size: .85rem; cursor: pointer; transition: color .2s;
+}
+.ap-close-btn:hover { color: #f0ede8; }
+
+/* Tabs */
+.ap-tabs {
+  display: flex; border-bottom: 1px solid #1e1e1e;
+  overflow-x: auto; scrollbar-width: none; flex-shrink: 0;
+}
+.ap-tabs::-webkit-scrollbar { display: none; }
+.ap-tab {
+  flex-shrink: 0; padding: .7rem .9rem;
+  font-size: .7rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: #555; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s; background: none; border-top: none;
+  border-left: none; border-right: none; font-family: 'Syne', sans-serif;
+}
+.ap-tab.active { color: #c8ff00; border-bottom-color: #c8ff00; }
+
+/* Body / Sections */
+.ap-body { flex: 1; overflow-y: auto; padding: 1rem 1.25rem; scrollbar-width: thin; scrollbar-color: #222 transparent; }
+.ap-section { display: none; }
+.ap-section.active { display: block; }
+
+/* Field groups */
+.ap-group { margin-bottom: 1.5rem; }
+.ap-group-title {
+  font-size: .6rem; letter-spacing: .25em; text-transform: uppercase;
+  color: #444; margin-bottom: .75rem; font-weight: 700;
+  padding-bottom: .4rem; border-bottom: 1px solid #1a1a1a;
+}
+.ap-field { margin-bottom: .9rem; }
+.ap-label {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: .72rem; color: #888; margin-bottom: .35rem; font-weight: 500;
+}
+.ap-label span { font-size: .65rem; color: #555; }
+
+/* Controls */
+.ap-input {
+  width: 100%; background: #161616; border: 1px solid #222;
+  color: #f0ede8; font-family: 'DM Sans', sans-serif; font-size: .82rem;
+  padding: .55rem .75rem; border-radius: 8px; outline: none;
+  transition: border-color .2s;
+}
+.ap-input:focus { border-color: #c8ff00; }
+.ap-textarea {
+  width: 100%; background: #161616; border: 1px solid #222;
+  color: #f0ede8; font-family: 'DM Sans', sans-serif; font-size: .82rem;
+  padding: .55rem .75rem; border-radius: 8px; outline: none;
+  resize: vertical; min-height: 70px; transition: border-color .2s;
+}
+.ap-textarea:focus { border-color: #c8ff00; }
+.ap-select {
+  width: 100%; background: #161616; border: 1px solid #222;
+  color: #f0ede8; font-family: 'DM Sans', sans-serif; font-size: .82rem;
+  padding: .55rem .75rem; border-radius: 8px; outline: none;
+  appearance: none; cursor: pointer; transition: border-color .2s;
+}
+.ap-select:focus { border-color: #c8ff00; }
+
+.ap-row { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+.ap-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .5rem; }
+
+/* Color picker row */
+.ap-color-row { display: flex; align-items: center; gap: .6rem; }
+.ap-color-swatch {
+  width: 36px; height: 36px; border-radius: 8px; border: 1px solid #333;
+  cursor: pointer; flex-shrink: 0; overflow: hidden; padding: 0;
+  background: none;
+}
+.ap-color-swatch input[type=color] {
+  width: 200%; height: 200%; border: none; cursor: pointer;
+  transform: translate(-25%,-25%); opacity: 0; position: absolute;
+}
+.ap-color-swatch { position: relative; }
+.ap-color-val {
+  flex: 1; background: #161616; border: 1px solid #222;
+  color: #f0ede8; font-family: monospace; font-size: .78rem;
+  padding: .5rem .65rem; border-radius: 8px; outline: none;
+  transition: border-color .2s;
+}
+.ap-color-val:focus { border-color: #c8ff00; }
+
+/* Range slider */
+.ap-range { width: 100%; accent-color: #c8ff00; cursor: pointer; }
+
+/* Image upload zone */
+.ap-img-zone {
+  border: 1.5px dashed #2a2a2a; border-radius: 10px;
+  padding: 1.25rem; text-align: center; cursor: pointer;
+  transition: border-color .25s, background .25s;
+  position: relative; overflow: hidden;
+}
+.ap-img-zone:hover { border-color: #c8ff00; background: rgba(200,255,0,.03); }
+.ap-img-zone input[type=file] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.ap-img-zone-icon { font-size: 1.5rem; margin-bottom: .4rem; opacity: .4; }
+.ap-img-zone-text { font-size: .72rem; color: #555; }
+.ap-img-zone-text strong { color: #888; }
+.ap-img-preview {
+  width: 100%; border-radius: 8px; margin-top: .6rem;
+  object-fit: cover; max-height: 140px; display: none;
+}
+.ap-img-preview.show { display: block; }
+
+/* Image preview card options */
+.ap-preview-modes { display: flex; gap: .5rem; margin-top: .6rem; }
+.ap-preview-mode {
+  flex: 1; padding: .5rem; border: 1px solid #2a2a2a; border-radius: 8px;
+  text-align: center; cursor: pointer; transition: border-color .2s, background .2s;
+  background: #161616;
+}
+.ap-preview-mode.active { border-color: #c8ff00; background: rgba(200,255,0,.05); }
+.ap-preview-mode-icon { font-size: 1.1rem; }
+.ap-preview-mode-label { font-size: .6rem; color: #666; margin-top: .2rem; letter-spacing: .08em; }
+.ap-preview-mode.active .ap-preview-mode-label { color: #c8ff00; }
+
+/* Status toast */
+#ap-toast {
+  position: fixed; bottom: 6rem; right: 2rem; z-index: 99999;
+  background: #c8ff00; color: #0a0a0a;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: .78rem;
+  padding: .65rem 1.2rem; border-radius: 10px;
+  letter-spacing: .06em; pointer-events: none;
+  transform: translateY(20px); opacity: 0;
+  transition: transform .35s, opacity .35s;
+}
+#ap-toast.show { transform: translateY(0); opacity: 1; }
+
+/* Edit highlight on hover (admin mode only) */
+body.admin-mode [data-editable]:hover {
+  outline: 1.5px dashed rgba(200,255,0,.4);
+  outline-offset: 3px;
+  cursor: text !important;
+}
+</style>
+
+<!-- Lock Screen -->
+<div id="admin-lock-screen">
+  <div class="lock-logo">⬡ Admin Access</div>
+  <div class="lock-title">Owner Login</div>
+  <div class="lock-sub">Enter your password to access the edit panel</div>
+  <div class="lock-input-wrap">
+    <input class="lock-input" id="lockInput" type="password" placeholder="Password" autocomplete="off" />
+    <button class="lock-btn" id="lockBtn">Enter ↗</button>
+  </div>
+  <div class="lock-error" id="lockError"></div>
+  <div class="lock-hint">Press Enter or click button to continue</div>
+</div>
+
+<!-- FAB Toggle -->
+<button id="admin-fab" title="Open Admin Panel">
+  <span id="admin-fab-icon">✎</span>
+</button>
+
+<!-- Toast -->
+<div id="ap-toast">✓ Changes saved</div>
+
+<!-- Admin Panel -->
+<div id="admin-panel">
+  <div class="ap-header">
+    <div class="ap-title">✎ Edit Mode</div>
+    <div class="ap-header-right">
+      <button class="ap-reset-btn" id="apResetBtn">Reset All</button>
+      <button class="ap-save-btn" id="apSaveBtn">Save ↗</button>
+      <button class="ap-close-btn" id="apCloseBtn">✕</button>
+    </div>
+  </div>
+
+  <div class="ap-tabs">
+    <button class="ap-tab active" data-tab="theme">🎨 Theme</button>
+    <button class="ap-tab" data-tab="typography">Aa Font</button>
+    <button class="ap-tab" data-tab="text">✎ Text</button>
+    <button class="ap-tab" data-tab="images">🖼 Images</button>
+    <button class="ap-tab" data-tab="layout">⚙ Layout</button>
+  </div>
+
+  <div class="ap-body">
+
+    <!-- ── TAB: THEME ── -->
+    <div class="ap-section active" id="tab-theme">
+
+      <div class="ap-group">
+        <div class="ap-group-title">Accent Colours</div>
+        <div class="ap-field">
+          <div class="ap-label">Accent (dark mode) <span>Primary highlight</span></div>
+          <div class="ap-color-row">
+            <button class="ap-color-swatch" id="sw-accent-dark" style="background:#c8ff00;">
+              <input type="color" id="cp-accent-dark" value="#c8ff00" />
+            </button>
+            <input class="ap-color-val" id="cv-accent-dark" value="#c8ff00" placeholder="#c8ff00" />
+          </div>
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Accent (light mode) <span>Primary highlight</span></div>
+          <div class="ap-color-row">
+            <button class="ap-color-swatch" id="sw-accent-light" style="background:#1400ff;">
+              <input type="color" id="cp-accent-light" value="#1400ff" />
+            </button>
+            <input class="ap-color-val" id="cv-accent-light" value="#1400ff" placeholder="#1400ff" />
+          </div>
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Secondary accent <span>Hover/CTA contrast</span></div>
+          <div class="ap-color-row">
+            <button class="ap-color-swatch" id="sw-accent2" style="background:#ff4d00;">
+              <input type="color" id="cp-accent2" value="#ff4d00" />
+            </button>
+            <input class="ap-color-val" id="cv-accent2" value="#ff4d00" placeholder="#ff4d00" />
+          </div>
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Dark Theme Background</div>
+        <div class="ap-field">
+          <div class="ap-label">Main background</div>
+          <div class="ap-color-row">
+            <button class="ap-color-swatch" id="sw-bg" style="background:#0a0a0a;">
+              <input type="color" id="cp-bg" value="#0a0a0a" />
+            </button>
+            <input class="ap-color-val" id="cv-bg" value="#0a0a0a" />
+          </div>
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Secondary background</div>
+          <div class="ap-color-row">
+            <button class="ap-color-swatch" id="sw-bg2" style="background:#111111;">
+              <input type="color" id="cp-bg2" value="#111111" />
+            </button>
+            <input class="ap-color-val" id="cv-bg2" value="#111111" />
+          </div>
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Surface / cards</div>
+          <div class="ap-color-row">
+            <button class="ap-color-swatch" id="sw-surface" style="background:#181818;">
+              <input type="color" id="cp-surface" value="#181818" />
+            </button>
+            <input class="ap-color-val" id="cv-surface" value="#181818" />
+          </div>
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Light Theme Background</div>
+        <div class="ap-field">
+          <div class="ap-label">Main background</div>
+          <div class="ap-color-row">
+            <button class="ap-color-swatch" id="sw-lbg" style="background:#f5f2ed;">
+              <input type="color" id="cp-lbg" value="#f5f2ed" />
+            </button>
+            <input class="ap-color-val" id="cv-lbg" value="#f5f2ed" />
+          </div>
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Surface / cards</div>
+          <div class="ap-color-row">
+            <button class="ap-color-swatch" id="sw-lsurface" style="background:#e5e0d8;">
+              <input type="color" id="cp-lsurface" value="#e5e0d8" />
+            </button>
+            <input class="ap-color-val" id="cv-lsurface" value="#e5e0d8" />
+          </div>
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Text Colours</div>
+        <div class="ap-row">
+          <div class="ap-field">
+            <div class="ap-label">Main text</div>
+            <div class="ap-color-row">
+              <button class="ap-color-swatch" id="sw-text" style="background:#f0ede8;">
+                <input type="color" id="cp-text" value="#f0ede8" />
+              </button>
+              <input class="ap-color-val" id="cv-text" value="#f0ede8" />
+            </div>
+          </div>
+          <div class="ap-field">
+            <div class="ap-label">Muted text</div>
+            <div class="ap-color-row">
+              <button class="ap-color-swatch" id="sw-muted" style="background:#6b6b6b;">
+                <input type="color" id="cp-muted" value="#6b6b6b" />
+              </button>
+              <input class="ap-color-val" id="cv-muted" value="#6b6b6b" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Preloader Color</div>
+        <div class="ap-field">
+          <div class="ap-label">Preloader background</div>
+          <div class="ap-color-row">
+            <button class="ap-color-swatch" id="sw-preloader" style="background:#c8ff00;">
+              <input type="color" id="cp-preloader" value="#c8ff00" />
+            </button>
+            <input class="ap-color-val" id="cv-preloader" value="#c8ff00" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- end tab-theme -->
+
+    <!-- ── TAB: TYPOGRAPHY ── -->
+    <div class="ap-section" id="tab-typography">
+
+      <div class="ap-group">
+        <div class="ap-group-title">Display / Heading Font</div>
+        <div class="ap-field">
+          <div class="ap-label">Font family <span>Used in titles, nav, hero</span></div>
+          <select class="ap-select" id="font-display">
+            <option value="'Syne', sans-serif">Syne (current)</option>
+            <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
+            <option value="'Playfair Display', serif">Playfair Display</option>
+            <option value="'Bebas Neue', cursive">Bebas Neue</option>
+            <option value="'Clash Display', sans-serif">Clash Display</option>
+            <option value="'Inter', sans-serif">Inter</option>
+            <option value="'Montserrat', sans-serif">Montserrat</option>
+            <option value="'Raleway', sans-serif">Raleway</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Body Font</div>
+        <div class="ap-field">
+          <div class="ap-label">Font family <span>Used in paragraphs, forms</span></div>
+          <select class="ap-select" id="font-body">
+            <option value="'DM Sans', sans-serif">DM Sans (current)</option>
+            <option value="'Inter', sans-serif">Inter</option>
+            <option value="'Lato', sans-serif">Lato</option>
+            <option value="'Nunito', sans-serif">Nunito</option>
+            <option value="'Source Sans 3', sans-serif">Source Sans 3</option>
+            <option value="'Outfit', sans-serif">Outfit</option>
+            <option value="'Manrope', sans-serif">Manrope</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Hero Title Size</div>
+        <div class="ap-field">
+          <div class="ap-label">Min size (mobile) <span id="hero-min-val">2.8rem</span></div>
+          <input type="range" class="ap-range" id="hero-font-min" min="1.5" max="5" step="0.1" value="2.8" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Max size (desktop) <span id="hero-max-val">9rem</span></div>
+          <input type="range" class="ap-range" id="hero-font-max" min="4" max="16" step="0.5" value="9" />
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Section Title Size</div>
+        <div class="ap-field">
+          <div class="ap-label">Min size <span id="sec-min-val">2.5rem</span></div>
+          <input type="range" class="ap-range" id="sec-font-min" min="1.5" max="5" step="0.1" value="2.5" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Max size <span id="sec-max-val">5.5rem</span></div>
+          <input type="range" class="ap-range" id="sec-font-max" min="3" max="10" step="0.25" value="5.5" />
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Body & Nav Text</div>
+        <div class="ap-field">
+          <div class="ap-label">Nav link size <span id="nav-font-val">0.78rem</span></div>
+          <input type="range" class="ap-range" id="nav-font-size" min="0.6" max="1.1" step="0.01" value="0.78" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Body text size <span id="body-font-val">1rem</span></div>
+          <input type="range" class="ap-range" id="body-font-size" min="0.75" max="1.4" step="0.01" value="1" />
+        </div>
+      </div>
+
+    </div>
+    <!-- end tab-typography -->
+
+    <!-- ── TAB: TEXT ── -->
+    <div class="ap-section" id="tab-text">
+      <div class="ap-group">
+        <div class="ap-group-title">Identity</div>
+        <div class="ap-field">
+          <div class="ap-label">Your name (nav logo)</div>
+          <input class="ap-input" id="txt-name" value="BHARAT" placeholder="BHARAT" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Logo dot word <span>after the dot</span></div>
+          <input class="ap-input" id="txt-logoword" value="BHARAT" placeholder="BHARAT" />
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Hero Section</div>
+        <div class="ap-field">
+          <div class="ap-label">Badge text <span>top tag line</span></div>
+          <input class="ap-input" id="txt-hero-tag" value="Available for freelance · 2026" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Hero line 1</div>
+          <input class="ap-input" id="txt-hero-l1" value="Crafting Brands" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Hero line 2</div>
+          <input class="ap-input" id="txt-hero-l2" value="That Make" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Hero line 3</div>
+          <input class="ap-input" id="txt-hero-l3" value="People Feel." />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Hero description</div>
+          <textarea class="ap-textarea" id="txt-hero-desc">Graphic designer & visual storyteller creating bold identities, editorial layouts, and digital experiences.</textarea>
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">About Page</div>
+        <div class="ap-field">
+          <div class="ap-label">About heading line 1</div>
+          <input class="ap-input" id="txt-about-h1" value="Design is" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">About heading line 2</div>
+          <input class="ap-input" id="txt-about-h2" value="my language." />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Bio paragraph 1</div>
+          <textarea class="ap-textarea" id="txt-bio1">Hey, I'm Bharat Arora — a graphic designer and creative based in Delhi, India, specialising in brand identity, UI/UX, and digital experiences that feel as good as they look.</textarea>
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Bio paragraph 2</div>
+          <textarea class="ap-textarea" id="txt-bio2">I believe design should communicate before it impresses. Every project starts with deep thinking, moves through careful craft, and ends with something that actually works.</textarea>
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Contact Page</div>
+        <div class="ap-field">
+          <div class="ap-label">Email address</div>
+          <input class="ap-input" id="txt-email" value="work@heybharat.design" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Contact sub text</div>
+          <input class="ap-input" id="txt-contact-sub" value="Open to freelance projects, collaborations, and full-time roles." />
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Footer</div>
+        <div class="ap-field">
+          <div class="ap-label">Footer tagline</div>
+          <input class="ap-input" id="txt-footer-tagline" value="Visual designer crafting brands that make people feel." />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Availability status</div>
+          <input class="ap-input" id="txt-avail" value="Currently available for new projects in 2026" />
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Stats (About page)</div>
+        <div class="ap-row-3">
+          <div class="ap-field">
+            <div class="ap-label">Projects</div>
+            <input class="ap-input" id="stat-projects" type="number" value="20" />
+          </div>
+          <div class="ap-field">
+            <div class="ap-label">Years exp</div>
+            <input class="ap-input" id="stat-years" type="number" value="2" />
+          </div>
+          <div class="ap-field">
+            <div class="ap-label">Clients</div>
+            <input class="ap-input" id="stat-clients" type="number" value="15" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- end tab-text -->
+
+    <!-- ── TAB: IMAGES ── -->
+    <div class="ap-section" id="tab-images">
+
+      <div class="ap-group">
+        <div class="ap-group-title">Profile / About Photo</div>
+        <div class="ap-field">
+          <div class="ap-label">Preview layout</div>
+          <div class="ap-preview-modes">
+            <div class="ap-preview-mode active" data-mode="portrait" data-img="profile">
+              <div class="ap-preview-mode-icon">▬</div>
+              <div class="ap-preview-mode-label">Portrait</div>
+            </div>
+            <div class="ap-preview-mode" data-mode="landscape" data-img="profile">
+              <div class="ap-preview-mode-icon">▭</div>
+              <div class="ap-preview-mode-label">Landscape</div>
+            </div>
+            <div class="ap-preview-mode" data-mode="square" data-img="profile">
+              <div class="ap-preview-mode-icon">■</div>
+              <div class="ap-preview-mode-label">Square</div>
+            </div>
+          </div>
+        </div>
+        <div class="ap-img-zone" id="zone-profile">
+          <input type="file" id="file-profile" accept="image/*" />
+          <div class="ap-img-zone-icon">🧑‍🎨</div>
+          <div class="ap-img-zone-text"><strong>Click to upload</strong> your profile photo<br/>Recommended: 800×1000px portrait</div>
+          <img class="ap-img-preview" id="preview-profile" />
+        </div>
+        <div class="ap-field" style="margin-top:.6rem;">
+          <div class="ap-label">Or paste image URL</div>
+          <input class="ap-input" id="url-profile" placeholder="https://..." />
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Project Card Images</div>
+        <div class="ap-field">
+          <div class="ap-label">Preview layout for project cards</div>
+          <div class="ap-preview-modes">
+            <div class="ap-preview-mode active" data-mode="horizontal" data-img="project">
+              <div class="ap-preview-mode-icon">▬</div>
+              <div class="ap-preview-mode-label">Horizontal</div>
+            </div>
+            <div class="ap-preview-mode" data-mode="vertical" data-img="project">
+              <div class="ap-preview-mode-icon">▮</div>
+              <div class="ap-preview-mode-label">Vertical</div>
+            </div>
+          </div>
+        </div>
+        <div class="ap-label" style="margin-bottom:.4rem;">Project 1 image</div>
+        <div class="ap-img-zone" id="zone-p1">
+          <input type="file" id="file-p1" accept="image/*" />
+          <div class="ap-img-zone-icon">🖼</div>
+          <div class="ap-img-zone-text"><strong>Upload</strong> Project #01 image</div>
+          <img class="ap-img-preview" id="preview-p1" />
+        </div>
+        <div class="ap-label" style="margin:.6rem 0 .4rem;">Project 2 image</div>
+        <div class="ap-img-zone" id="zone-p2">
+          <input type="file" id="file-p2" accept="image/*" />
+          <div class="ap-img-zone-icon">🖼</div>
+          <div class="ap-img-zone-text"><strong>Upload</strong> Project #02 image</div>
+          <img class="ap-img-preview" id="preview-p2" />
+        </div>
+        <div class="ap-label" style="margin:.6rem 0 .4rem;">Project 3 image</div>
+        <div class="ap-img-zone" id="zone-p3">
+          <input type="file" id="file-p3" accept="image/*" />
+          <div class="ap-img-zone-icon">🖼</div>
+          <div class="ap-img-zone-text"><strong>Upload</strong> Project #03 image</div>
+          <img class="ap-img-preview" id="preview-p3" />
+        </div>
+        <div class="ap-label" style="margin:.6rem 0 .4rem;">Project 4 image</div>
+        <div class="ap-img-zone" id="zone-p4">
+          <input type="file" id="file-p4" accept="image/*" />
+          <div class="ap-img-zone-icon">🖼</div>
+          <div class="ap-img-zone-text"><strong>Upload</strong> Project #04 image</div>
+          <img class="ap-img-preview" id="preview-p4" />
+        </div>
+      </div>
+
+    </div>
+    <!-- end tab-images -->
+
+    <!-- ── TAB: LAYOUT ── -->
+    <div class="ap-section" id="tab-layout">
+
+      <div class="ap-group">
+        <div class="ap-group-title">Navigation</div>
+        <div class="ap-field">
+          <div class="ap-label">Nav height <span id="nav-h-val">72px</span></div>
+          <input type="range" class="ap-range" id="nav-height" min="50" max="100" step="2" value="72" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Hire Me button text</div>
+          <input class="ap-input" id="txt-cta" value="Hire Me" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Show/hide nav items</div>
+          <div style="display:flex;flex-direction:column;gap:.4rem;margin-top:.3rem;">
+            <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:#888;cursor:pointer;">
+              <input type="checkbox" id="show-work" checked style="accent-color:#c8ff00;" /> Work
+            </label>
+            <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:#888;cursor:pointer;">
+              <input type="checkbox" id="show-about" checked style="accent-color:#c8ff00;" /> About
+            </label>
+            <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:#888;cursor:pointer;">
+              <input type="checkbox" id="show-services" checked style="accent-color:#c8ff00;" /> Services
+            </label>
+            <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:#888;cursor:pointer;">
+              <input type="checkbox" id="show-contact" checked style="accent-color:#c8ff00;" /> Contact
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Social Links</div>
+        <div class="ap-field">
+          <div class="ap-label">Behance URL</div>
+          <input class="ap-input" id="lnk-behance" placeholder="https://behance.net/yourusername" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Instagram URL</div>
+          <input class="ap-input" id="lnk-instagram" placeholder="https://instagram.com/yourusername" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">LinkedIn URL</div>
+          <input class="ap-input" id="lnk-linkedin" placeholder="https://linkedin.com/in/yourusername" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Dribbble URL</div>
+          <input class="ap-input" id="lnk-dribbble" placeholder="https://dribbble.com/yourusername" />
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Spacing & Border Radius</div>
+        <div class="ap-field">
+          <div class="ap-label">Section padding <span id="sec-pad-val">8rem</span></div>
+          <input type="range" class="ap-range" id="sec-padding" min="3" max="15" step="0.5" value="8" />
+        </div>
+        <div class="ap-field">
+          <div class="ap-label">Card border radius <span id="card-radius-val">16px</span></div>
+          <input type="range" class="ap-range" id="card-radius" min="0" max="40" step="2" value="16" />
+        </div>
+      </div>
+
+      <div class="ap-group">
+        <div class="ap-group-title">Custom CSS</div>
+        <div class="ap-field">
+          <div class="ap-label">Inject custom CSS <span>Advanced</span></div>
+          <textarea class="ap-textarea" id="custom-css" placeholder="/* your custom styles */" style="min-height:120px;font-family:monospace;font-size:.75rem;"></textarea>
+        </div>
+      </div>
+
+    </div>
+    <!-- end tab-layout -->
+
+  </div>
+</div>
+
+<style id="ap-custom-css-inject"></style>
+<link id="ap-extra-fonts" rel="stylesheet" href="" />
+
+<script>
+/* ═══════════════════════════════════════════════
+   ADMIN PANEL ENGINE
+   Password: bharat2026  |  URL param: ?admin=bharatadmin
+═══════════════════════════════════════════════ */
+(function() {
+  const ADMIN_URL_KEY   = 'bharatadmin';   // URL param: ?admin=bharatadmin
+  const ADMIN_PASSWORD  = 'bharat2026';    // Change this to your own password
+  const STORAGE_KEY     = 'ba_admin_edits';
+  const AUTH_KEY        = 'ba_admin_auth';
+
+  const params = new URLSearchParams(window.location.search);
+  const isAdminUrl = params.get('admin') === ADMIN_URL_KEY;
+
+  /* ── Auth check ── */
+  function isAuthed() {
+    return sessionStorage.getItem(AUTH_KEY) === '1';
+  }
+  function setAuthed() {
+    sessionStorage.setItem(AUTH_KEY, '1');
+  }
+
+  if (!isAdminUrl) return; // visitors see NOTHING
+
+  document.body.classList.add('admin-mode');
+
+  const lockScreen = document.getElementById('admin-lock-screen');
+  const lockInput  = document.getElementById('lockInput');
+  const lockBtn    = document.getElementById('lockBtn');
+  const lockError  = document.getElementById('lockError');
+  const panel      = document.getElementById('admin-panel');
+  const fab        = document.getElementById('admin-fab');
+  const toast      = document.getElementById('ap-toast');
+
+  /* ── Show lock or panel ── */
+  if (isAuthed()) {
+    initPanel();
+  } else {
+    lockScreen.classList.add('show');
+    setTimeout(() => lockInput.focus(), 300);
+  }
+
+  function tryLogin() {
+    if (lockInput.value === ADMIN_PASSWORD) {
+      setAuthed();
+      lockScreen.classList.remove('show');
+      initPanel();
+    } else {
+      lockError.textContent = 'Incorrect password. Try again.';
+      lockInput.classList.add('error');
+      setTimeout(() => { lockInput.classList.remove('error'); lockInput.value=''; }, 500);
+    }
+  }
+  lockBtn.addEventListener('click', tryLogin);
+  lockInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+  /* ── Panel init ── */
+  function initPanel() {
+    loadSavedEdits();
+
+    fab.addEventListener('click', () => {
+      panel.classList.toggle('open');
+      fab.innerHTML = panel.classList.contains('open') ? '<span>✕</span>' : '<span>✎</span>';
+    });
+    document.getElementById('apCloseBtn').addEventListener('click', () => {
+      panel.classList.remove('open');
+      fab.innerHTML = '<span>✎</span>';
+    });
+    document.getElementById('apSaveBtn').addEventListener('click', saveEdits);
+    document.getElementById('apResetBtn').addEventListener('click', () => {
+      if (confirm('Reset ALL edits to defaults? This cannot be undone.')) {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+    });
+
+    /* Tabs */
+    document.querySelectorAll('.ap-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.ap-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.ap-section').forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    wireColorPicker('accent-dark',  '#cp-accent-dark',  '#cv-accent-dark',  '#sw-accent-dark',  v => setVar('--accent', v));
+    wireColorPicker('accent-light', '#cp-accent-light', '#cv-accent-light', '#sw-accent-light', () => {});
+    wireColorPicker('accent2',      '#cp-accent2',      '#cv-accent2',      '#sw-accent2',      v => setVar('--accent2', v));
+    wireColorPicker('bg',           '#cp-bg',           '#cv-bg',           '#sw-bg',           v => setVar('--bg', v));
+    wireColorPicker('bg2',          '#cp-bg2',          '#cv-bg2',          '#sw-bg2',          v => setVar('--bg2', v));
+    wireColorPicker('surface',      '#cp-surface',      '#cv-surface',      '#sw-surface',      v => setVar('--surface', v));
+    wireColorPicker('lbg',          '#cp-lbg',          '#cv-lbg',          '#sw-lbg',          () => {});
+    wireColorPicker('lsurface',     '#cp-lsurface',     '#cv-lsurface',     '#sw-lsurface',     () => {});
+    wireColorPicker('text',         '#cp-text',         '#cv-text',         '#sw-text',         v => setVar('--text', v));
+    wireColorPicker('muted',        '#cp-muted',        '#cv-muted',        '#sw-muted',        v => setVar('--text-muted', v));
+    wireColorPicker('preloader',    '#cp-preloader',    '#cv-preloader',    '#sw-preloader',    v => { const pre = document.getElementById('preloader'); if (pre) pre.style.background = v; });
+
+    /* Font selects */
+    function loadGoogleFont(name) {
+      const clean = name.replace(/['"]/g,'').split(',')[0].trim();
+      const url = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(clean)}:wght@400;500;700;800&display=swap`;
+      document.getElementById('ap-extra-fonts').href = url;
+    }
+    document.getElementById('font-display').addEventListener('change', function() {
+      setVar('--font-display', this.value);
+      loadGoogleFont(this.value);
+    });
+    document.getElementById('font-body').addEventListener('change', function() {
+      setVar('--font-body', this.value);
+      loadGoogleFont(this.value);
+    });
+
+    /* Sliders */
+    function wireSlider(id, valId, unit, cb) {
+      const el = document.getElementById(id);
+      const vl = document.getElementById(valId);
+      el.addEventListener('input', () => {
+        vl.textContent = el.value + unit;
+        cb(el.value);
+      });
+    }
+    wireSlider('hero-font-min', 'hero-min-val', 'rem', v => applyHeroFont());
+    wireSlider('hero-font-max', 'hero-max-val', 'rem', v => applyHeroFont());
+    wireSlider('sec-font-min',  'sec-min-val',  'rem', v => applySectionFont());
+    wireSlider('sec-font-max',  'sec-max-val',  'rem', v => applySectionFont());
+    wireSlider('nav-font-size', 'nav-font-val', 'rem', v => {
+      document.querySelectorAll('.nav-links a').forEach(a => a.style.fontSize = v + 'rem');
+    });
+    wireSlider('body-font-size','body-font-val','rem', v => {
+      document.body.style.fontSize = v + 'rem';
+    });
+    wireSlider('nav-height', 'nav-h-val', 'px', v => setVar('--nav-h', v + 'px'));
+    wireSlider('sec-padding','sec-pad-val','rem', v => {
+      document.querySelectorAll('section').forEach(s => { s.style.paddingTop = v + 'rem'; s.style.paddingBottom = v + 'rem'; });
+    });
+    wireSlider('card-radius','card-radius-val','px', v => {
+      document.querySelectorAll('.project-card, .pricing-card, .testimonial-card').forEach(c => c.style.borderRadius = v + 'px');
+    });
+
+    function applyHeroFont() {
+      const mn = document.getElementById('hero-font-min').value;
+      const mx = document.getElementById('hero-font-max').value;
+      document.querySelectorAll('.hero-title').forEach(el => {
+        el.style.fontSize = `clamp(${mn}rem, 10vw, ${mx}rem)`;
+      });
+    }
+    function applySectionFont() {
+      const mn = document.getElementById('sec-font-min').value;
+      const mx = document.getElementById('sec-font-max').value;
+      document.querySelectorAll('.section-title').forEach(el => {
+        el.style.fontSize = `clamp(${mn}rem, 6vw, ${mx}rem)`;
+      });
+    }
+
+    /* Text fields — live update */
+    function wireTxt(id, cb) {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', () => cb(el.value));
+    }
+    wireTxt('txt-hero-tag',  v => { const el = document.querySelector('.hero-tag'); if(el) el.textContent = v; });
+    wireTxt('txt-hero-l1',   v => { const els = document.querySelectorAll('.hero-title .line-inner'); if(els[0]) els[0].textContent = v; });
+    wireTxt('txt-hero-l2',   v => { const els = document.querySelectorAll('.hero-title .line-inner'); if(els[1]) els[1].textContent = v; });
+    wireTxt('txt-hero-l3',   v => { const els = document.querySelectorAll('.hero-title .line-inner'); if(els[2]) els[2].textContent = v; });
+    wireTxt('txt-hero-desc', v => { const el = document.querySelector('.hero-desc'); if(el) el.textContent = v; });
+    wireTxt('txt-email',     v => { document.querySelectorAll('.contact-email').forEach(el => { el.textContent = v; el.href = 'mailto:' + v; }); });
+    wireTxt('txt-contact-sub', v => { const el = document.querySelector('.contact-sub'); if(el) el.textContent = v; });
+    wireTxt('txt-cta',       v => { document.querySelectorAll('.nav-cta').forEach(el => el.textContent = v); });
+    wireTxt('txt-avail',     v => { const el = document.querySelector('.cta-strip-text'); if(el) { el.innerHTML = '<span class="avail-dot" style="display:inline-block;margin-right:.6rem;vertical-align:middle;"></span>' + v; } });
+    wireTxt('txt-footer-tagline', v => { const el = document.querySelector('.footer-tagline'); if(el) el.textContent = v; });
+    wireTxt('stat-projects', v => { const el = document.querySelector('[data-target="20"]'); if(el){ el.dataset.target=v; el.textContent=v+'+'; } });
+    wireTxt('stat-years',    v => { const el = document.querySelector('[data-target="2"]');  if(el){ el.dataset.target=v; el.textContent=v; } });
+    wireTxt('stat-clients',  v => { const el = document.querySelector('[data-target="15"]'); if(el){ el.dataset.target=v; el.textContent=v+'+'; } });
+
+    /* About text */
+    wireTxt('txt-about-h1', v => {
+      const h = document.querySelector('#page-about .section-title');
+      if (h) { const parts = h.innerHTML.split('<br>'); parts[0] = v; h.innerHTML = parts.join('<br>'); }
+    });
+    wireTxt('txt-bio1', v => { const els = document.querySelectorAll('#page-about .page-desc-anim'); if(els[0]) els[0].textContent = v; });
+    wireTxt('txt-bio2', v => { const els = document.querySelectorAll('#page-about .page-desc-anim'); if(els[1]) els[1].textContent = v; });
+
+    /* Nav visibility */
+    ['work','about','services','contact'].forEach(page => {
+      const cb = document.getElementById('show-' + page);
+      cb.addEventListener('change', () => {
+        document.querySelectorAll(`[data-page="${page}"].nav-link`).forEach(el => {
+          el.style.display = cb.checked ? '' : 'none';
+        });
+      });
+    });
+
+    /* Social links */
+    function wireLnk(id, selector) {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', () => {
+        document.querySelectorAll(selector).forEach(a => a.href = el.value);
+      });
+    }
+    wireLnk('lnk-behance',   'a[href*="behance"]');
+    wireLnk('lnk-instagram', 'a[href*="instagram"]');
+    wireLnk('lnk-linkedin',  'a[href*="linkedin"]');
+    wireLnk('lnk-dribbble',  'a[href*="dribbble"]');
+
+    /* Custom CSS */
+    document.getElementById('custom-css').addEventListener('input', function() {
+      document.getElementById('ap-custom-css-inject').textContent = this.value;
+    });
+
+    /* Image upload zones */
+    function wireImageZone(fileId, previewId, applyFn) {
+      const fileInput = document.getElementById(fileId);
+      const preview   = document.getElementById(previewId);
+      fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+          const src = e.target.result;
+          preview.src = src;
+          preview.classList.add('show');
+          applyFn(src);
+          // Save base64 to localStorage key
+          try { localStorage.setItem('ba_img_' + fileId, src); } catch(e) {}
+        };
+        reader.readAsDataURL(file);
+      });
+      // Load saved image
+      const saved = localStorage.getItem('ba_img_' + fileId);
+      if (saved) { preview.src = saved; preview.classList.add('show'); applyFn(saved); }
+    }
+
+    wireImageZone('file-profile', 'preview-profile', src => {
+      const wrap = document.querySelector('.about-img-wrap');
+      if (wrap) wrap.innerHTML = `<img src="${src}" alt="Profile Photo" style="width:100%;height:100%;object-fit:cover;" />`;
+    });
+
+    const projectCardSelectors = [
+      '[data-project="1"] .card-img',
+      '[data-project="2"] .card-img',
+      '[data-project="3"] .card-img',
+      '[data-project="4"] .card-img',
+    ];
+    ['p1','p2','p3','p4'].forEach((key, i) => {
+      wireImageZone('file-' + key, 'preview-' + key, src => {
+        document.querySelectorAll(projectCardSelectors[i]).forEach(el => {
+          el.style.background = 'none';
+          el.innerHTML = `<img src="${src}" alt="Project" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />`;
+        });
+      });
+    });
+
+    /* URL image input for profile */
+    document.getElementById('url-profile').addEventListener('change', function() {
+      const src = this.value.trim();
+      if (!src) return;
+      const preview = document.getElementById('preview-profile');
+      preview.src = src; preview.classList.add('show');
+      const wrap = document.querySelector('.about-img-wrap');
+      if (wrap) wrap.innerHTML = `<img src="${src}" alt="Profile Photo" style="width:100%;height:100%;object-fit:cover;" />`;
+    });
+
+    /* Preview mode buttons */
+    document.querySelectorAll('.ap-preview-mode').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const group = this.dataset.img;
+        document.querySelectorAll(`.ap-preview-mode[data-img="${group}"]`).forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const mode = this.dataset.mode;
+        if (group === 'profile') {
+          const wrap = document.querySelector('.about-img-wrap');
+          if (wrap) {
+            if (mode === 'portrait')  { wrap.style.aspectRatio = '3/4'; }
+            if (mode === 'landscape') { wrap.style.aspectRatio = '4/3'; }
+            if (mode === 'square')    { wrap.style.aspectRatio = '1/1'; }
+          }
+        }
+        if (group === 'project') {
+          document.querySelectorAll('.project-card').forEach(c => {
+            if (mode === 'horizontal') { c.style.aspectRatio = '16/9'; }
+            if (mode === 'vertical')   { c.style.aspectRatio = '3/4'; }
+          });
+        }
+      });
+    });
+  }
+
+  /* ── CSS variable helper ── */
+  function setVar(name, value) {
+    document.documentElement.style.setProperty(name, value);
+  }
+
+  /* ── Color picker wiring ── */
+  function wireColorPicker(key, cpId, cvId, swId, applyFn) {
+    const cp = document.querySelector(cpId);
+    const cv = document.querySelector(cvId);
+    const sw = document.querySelector(swId);
+    function update(val) {
+      cp.value = val; cv.value = val; sw.style.background = val;
+      applyFn(val);
+    }
+    cp.addEventListener('input', () => update(cp.value));
+    cv.addEventListener('change', () => {
+      let v = cv.value.trim();
+      if (!v.startsWith('#')) v = '#' + v;
+      update(v);
+    });
+    cv.addEventListener('input', () => {
+      let v = cv.value.trim();
+      if (v.length === 7 && v.startsWith('#')) update(v);
+    });
+  }
+
+  /* ── Save / Load ── */
+  function collectState() {
+    return {
+      colors: {
+        accentDark:   document.getElementById('cv-accent-dark').value,
+        accentLight:  document.getElementById('cv-accent-light').value,
+        accent2:      document.getElementById('cv-accent2').value,
+        bg:           document.getElementById('cv-bg').value,
+        bg2:          document.getElementById('cv-bg2').value,
+        surface:      document.getElementById('cv-surface').value,
+        lbg:          document.getElementById('cv-lbg').value,
+        lsurface:     document.getElementById('cv-lsurface').value,
+        text:         document.getElementById('cv-text').value,
+        muted:        document.getElementById('cv-muted').value,
+        preloader:    document.getElementById('cv-preloader').value,
+      },
+      fonts: {
+        display: document.getElementById('font-display').value,
+        body:    document.getElementById('font-body').value,
+      },
+      sizes: {
+        heroMin:   document.getElementById('hero-font-min').value,
+        heroMax:   document.getElementById('hero-font-max').value,
+        secMin:    document.getElementById('sec-font-min').value,
+        secMax:    document.getElementById('sec-font-max').value,
+        navFont:   document.getElementById('nav-font-size').value,
+        bodyFont:  document.getElementById('body-font-size').value,
+        navH:      document.getElementById('nav-height').value,
+        secPad:    document.getElementById('sec-padding').value,
+        cardR:     document.getElementById('card-radius').value,
+      },
+      text: {
+        heroTag:     document.getElementById('txt-hero-tag').value,
+        heroL1:      document.getElementById('txt-hero-l1').value,
+        heroL2:      document.getElementById('txt-hero-l2').value,
+        heroL3:      document.getElementById('txt-hero-l3').value,
+        heroDesc:    document.getElementById('txt-hero-desc').value,
+        email:       document.getElementById('txt-email').value,
+        contactSub:  document.getElementById('txt-contact-sub').value,
+        cta:         document.getElementById('txt-cta').value,
+        avail:       document.getElementById('txt-avail').value,
+        footerLine:  document.getElementById('txt-footer-tagline').value,
+        statP:       document.getElementById('stat-projects').value,
+        statY:       document.getElementById('stat-years').value,
+        statC:       document.getElementById('stat-clients').value,
+        aboutH1:     document.getElementById('txt-about-h1').value,
+        bio1:        document.getElementById('txt-bio1').value,
+        bio2:        document.getElementById('txt-bio2').value,
+      },
+      links: {
+        behance:   document.getElementById('lnk-behance').value,
+        instagram: document.getElementById('lnk-instagram').value,
+        linkedin:  document.getElementById('lnk-linkedin').value,
+        dribbble:  document.getElementById('lnk-dribbble').value,
+      },
+      nav: {
+        showWork:     document.getElementById('show-work').checked,
+        showAbout:    document.getElementById('show-about').checked,
+        showServices: document.getElementById('show-services').checked,
+        showContact:  document.getElementById('show-contact').checked,
+      },
+      customCss: document.getElementById('custom-css').value,
+    };
+  }
+
+  function saveEdits() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(collectState()));
+      showToast('✓ Saved! Visitors will see changes.');
+    } catch(e) {
+      showToast('⚠ Save failed (storage full?)');
+    }
+  }
+
+  function loadSavedEdits() {
+    let s;
+    try { s = JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) {}
+    if (!s) return;
+
+    /* Apply colors */
+    if (s.colors) {
+      const colorMap = {
+        accentDark: ['cv-accent-dark','cp-accent-dark','sw-accent-dark', v => setVar('--accent',v)],
+        accentLight:['cv-accent-light','cp-accent-light','sw-accent-light', ()=>{}],
+        accent2:    ['cv-accent2','cp-accent2','sw-accent2', v => setVar('--accent2',v)],
+        bg:         ['cv-bg','cp-bg','sw-bg', v => setVar('--bg',v)],
+        bg2:        ['cv-bg2','cp-bg2','sw-bg2', v => setVar('--bg2',v)],
+        surface:    ['cv-surface','cp-surface','sw-surface', v => setVar('--surface',v)],
+        lbg:        ['cv-lbg','cp-lbg','sw-lbg', ()=>{}],
+        lsurface:   ['cv-lsurface','cp-lsurface','sw-lsurface', ()=>{}],
+        text:       ['cv-text','cp-text','sw-text', v => setVar('--text',v)],
+        muted:      ['cv-muted','cp-muted','sw-muted', v => setVar('--text-muted',v)],
+        preloader:  ['cv-preloader','cp-preloader','sw-preloader', v => { const pre = document.getElementById('preloader'); if(pre) pre.style.background = v; }],
+      };
+      Object.entries(s.colors).forEach(([k,v]) => {
+        if (!colorMap[k] || !v) return;
+        const [cvId,cpId,swId,fn] = colorMap[k];
+        const cvEl = document.getElementById(cvId);
+        const cpEl = document.getElementById(cpId);
+        const swEl = document.getElementById(swId);
+        if (cvEl) cvEl.value = v;
+        if (cpEl) cpEl.value = v;
+        if (swEl) swEl.style.background = v;
+        fn(v);
+      });
+    }
+
+    /* Apply light theme colors to stylesheet */
+    if (s.colors && s.colors.accentLight) {
+      injectLightTheme(s.colors);
+    }
+
+    /* Fonts */
+    if (s.fonts) {
+      if (s.fonts.display) { document.getElementById('font-display').value = s.fonts.display; setVar('--font-display', s.fonts.display); }
+      if (s.fonts.body)    { document.getElementById('font-body').value = s.fonts.body;       setVar('--font-body',    s.fonts.body); }
+    }
+
+    /* Sizes */
+    if (s.sizes) {
+      const sizeMap = {
+        heroMin:  ['hero-font-min','hero-min-val','rem'],
+        heroMax:  ['hero-font-max','hero-max-val','rem'],
+        secMin:   ['sec-font-min', 'sec-min-val', 'rem'],
+        secMax:   ['sec-font-max', 'sec-max-val', 'rem'],
+        navFont:  ['nav-font-size','nav-font-val','rem'],
+        bodyFont: ['body-font-size','body-font-val','rem'],
+        navH:     ['nav-height',   'nav-h-val',   'px'],
+        secPad:   ['sec-padding',  'sec-pad-val', 'rem'],
+        cardR:    ['card-radius',  'card-radius-val','px'],
+      };
+      Object.entries(s.sizes).forEach(([k,v]) => {
+        if (!sizeMap[k]) return;
+        const [slId,vlId,unit] = sizeMap[k];
+        const sl = document.getElementById(slId);
+        const vl = document.getElementById(vlId);
+        if (sl) sl.value = v;
+        if (vl) vl.textContent = v + unit;
+      });
+      if (s.sizes.heroMin || s.sizes.heroMax) {
+        document.querySelectorAll('.hero-title').forEach(el => {
+          el.style.fontSize = `clamp(${s.sizes.heroMin||2.8}rem, 10vw, ${s.sizes.heroMax||9}rem)`;
+        });
+      }
+      if (s.sizes.secMin || s.sizes.secMax) {
+        document.querySelectorAll('.section-title').forEach(el => {
+          el.style.fontSize = `clamp(${s.sizes.secMin||2.5}rem, 6vw, ${s.sizes.secMax||5.5}rem)`;
+        });
+      }
+      if (s.sizes.navFont) document.querySelectorAll('.nav-links a').forEach(a => a.style.fontSize = s.sizes.navFont + 'rem');
+      if (s.sizes.bodyFont) document.body.style.fontSize = s.sizes.bodyFont + 'rem';
+      if (s.sizes.navH) setVar('--nav-h', s.sizes.navH + 'px');
+      if (s.sizes.secPad) document.querySelectorAll('section').forEach(sec => { sec.style.paddingTop = s.sizes.secPad + 'rem'; sec.style.paddingBottom = s.sizes.secPad + 'rem'; });
+      if (s.sizes.cardR) document.querySelectorAll('.project-card, .pricing-card, .testimonial-card').forEach(c => c.style.borderRadius = s.sizes.cardR + 'px');
+    }
+
+    /* Text */
+    if (s.text) {
+      const txtMap = {
+        heroTag:    ['txt-hero-tag',    () => { const el = document.querySelector('.hero-tag'); if(el) el.textContent = s.text.heroTag; }],
+        heroL1:     ['txt-hero-l1',     () => { const els = document.querySelectorAll('.hero-title .line-inner'); if(els[0]) els[0].textContent = s.text.heroL1; }],
+        heroL2:     ['txt-hero-l2',     () => { const els = document.querySelectorAll('.hero-title .line-inner'); if(els[1]) els[1].textContent = s.text.heroL2; }],
+        heroL3:     ['txt-hero-l3',     () => { const els = document.querySelectorAll('.hero-title .line-inner'); if(els[2]) els[2].textContent = s.text.heroL3; }],
+        heroDesc:   ['txt-hero-desc',   () => { const el = document.querySelector('.hero-desc'); if(el) el.textContent = s.text.heroDesc; }],
+        email:      ['txt-email',       () => { document.querySelectorAll('.contact-email').forEach(el => { el.textContent = s.text.email; el.href = 'mailto:' + s.text.email; }); }],
+        contactSub: ['txt-contact-sub', () => { const el = document.querySelector('.contact-sub'); if(el) el.textContent = s.text.contactSub; }],
+        cta:        ['txt-cta',         () => { document.querySelectorAll('.nav-cta').forEach(el => el.textContent = s.text.cta); }],
+        avail:      ['txt-avail',       () => { const el = document.querySelector('.cta-strip-text'); if(el) el.innerHTML = '<span class="avail-dot" style="display:inline-block;margin-right:.6rem;vertical-align:middle;"></span>' + s.text.avail; }],
+        footerLine: ['txt-footer-tagline', () => { const el = document.querySelector('.footer-tagline'); if(el) el.textContent = s.text.footerLine; }],
+        statP:      ['stat-projects',   () => { const el = document.querySelector('[data-target="20"]'); if(el){ el.dataset.target=s.text.statP; el.textContent=s.text.statP+'+'; } }],
+        statY:      ['stat-years',      () => { const el = document.querySelector('[data-target="2"]');  if(el){ el.dataset.target=s.text.statY; el.textContent=s.text.statY; } }],
+        statC:      ['stat-clients',    () => { const el = document.querySelector('[data-target="15"]'); if(el){ el.dataset.target=s.text.statC; el.textContent=s.text.statC+'+'; } }],
+        bio1:       ['txt-bio1',        () => { const els = document.querySelectorAll('#page-about .page-desc-anim'); if(els[0]) els[0].textContent = s.text.bio1; }],
+        bio2:       ['txt-bio2',        () => { const els = document.querySelectorAll('#page-about .page-desc-anim'); if(els[1]) els[1].textContent = s.text.bio2; }],
+      };
+      Object.entries(s.text).forEach(([k,v]) => {
+        if (!txtMap[k] || !v) return;
+        const [inputId, applyFn] = txtMap[k];
+        const el = document.getElementById(inputId);
+        if (el) el.value = v;
+        applyFn();
+      });
+    }
+
+    /* Links */
+    if (s.links) {
+      Object.entries(s.links).forEach(([k,v]) => {
+        const el = document.getElementById('lnk-' + k);
+        if (el && v) el.value = v;
+      });
+    }
+
+    /* Nav */
+    if (s.nav) {
+      ['work','about','services','contact'].forEach(page => {
+        const cb = document.getElementById('show-' + page);
+        const val = s.nav['show' + page.charAt(0).toUpperCase() + page.slice(1)];
+        if (cb && val !== undefined) {
+          cb.checked = val;
+          if (!val) document.querySelectorAll(`[data-page="${page}"].nav-link`).forEach(el => el.style.display = 'none');
+        }
+      });
+    }
+
+    /* Custom CSS */
+    if (s.customCss) {
+      document.getElementById('custom-css').value = s.customCss;
+      document.getElementById('ap-custom-css-inject').textContent = s.customCss;
+    }
+  }
+
+  function injectLightTheme(colors) {
+    let style = document.getElementById('ap-light-override');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'ap-light-override';
+      document.head.appendChild(style);
+    }
+    style.textContent = `
+      [data-theme="light"] {
+        --accent: ${colors.accentLight || '#1400ff'} !important;
+        --bg: ${colors.lbg || '#f5f2ed'} !important;
+        --surface: ${colors.lsurface || '#e5e0d8'} !important;
+      }
+    `;
+  }
+
+  /* ── Toast ── */
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+})();
+</script>
+
 </body>
 </html>
