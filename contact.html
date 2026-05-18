@@ -13,7 +13,29 @@
 
   <section class="page-head">
     <div class="shell">
-      <h1 class="page-head__title reveal-blur">say hello</h1>
+      <h1 class="page-head__title page-head__title--with-loop reveal-blur">
+        <span class="title-word">get in</span>
+        <!-- ╔═══════════════════════════════════════════════════════════╗
+             ║   INLINE TITLE SLIDESHOW — sits between "get in" and "touch"
+             ║   Crossfades through your project covers on a 7-second loop.
+             ║
+             ║   ADDING MORE IMAGES:
+             ║   1. Add an <img> tag inside .title-loop below.
+             ║   2. Set animation-delay so each image is evenly offset.
+             ║      Formula: delay = -(N × loopDuration / totalImages)
+             ║      where N is the image's index (0-based).
+             ║      Current: 2 images on a 7s loop → 0s and -3.5s.
+             ║      For 4 images: 0s, -1.75s, -3.5s, -5.25s.
+             ║
+             ║   Recommended: 16:9 images (1600×900) of your work covers.
+             ║   The frame is 16:9 to match project cover image ratios.
+             ╚═══════════════════════════════════════════════════════════╝ -->
+        <span class="title-loop" aria-hidden="true">
+          <img src="firstandlast-cover.jpg" alt="" class="title-loop__img" style="animation-delay: 0s;" />
+          <img src="takeoff-cover.jpg" alt="" class="title-loop__img" style="animation-delay: -3.5s;" />
+        </span>
+        <span class="title-word">touch</span>
+      </h1>
       <p class="page-head__sub reveal">let's collaborate. drop me a line about your project or reach out on social — i read every message</p>
     </div>
   </section>

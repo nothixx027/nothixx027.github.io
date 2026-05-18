@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dring — heybharat</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Social media sections shared styles ── */
+    .social-section { padding: 80px 0 40px; }
+    .social-section + .social-section { padding-top: 40px; }
+    .social-section__header { margin-bottom: 32px; }
+    .social-section__label {
+      font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);
+      padding-top: 14px; border-top: 1px solid var(--line-2); margin-bottom: 12px;
+    }
+    .social-section__title {
+      font-weight: 500; font-size: clamp(24px,3.6vw,36px);
+      letter-spacing: -0.03em; color: var(--ink);
+    }
+    .social-section__desc {
+      font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);
+      margin-top: 8px; line-height: 1.6;
+    }
+
+    /* ── Website Banner: 16:9 / wide ── */
+    .banner-grid { display: grid; gap: 16px; }
+    .banner-item { border-radius: 12px; overflow: hidden; background: var(--accent); position: relative; display: flex; align-items: center; justify-content: center; }
+    .banner-item--wide { aspect-ratio: 16/6; }
+    .banner-item--half { aspect-ratio: 16/9; }
+    @media (min-width: 768px) {
+      .banner-grid--halves { grid-template-columns: 1fr 1fr; }
+    }
+    .banner-item img { width: 100%; height: 100%; object-fit: cover; }
+    .banner-item .ph { font-family: var(--font-mono); font-size: 13px; color: rgba(0,0,0,0.35); }
+    .banner-item__tag { position: absolute; top: 12px; left: 14px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.4); padding: 3px 10px; border-radius: 20px; }
+
+    /* ── Instagram Posts: 1:1 ── */
+    .insta-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    @media (min-width: 768px) { .insta-grid { grid-template-columns: repeat(3,1fr); gap: 16px; } }
+    @media (min-width: 1200px) { .insta-grid { grid-template-columns: repeat(4,1fr); gap: 20px; } }
+    .insta-post { aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; background: var(--accent); display: flex; align-items: center; justify-content: center; position: relative; }
+    .insta-post img { width: 100%; height: 100%; object-fit: cover; }
+    .insta-post .ph { font-family: var(--font-mono); font-size: 13px; color: rgba(0,0,0,0.35); text-align: center; padding: 8px; }
+    .insta-post__tag { position: absolute; bottom: 10px; left: 12px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.35); padding: 3px 8px; border-radius: 20px; }
+
+    /* ── Stories: 9:16 portrait ── */
+    .story-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    @media (min-width: 600px) { .story-grid { grid-template-columns: repeat(3,1fr); gap: 16px; } }
+    @media (min-width: 1024px) { .story-grid { grid-template-columns: repeat(5,1fr); gap: 20px; } }
+    .story-item { aspect-ratio: 9/16; border-radius: 16px; overflow: hidden; background: var(--accent); display: flex; align-items: center; justify-content: center; position: relative; }
+    .story-item img { width: 100%; height: 100%; object-fit: cover; }
+    .story-item .ph { font-family: var(--font-mono); font-size: 12px; color: rgba(0,0,0,0.35); text-align: center; padding: 10px; writing-mode: horizontal-tb; }
+    .story-item__tag { position: absolute; bottom: 12px; left: 12px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.38); padding: 3px 8px; border-radius: 20px; }
+
+    /* ── Reels: 9:16 in wider cards ── */
+    .reel-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    @media (min-width: 600px) { .reel-grid { grid-template-columns: repeat(3,1fr); gap: 16px; } }
+    @media (min-width: 1024px) { .reel-grid { grid-template-columns: repeat(4,1fr); gap: 20px; } }
+    .reel-item { aspect-ratio: 9/16; border-radius: 16px; overflow: hidden; background: var(--accent); display: flex; align-items: center; justify-content: center; position: relative; }
+    .reel-item img { width: 100%; height: 100%; object-fit: cover; }
+    .reel-item .ph { font-family: var(--font-mono); font-size: 12px; color: rgba(0,0,0,0.35); text-align: center; padding: 10px; }
+    .reel-item__tag { position: absolute; bottom: 12px; left: 12px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.38); padding: 3px 8px; border-radius: 20px; }
+    .reel-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 44px; height: 44px; background: rgba(255,255,255,0.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+    .reel-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 3px; }
+  </style>
+</head>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║         HOW TO ADD IMAGES — work-dring.html                      ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║                                                                  ║
+  ║  IMAGE SLOTS — drop these EXACT filenames in the same folder:    ║
+  ║                                                                  ║
+  ║    COVER (16:9, 1920×1080)    →  dring-cover.jpg                 ║
+  ║    APP SCREEN 01 (16:9)       →  dring-app-01.jpg                ║
+  ║    APP SCREEN 02 (16:9)       →  dring-app-02.jpg                ║
+  ║    BANNER HERO (16:6 wide)    →  dring-banner-hero.jpg           ║
+  ║    BANNER FEATURE 01 (16:9)   →  dring-banner-feature-01.jpg     ║
+  ║    BANNER FEATURE 02 (16:9)   →  dring-banner-feature-02.jpg     ║
+  ║    BANNER CTA (16:6 wide)     →  dring-banner-cta.jpg            ║
+  ║    INSTAGRAM POSTS (1:1)      →  dring-post-01.jpg … -06.jpg     ║
+  ║    STORIES (9:16, 1080×1920)  →  dring-story-01.jpg … -05.jpg    ║
+  ║    REELS (9:16, 1080×1920)    →  dring-reel-01.jpg … -04.jpg     ║
+  ║                                                                  ║
+  ║  HOW: find the ▼ comment, remove <span class="ph">,              ║
+  ║  and replace with <img src="FILENAME.jpg" alt="..." />           ║
+  ║                                                                  ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+
+<body data-page="projects" class="work-page work-page--dring" style="--accent: var(--dring-card-ink);">
+  <div data-mount="grid"></div>
+  <div data-mount="nav"></div>
+
+  <section class="work-head">
+    <div class="shell">
+      <div class="work-head__top">
+        <h1 class="work-head__title reveal-blur">dring</h1>
+        <p class="work-head__desc reveal">App design, website banners, Instagram posts, stories, and reels — the full Dring social presence</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="work-cover reveal">
+    <!-- ▼ DRING — COVER IMAGE  →  dring-cover.jpg  (16:9, 1920×1080)
+         Replace the <span> below with: <img src="dring-cover.jpg" alt="dring cover" /> -->
+    <span class="ph">.dring</span>
+  </div>
+
+  <section class="shell">
+    <div class="work-body">
+      <div class="work-body__copy reveal">
+        <p>Dring needed an identity that could carry across product, web, and a full social media calendar without losing tone. The system is anchored by a deep electric purple — confident, distinct, never loud — extended through Instagram posts, stories, and reel covers built to read at thumbnail size.</p>
+      </div>
+      <aside class="work-meta reveal">
+        <div class="work-meta__row"><div class="work-meta__label">year</div><div class="work-meta__value">2024</div></div>
+        <div class="work-meta__row"><div class="work-meta__label">timeframe</div><div class="work-meta__value">45 days</div></div>
+        <div class="work-meta__row"><div class="work-meta__label">tools</div><div class="work-meta__value">Figma, Illustrator, Photoshop</div></div>
+        <div class="work-meta__row"><div class="work-meta__label">category</div><div class="work-meta__value">Branding &amp; Social Media</div></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- App Screens -->
+  <section class="shell">
+    <div class="work-block reveal">
+      <div class="work-block__num">01</div>
+      <div class="work-block__img">
+        <!-- ▼ DRING — APP SCREEN 01  →  dring-app-01.jpg  (16:9)
+             Replace: <img src="dring-app-01.jpg" alt="Daily session view" /> -->
+        <span class="ph">.dring — app screen 01</span>
+      </div>
+      <p class="work-block__caption">Daily session view with adaptive duration.</p>
+    </div>
+  </section>
+
+  <section class="shell">
+    <div class="work-body" style="padding:60px 0;">
+      <div class="work-body__copy reveal" style="font-size:clamp(18px,3.4vw,22px);">
+        <p>We designed Dring around three principles: low pressure, high signal, and small surface area. No streaks. No leaderboards. Just sessions that get gradually better at meeting you where you are — and a visual language built to extend naturally across every social format.</p>
+      </div>
+      <div></div>
+    </div>
+  </section>
+
+  <section class="shell">
+    <div class="work-block reveal">
+      <div class="work-block__num">02</div>
+      <div class="work-block__img">
+        <!-- ▼ DRING — APP SCREEN 02  →  dring-app-02.jpg  (16:9)
+             Replace: <img src="dring-app-02.jpg" alt="Onboarding flow" /> -->
+        <span class="ph">.dring — app screen 02</span>
+      </div>
+      <p class="work-block__caption">Onboarding flow that learns from your first three sessions.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       WEBSITE BANNERS
+  ══════════════════════════════════════════════ -->
+  <section class="shell social-section">
+    <div class="social-section__header reveal">
+      <p class="social-section__label">.website / banners</p>
+      <h2 class="social-section__title">Website banners</h2>
+      <p class="social-section__desc">Hero and feature banners designed for the Dring marketing site — desktop full-width.</p>
+    </div>
+
+    <div class="banner-grid reveal-stagger">
+      <div class="banner-item banner-item--wide">
+        <!-- ▼ BANNER HERO  →  dring-banner-hero.jpg  (16:6, 1920×720)
+             Replace: <img src="dring-banner-hero.jpg" alt="dring hero banner" /> -->
+        <span class="ph">.banner — hero</span>
+        <span class="banner-item__tag">hero banner — 1920×720</span>
+      </div>
+
+      <div class="banner-grid banner-grid--halves">
+        <div class="banner-item banner-item--half">
+          <!-- ▼ BANNER FEATURE 01  →  dring-banner-feature-01.jpg  (16:9, 1200×675) -->
+          <span class="ph">.banner — feature 01</span>
+          <span class="banner-item__tag">feature — 1200×675</span>
+        </div>
+        <div class="banner-item banner-item--half">
+          <!-- ▼ BANNER FEATURE 02  →  dring-banner-feature-02.jpg  (16:9, 1200×675) -->
+          <span class="ph">.banner — feature 02</span>
+          <span class="banner-item__tag">feature — 1200×675</span>
+        </div>
+      </div>
+
+      <div class="banner-item banner-item--wide">
+        <!-- ▼ BANNER CTA  →  dring-banner-cta.jpg  (16:6, 1920×480) -->
+        <span class="ph">.banner — cta</span>
+        <span class="banner-item__tag">cta strip — 1920×480</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       INSTAGRAM POSTS
+  ══════════════════════════════════════════════ -->
+  <section class="shell social-section">
+    <div class="social-section__header reveal">
+      <p class="social-section__label">.social / instagram posts</p>
+      <h2 class="social-section__title">Posts — 1:1 square</h2>
+      <p class="social-section__desc">Feed posts designed to work individually and as a cohesive grid.</p>
+    </div>
+
+    <div class="insta-grid reveal-stagger">
+      <div class="insta-post">
+        <!-- ▼ POST 01  →  dring-post-01.jpg  (1:1) -->
+        <span class="ph">.post 01</span>
+        <span class="insta-post__tag">post</span>
+      </div>
+      <div class="insta-post">
+        <!-- ▼ POST 02  →  dring-post-02.jpg  (1:1) -->
+        <span class="ph">.post 02</span>
+        <span class="insta-post__tag">post</span>
+      </div>
+      <div class="insta-post">
+        <!-- ▼ POST 03  →  dring-post-03.jpg  (1:1) -->
+        <span class="ph">.post 03</span>
+        <span class="insta-post__tag">post</span>
+      </div>
+      <div class="insta-post">
+        <!-- ▼ POST 04  →  dring-post-04.jpg  (1:1) -->
+        <span class="ph">.post 04</span>
+        <span class="insta-post__tag">post</span>
+      </div>
+      <div class="insta-post">
+        <!-- ▼ POST 05  →  dring-post-05.jpg  (1:1) -->
+        <span class="ph">.post 05</span>
+        <span class="insta-post__tag">post</span>
+      </div>
+      <div class="insta-post">
+        <!-- ▼ POST 06  →  dring-post-06.jpg  (1:1) -->
+        <span class="ph">.post 06</span>
+        <span class="insta-post__tag">post</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       STORIES
+  ══════════════════════════════════════════════ -->
+  <section class="shell social-section">
+    <div class="social-section__header reveal">
+      <p class="social-section__label">.social / instagram stories</p>
+      <h2 class="social-section__title">Stories — 9:16 portrait</h2>
+      <p class="social-section__desc">Story frames designed for Instagram and Reels thumbnails — optimised for 1080×1920.</p>
+    </div>
+
+    <div class="story-grid reveal-stagger">
+      <div class="story-item">
+        <!-- ▼ STORY 01  →  dring-story-01.jpg  (9:16) -->
+        <span class="ph">.story 01</span>
+        <span class="story-item__tag">story</span>
+      </div>
+      <div class="story-item">
+        <!-- ▼ STORY 02  →  dring-story-02.jpg  (9:16) -->
+        <span class="ph">.story 02</span>
+        <span class="story-item__tag">story</span>
+      </div>
+      <div class="story-item">
+        <!-- ▼ STORY 03  →  dring-story-03.jpg  (9:16) -->
+        <span class="ph">.story 03</span>
+        <span class="story-item__tag">story</span>
+      </div>
+      <div class="story-item">
+        <!-- ▼ STORY 04  →  dring-story-04.jpg  (9:16) -->
+        <span class="ph">.story 04</span>
+        <span class="story-item__tag">story</span>
+      </div>
+      <div class="story-item">
+        <!-- ▼ STORY 05  →  dring-story-05.jpg  (9:16) -->
+        <span class="ph">.story 05</span>
+        <span class="story-item__tag">story</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       REELS
+  ══════════════════════════════════════════════ -->
+  <section class="shell social-section" style="padding-bottom: 80px;">
+    <div class="social-section__header reveal">
+      <p class="social-section__label">.social / reels</p>
+      <h2 class="social-section__title">Reels — covers &amp; motion</h2>
+      <p class="social-section__desc">Reel cover frames and motion design thumbnails — 1080×1920, designed for autoplay scroll.</p>
+    </div>
+
+    <div class="reel-grid reveal-stagger">
+      <div class="reel-item">
+        <!-- ▼ REEL 01  →  dring-reel-01.jpg  (9:16) -->
+        <span class="ph">.reel 01</span>
+        <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <span class="reel-item__tag">reel</span>
+      </div>
+      <div class="reel-item">
+        <!-- ▼ REEL 02  →  dring-reel-02.jpg  (9:16) -->
+        <span class="ph">.reel 02</span>
+        <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <span class="reel-item__tag">reel</span>
+      </div>
+      <div class="reel-item">
+        <!-- ▼ REEL 03  →  dring-reel-03.jpg  (9:16) -->
+        <span class="ph">.reel 03</span>
+        <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <span class="reel-item__tag">reel</span>
+      </div>
+      <div class="reel-item">
+        <!-- ▼ REEL 04  →  dring-reel-04.jpg  (9:16) -->
+        <span class="ph">.reel 04</span>
+        <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <span class="reel-item__tag">reel</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell see-also">
+    <p class="see-also__label reveal">.see also</p>
+    <div class="see-also__list reveal-stagger">
+      <a href="work-firstandlast.html" class="see-also-row see-also-row--orange">
+        <div class="see-also-row__thumb"></div>
+        <div class="see-also-row__meta"><span class="see-also-row__cat">Personal Project</span><span class="see-also-row__title">first &amp; last</span></div>
+        <span class="see-also-row__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+      </a>
+      <a href="work-aquaflow.html" class="see-also-row see-also-row--white">
+        <div class="see-also-row__thumb"></div>
+        <div class="see-also-row__meta"><span class="see-also-row__cat">Branding and Identity</span><span class="see-also-row__title">aquaflow</span></div>
+        <span class="see-also-row__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+      </a>
+      <a href="work-snackify.html" class="see-also-row see-also-row--green">
+        <div class="see-also-row__thumb"></div>
+        <div class="see-also-row__meta"><span class="see-also-row__cat">Packaging Design</span><span class="see-also-row__title">snackify</span></div>
+        <span class="see-also-row__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <div data-mount="cta"></div>
+  <div data-mount="footer"></div>
+  <script src="layout.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

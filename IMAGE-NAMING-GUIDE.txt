@@ -1,0 +1,89 @@
+═══════════════════════════════════════════════════════════════════
+  IMAGE NAMING GUIDE — heybharat portfolio
+═══════════════════════════════════════════════════════════════════
+
+  Rename your image files to the exact names below, then drop them
+  into the same folder as index.html. Files are already wired up in
+  the code — no editing needed once filenames match.
+
+  All image filenames are LOWERCASE, hyphen-separated, .jpg.
+
+───────────────────────────────────────────────────────────────────
+  PORTRAIT (about section + about page)
+───────────────────────────────────────────────────────────────────
+
+  myphoto.jpg                              square or tall crop, 900px+ wide
+
+───────────────────────────────────────────────────────────────────
+  HOMEPAGE + PROJECTS PAGE — card covers (16:9, 1600×900)
+───────────────────────────────────────────────────────────────────
+
+  Card 1   first & last         →  firstandlast-cover.jpg
+  Card 2   aquaflow             →  aquaflow-cover.jpg
+  Card 3   snackify             →  snackify-cover.jpg
+  Card 4   dring                →  dring-cover.jpg
+  Card 5   takeoff              →  takeoff-cover.jpg
+  Card 6   naughty dares        →  naughtydares-cover.jpg
+
+  NOTE: The same cover image is reused on:
+    - homepage card
+    - projects.html card
+    - the work-*.html page cover (top hero image)
+
+───────────────────────────────────────────────────────────────────
+  WORK PAGE INNER BLOCKS (16:9, 1600×900) — per project
+───────────────────────────────────────────────────────────────────
+
+  first & last
+    firstandlast-01.jpg
+    firstandlast-02.jpg
+    firstandlast-post-01.jpg … firstandlast-post-06.jpg     (1:1)
+
+  aquaflow
+    aquaflow-01.jpg
+    aquaflow-02.jpg
+
+  snackify
+    snackify-01.jpg
+    snackify-02.jpg
+
+  dring
+    dring-app-01.jpg                    (app screen, 16:9)
+    dring-app-02.jpg                    (app screen, 16:9)
+    dring-banner-hero.jpg               (16:6 wide)
+    dring-banner-feature-01.jpg         (16:9)
+    dring-banner-feature-02.jpg         (16:9)
+    dring-banner-cta.jpg                (16:6 wide)
+    dring-post-01.jpg … -06.jpg         (1:1 square)
+    dring-story-01.jpg … -05.jpg        (9:16 portrait, 1080×1920)
+    dring-reel-01.jpg … -04.jpg         (9:16 portrait, 1080×1920)
+
+  takeoff
+    takeoff-01.jpg
+    takeoff-02.jpg
+    takeoff-post-01.jpg … takeoff-post-06.jpg               (1:1)
+
+  naughty dares
+    naughtydares-01.jpg
+    naughtydares-02.jpg
+    naughtydares-post-01.jpg … naughtydares-post-06.jpg     (1:1)
+
+───────────────────────────────────────────────────────────────────
+  YOUR CURRENT FILES — RENAME LIST
+───────────────────────────────────────────────────────────────────
+
+  first_last.jpg          →  firstandlast-cover.jpg
+  takeoff_main.jpg        →  takeoff-cover.jpg
+  myphoto.jpg             →  myphoto.jpg          (no change)
+
+───────────────────────────────────────────────────────────────────
+  TIPS
+───────────────────────────────────────────────────────────────────
+
+  - 16:9 images = 1600×900 or 1920×1080 — no cropping at the edges.
+  - 1:1 (square) images = 1080×1080 — for Instagram posts.
+  - 9:16 (portrait) images = 1080×1920 — for stories and reels.
+  - 16:6 wide images = 1920×720 — for hero banners.
+  - All file names are lowercase, no spaces, hyphens between words.
+
+═══════════════════════════════════════════════════════════════════
