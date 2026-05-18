@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects — heybharat</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║              HOW TO ADD IMAGES — projects.html                   ║
+  ║                   (All Projects Page Cards)                      ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║                                                                  ║
+  ║  Same file names as the homepage — share one image per project:  ║
+  ║                                                                  ║
+  ║  IMAGE SLOTS ON THIS PAGE — 16:9 (recommended 1600×900):         ║
+  ║  ┌───────────────────────────────────────────────────────────┐   ║
+  ║  │  Card 1  first & last      →  firstandlast-cover.jpg      │   ║
+  ║  │  Card 2  aquaflow          →  aquaflow-cover.jpg          │   ║
+  ║  │  Card 3  snackify          →  snackify-cover.jpg          │   ║
+  ║  │  Card 4  dring             →  dring-cover.jpg             │   ║
+  ║  │  Card 5  takeoff           →  takeoff-cover.jpg           │   ║
+  ║  │  Card 6  naughty dares     →  naughtydares-cover.jpg      │   ║
+  ║  └───────────────────────────────────────────────────────────┘   ║
+  ║                                                                  ║
+  ║  HOW TO ADD:                                                     ║
+  ║  Inside each .proj-card__media div, replace                      ║
+  ║       <span class="ph">...</span>                                ║
+  ║  with                                                            ║
+  ║       <img src="/FILENAME.jpg" alt="project name" />              ║
+  ║                                                                  ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+
+<body data-page="projects">
+
+  <div data-mount="grid"></div>
+  <div data-mount="nav"></div>
+
+  <section class="page-head">
+    <div class="shell">
+      <h1 class="page-head__title reveal-blur">projects</h1>
+      <p class="page-head__sub reveal">I help startups and series A—D teams to establish a strong connection between their product and customers</p>
+    </div>
+  </section>
+
+  <!-- Clients grid -->
+  <section class="shell">
+    <p class="section-label reveal">.clients</p>
+    <div class="clients">
+      <div class="clients__grid reveal-stagger">
+        <div class="clients__item">SHOTON</div>
+        <div class="clients__item">DRING</div>
+        <div class="clients__item">BEING INGENIOUS</div>
+        <div class="clients__item">LOGOIPSUM</div>
+        <div class="clients__item">FINAL FINISHES</div>
+        <div class="clients__item">ORBITAL</div>
+        <div class="clients__item">HEXCORP</div>
+        <div class="clients__item">APEX</div>
+        <div class="clients__item">VERTEX</div>
+        <div class="clients__item">LOGO IPSUM</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proj-section shell">
+
+    <div class="proj-row proj-row--orange">
+      <a href="/work/firstandlast/" class="proj-card proj-card--orange">
+        <div class="proj-card__top"><span>2024</span><span>Personal Project</span></div>
+        <div class="proj-card__title-row">
+          <span class="proj-card__title">first &amp; last</span>
+          <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="proj-card__media">
+          <!-- ▼ CARD 1 — FIRST & LAST  →  firstandlast-cover.jpg  (16:9) -->
+          <img src="/firstandlast-cover.jpg" alt="first & last" />
+        </div>
+      </a>
+      <div class="proj-row__desc">A social platform for entrepreneurs to network, collaborate, and make the connections that matter</div>
+    </div>
+
+    <div class="proj-row proj-row--white">
+      <a href="/work/aquaflow/" class="proj-card proj-card--white">
+        <div class="proj-card__top"><span>2024</span><span>Branding and Identity</span></div>
+        <div class="proj-card__title-row">
+          <span class="proj-card__title">aquaflow</span>
+          <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="proj-card__media">
+          <!-- ▼ CARD 2 — AQUAFLOW  →  aquaflow-cover.jpg  (16:9)
+               Replace the <span> below with: <img src="/aquaflow-cover.jpg" alt="aquaflow" /> -->
+          <span class="ph">.aquaflow</span>
+        </div>
+      </a>
+      <div class="proj-row__desc">A bottled water delivery service that sources water from the purest mountain streams</div>
+    </div>
+
+    <div class="proj-row proj-row--green">
+      <a href="/work/snackify/" class="proj-card proj-card--green">
+        <div class="proj-card__top"><span>2024</span><span>Packaging Design</span></div>
+        <div class="proj-card__title-row">
+          <span class="proj-card__title">snackify</span>
+          <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="proj-card__media">
+          <!-- ▼ CARD 3 — SNACKIFY  →  snackify-cover.jpg  (16:9)
+               Replace the <span> below with: <img src="/snackify-cover.jpg" alt="snackify" /> -->
+          <span class="ph">.snackify</span>
+        </div>
+      </a>
+      <div class="proj-row__desc">A healthy snack subscription that curates personalised boxes based on your dietary preferences</div>
+    </div>
+
+
+    <div class="proj-row proj-row--dring">
+      <a href="/work/dring/" class="proj-card proj-card--dring">
+        <div class="proj-card__top"><span>2024</span><span>Branding &amp; Social Media</span></div>
+        <div class="proj-card__title-row">
+          <span class="proj-card__title">dring</span>
+          <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="proj-card__media">
+          <!-- ▼ CARD 4 — DRING  →  dring-cover.jpg  (16:9)
+               Replace the <span> below with: <img src="/dring-cover.jpg" alt="dring" /> -->
+          <span class="ph">.dring</span>
+        </div>
+      </a>
+      <div class="proj-row__desc">App design, website banners, Instagram posts, stories, and reels — the full Dring social presence</div>
+    </div>
+
+    <div class="proj-row proj-row--yellow">
+      <a href="/work/takeoff/" class="proj-card proj-card--yellow">
+        <div class="proj-card__top"><span>2024</span><span>Personal Project</span></div>
+        <div class="proj-card__title-row">
+          <span class="proj-card__title">takeoff</span>
+          <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="proj-card__media">
+          <!-- ▼ CARD 5 — TAKEOFF  →  takeoff-cover.jpg  (16:9) -->
+          <img src="/takeoff-cover.jpg" alt="takeoff" />
+        </div>
+      </a>
+      <div class="proj-row__desc">A mindfulness app that adapts sessions to your routine and tracks your progress</div>
+    </div>
+
+    <div class="proj-row proj-row--gray">
+      <a href="/work/naughtydares/" class="proj-card proj-card--gray">
+        <div class="proj-card__top"><span>2024</span><span>Branding and Identity</span></div>
+        <div class="proj-card__title-row">
+          <span class="proj-card__title" style="font-size:clamp(32px,6vw,68px);line-height:0.88;">naughty dares<br>for couples</span>
+          <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="proj-card__media">
+          <!-- ▼ CARD 6 — NAUGHTY DARES  →  naughtydares-cover.jpg  (16:9)
+               Replace the <span> below with: <img src="/naughtydares-cover.jpg" alt="naughty dares" /> -->
+          <span class="ph">.naughty dares</span>
+        </div>
+      </a>
+      <div class="proj-row__desc">A playful card game brand connecting couples through fun, intimacy, and a little bit of daring</div>
+    </div>
+
+  </section>
+
+  <div data-mount="cta"></div>
+  <div data-mount="footer"></div>
+
+  <script src="/layout.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>
