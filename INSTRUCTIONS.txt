@@ -1,0 +1,538 @@
+════════════════════════════════════════════════════════════════════════════
+  HEYBHARAT.DESIGN — SITE INSTRUCTIONS
+  Last updated: 18 May 2026
+════════════════════════════════════════════════════════════════════════════
+
+This is your manual for the site. Anytime you (or anyone helping you) needs
+to add a project, swap an image, change a color, or fix something — start
+here. Written in plain language. No jargon you don't already know.
+
+If something changes about the site, update this file too so it stays
+accurate.
+
+
+════════════════════════════════════════════════════════════════════════════
+  1. WHAT THE SITE IS
+════════════════════════════════════════════════════════════════════════════
+
+Static HTML/CSS/JS portfolio site for Bharat Arora, graphic designer.
+Hosted on GitHub Pages with custom domain heybharat.design.
+
+No database, no backend, no build step. Just files you edit and push to
+GitHub. The site updates within 1–2 minutes after each push.
+
+
+════════════════════════════════════════════════════════════════════════════
+  2. FOLDER STRUCTURE (clean URLs)
+════════════════════════════════════════════════════════════════════════════
+
+This is exactly how files are organized in the GitHub repo:
+
+  /index.html                        →  heybharat.design
+  /CNAME                             →  contains "heybharat.design" (no www)
+  /style.css                         →  all styling for every page
+  /layout.js                         →  builds the nav, footer, CTA on every page
+  /main.js                           →  animations, cursor, menu toggle
+  /IMAGE-NAMING-GUIDE.txt            →  image file naming reference
+  /INSTRUCTIONS.txt                  →  THIS FILE
+
+  /about/index.html                  →  heybharat.design/about
+  /contact/index.html                →  heybharat.design/contact
+  /projects/index.html               →  heybharat.design/projects
+  /services/index.html               →  heybharat.design/services
+  /resume/index.html                 →  heybharat.design/resume
+
+  /work/firstandlast/index.html      →  heybharat.design/work/firstandlast
+  /work/aquaflow/index.html          →  heybharat.design/work/aquaflow
+  /work/snackify/index.html          →  heybharat.design/work/snackify
+  /work/takeoff/index.html           →  heybharat.design/work/takeoff
+  /work/dring/index.html             →  heybharat.design/work/dring
+  /work/naughtydares/index.html      →  heybharat.design/work/naughtydares
+
+  /logos/shoton.svg                  →  client logo (whitened by CSS)
+  /logos/dring.svg
+  /logos/being-ingenious.svg
+  /logos/kidley.svg
+  /logos/hem-haw.svg
+  /logos/maac.svg
+  /logos/yamaha.svg
+
+  /firstandlast-cover.jpg            →  cover image (16:9)
+  /firstandlast-cover.webp           →  same image, modern format
+  /takeoff-cover.jpg
+  /takeoff-cover.webp
+  /myphoto.jpg                       →  portrait photo for about + homepage
+  /myphoto.webp
+
+Why this structure?
+  Each page lives in its own folder as "index.html". GitHub Pages then
+  serves the folder as a clean URL (no .html extension). You get
+  /projects instead of /projects.html.
+
+Why .webp next to .jpg?
+  WebP files are ~30% smaller. The browser picks WebP if it can, falls
+  back to JPG if not. Together they're called via <picture> tags in HTML.
+
+
+════════════════════════════════════════════════════════════════════════════
+  3. PAGES — WHAT'S WHERE
+════════════════════════════════════════════════════════════════════════════
+
+HOME (/)
+  Hero with rotating phrase ("branding", "visual identity", etc).
+  5 sticky work cards stacking as you scroll (first&last, aquaflow,
+  snackify, takeoff, naughty dares). "See all projects" button inside
+  the last card's empty space. About teaser with portrait. CTA section.
+
+PROJECTS (/projects)
+  Title + intro. Clients grid with 7 SVG logos (twinkle animation).
+  Full list of project cards with descriptions to the right.
+
+ABOUT (/about)
+  Title. Quick stats (2+ years, India IST, available). Portrait + bio
+  copy. Career timeline (Shoton Pictures, Dring, Being Ingenious).
+  Tool stack grid (Photoshop, Illustrator, AE, Premiere, Lightroom,
+  Figma, Framer, HTML/CSS).
+
+SERVICES (/services)
+  Title + placeholder "coming next" line.
+
+CONTACT (/contact)
+  Title is "get in [slideshow] touch" — a small 16:9 frame between
+  the words cycles through your project covers. Contact form +
+  socials list: email, behance, linkedin, instagram.
+
+RESUME (/resume)
+  Title + download PDF button (link points to /resume.pdf which
+  you'll need to upload separately).
+
+WORK PAGES (/work/projectname)
+  Hero title + description, cover image, two body blocks with copy
+  and images, "see also" footer linking to 3 other works.
+  The "first & last", "takeoff", and "dring" pages also have an
+  Instagram posts grid below the body.
+
+
+════════════════════════════════════════════════════════════════════════════
+  4. IMAGE NAMING — STRICT RULES
+════════════════════════════════════════════════════════════════════════════
+
+All image filenames are LOWERCASE, hyphen-separated, no spaces.
+
+COVER IMAGES (used on homepage cards + projects page + work-page heros)
+  firstandlast-cover.jpg + .webp     →  for /work/firstandlast
+  aquaflow-cover.jpg + .webp         →  for /work/aquaflow
+  snackify-cover.jpg + .webp         →  for /work/snackify
+  takeoff-cover.jpg + .webp          →  for /work/takeoff
+  dring-cover.jpg + .webp            →  for /work/dring
+  naughtydares-cover.jpg + .webp     →  for /work/naughtydares
+
+  Recommended size: 1920×1080 (16:9 ratio)
+  Quality: JPEG 85, WebP 85
+  Target file size: under 500 KB each
+
+WORK PAGE INNER IMAGES (for the two body blocks)
+  firstandlast-01.jpg + .webp, firstandlast-02.jpg + .webp
+  aquaflow-01.jpg + .webp, aquaflow-02.jpg + .webp
+  snackify-01.jpg + .webp, snackify-02.jpg + .webp
+  takeoff-01.jpg + .webp, takeoff-02.jpg + .webp
+  dring-01.jpg + .webp, dring-02.jpg + .webp
+  naughtydares-01.jpg + .webp, naughtydares-02.jpg + .webp
+
+  Recommended size: 1920×1080 (16:9)
+  Target file size: under 500 KB each
+
+INSTAGRAM POST GRIDS (work pages: first&last, takeoff, dring)
+  firstandlast-post-01.jpg through firstandlast-post-06.jpg (+.webp)
+  takeoff-post-01.jpg through takeoff-post-06.jpg (+.webp)
+  dring-post-01.jpg through dring-post-06.jpg (+.webp)
+
+  Recommended size: 1080×1080 (square, 1:1)
+  Target file size: under 200 KB each
+
+DRING-SPECIFIC EXTRA IMAGES (work-dring.html has more sections)
+  dring-app-01.jpg, dring-app-02.jpg                        (16:9)
+  dring-banner-hero.jpg, dring-banner-cta.jpg               (16:6 wide)
+  dring-banner-feature-01.jpg, dring-banner-feature-02.jpg  (16:9)
+  dring-story-01.jpg through dring-story-05.jpg             (9:16 portrait)
+  dring-reel-01.jpg through dring-reel-04.jpg               (9:16 portrait)
+
+PORTRAIT (about section + about page)
+  myphoto.jpg + .webp
+  Recommended size: 1200×1200 (square) or 1200×1500 (portrait)
+
+
+════════════════════════════════════════════════════════════════════════════
+  5. HOW TO ADD A NEW PROJECT (e.g. you just finished a Kidley campaign)
+════════════════════════════════════════════════════════════════════════════
+
+Say the new project is called "Kidley Tummy Tucker".
+
+STEP 1 — Make a folder
+  Inside /work/, create a new folder: /work/kidley-tummy-tucker/
+
+STEP 2 — Make the page
+  Copy any existing work page (e.g. /work/aquaflow/index.html) into the
+  new folder and rename it index.html. Edit:
+    - <title> at top
+    - Hero title (h1) and description
+    - Year, timeframe, tools, category in the side meta
+    - Two body copy paragraphs
+    - Two block captions
+    - Three "see also" cards at the bottom — pick 3 other projects to link
+    - All image src paths — change "aquaflow-..." to "kidley-tummy-tucker-..."
+
+STEP 3 — Add images (with proper names)
+  In the repo root, add:
+    kidley-tummy-tucker-cover.jpg + .webp     (1920×1080)
+    kidley-tummy-tucker-01.jpg + .webp         (1920×1080)
+    kidley-tummy-tucker-02.jpg + .webp         (1920×1080)
+  Always compress them at TinyPNG.com before uploading.
+
+STEP 4 — Add a card on the projects page
+  Edit /projects/index.html. Find the .proj-section block. Copy any
+  existing .proj-row block. Paste it. Edit:
+    - href="/work/kidley-tummy-tucker/"
+    - year + category text
+    - title text
+    - .proj-card__media: replace the <span class="ph"> with
+      <img src="/kidley-tummy-tucker-cover.jpg" alt="..." />
+    - .proj-row__desc text (the short description to the right)
+    - Color: add proj-row--orange / --white / --green / --yellow /
+      --dring / --gray (pick one — see Section 9 for color tokens)
+
+STEP 5 — (Optional) Add a card on the homepage
+  Edit /index.html. Same as Step 4 but for the .work-card blocks.
+  Homepage shows 5 cards max — if you want this one featured, swap it
+  in for an older one.
+
+STEP 6 — Commit and push
+  Commit message: "Add Kidley Tummy Tucker project"
+
+
+════════════════════════════════════════════════════════════════════════════
+  6. HOW TO SWAP AN IMAGE
+════════════════════════════════════════════════════════════════════════════
+
+Simplest case: same filename, new content
+  Just upload the new file to GitHub, overwriting the old one. Hard
+  refresh the page (Ctrl+Shift+R) and you'll see the new image.
+
+Compressing before upload (ALWAYS DO THIS)
+  1. Open tinypng.com
+  2. Drop your raw images (any format, any size)
+  3. Download the compressed versions
+  4. Rename to match the naming rules in Section 4
+  5. For best results, also visit squoosh.app and save a WebP version
+     at quality 80–85
+  6. Upload both the .jpg and .webp to the repo root
+
+Why this matters
+  Original camera photos are often 10–15 MB each. Compressed versions
+  are 200–500 KB with no visible quality drop. A 15 MB image takes
+  ~10 seconds to load; a 400 KB image takes ~0.2 seconds.
+
+
+════════════════════════════════════════════════════════════════════════════
+  7. HOW TO ADD A NEW CLIENT LOGO
+════════════════════════════════════════════════════════════════════════════
+
+STEP 1 — Get the logo as an SVG
+  Ask the client for a vector logo. SVG is the only format we use here.
+  PNG/JPG won't work for this section.
+
+STEP 2 — Clean the SVG (optional but recommended)
+  Open the SVG in a text editor. Make sure there's `fill="currentColor"`
+  on the <svg> tag, OR no fill specified at all. This lets the CSS
+  control the color. If there's a hardcoded fill like fill="#FF0000",
+  remove it.
+
+STEP 3 — Save it
+  Save the SVG to /logos/clientname.svg (lowercase, hyphens for spaces).
+
+STEP 4 — Add it to the grid
+  Edit /projects/index.html. Find the .clients__grid block. Add one
+  new line:
+    <div class="clients__item">
+      <img src="/logos/clientname.svg" alt="Client Name" loading="lazy" />
+    </div>
+
+STEP 5 — (If you exceed 10 logos) extend the twinkle delays
+  Edit style.css. Find the section ".clients__item:nth-child(N)" rules
+  that go from 1 to 10. Add 11, 12, etc with your own delay and
+  duration numbers (delays between 0s and 6s, durations between 6s
+  and 9s).
+
+
+════════════════════════════════════════════════════════════════════════════
+  8. STYLE & DESIGN TOKENS (style.css)
+════════════════════════════════════════════════════════════════════════════
+
+All design tokens are defined at the top of /style.css inside `:root`.
+
+COLORS
+  --bg:               #050505   (page background)
+  --ink:              #ffffff   (main text)
+  --ink-2:            rgba(255,255,255,0.55)   (muted text)
+  --ink-3:            rgba(255,255,255,0.35)   (very muted)
+  --line:             rgba(255,255,255,0.08)   (faint dividers, grid)
+  --line-2:           rgba(255,255,255,0.14)   (section borders)
+  --green:            #7DFF99   (resume link color)
+
+CARD COLORS
+  --orange:           #FF5C16   (first & last)
+  --orange-ink:       #1a0c00   (text on orange)
+  --aquaflow-ink:     #f4f1ea   (aquaflow bg color)
+  --green-card:       #2D6A4F   (snackify)
+  --green-card-ink:   #d5f5e3   (text on green-card)
+  --yellow-card:      #FFD400   (takeoff)
+  --yellow-card-ink:  #1a1500   (text on yellow-card)
+  --dring-card:       #6e44ff   (dring — purple)
+  --dring-card-ink:   #e0aaff   (text on dring — light purple)
+  --gray-card:        #2a2a2a   (naughty dares)
+
+TYPOGRAPHY
+  --font-sans:        Geist (display font)
+  --font-mono:        Geist Mono (labels, monospaced text)
+
+LAYOUT
+  --pad-x:            28px mobile, 56px desktop (page side padding)
+  --radius:           14px (rounded corners on cards & images)
+
+
+════════════════════════════════════════════════════════════════════════════
+  9. ANIMATIONS — WHAT'S RUNNING
+════════════════════════════════════════════════════════════════════════════
+
+HERO ROTATOR (homepage)
+  Rotates through "branding", "visual identity", "packaging", "product
+  design" with a blur+slide transition. Lives in main.js.
+  To change phrases: edit data-rotator JSON array in /index.html h1.
+
+REVEAL ANIMATIONS
+  Anything with class .reveal, .reveal-blur, or .reveal-stagger fades in
+  as you scroll to it. Powered by IntersectionObserver in main.js.
+
+STICKY WORK CARDS
+  Project cards on homepage and projects page use position: sticky to
+  stack at top:90px as you scroll. Set in style.css under .work-card.
+
+CUSTOM CURSOR
+  Desktop only. Mouse follows with mild lag (0.45 factor). Shows "Open"
+  label when hovering project cards. mix-blend-mode: difference inverts
+  whatever's behind it for visibility. Defined in main.js + style.css.
+
+GRID BACKGROUND
+  Static vertical lines (no animation). 4 columns mobile, 6 desktop.
+  Drawn with repeating-linear-gradient. Sits behind all content.
+
+CLIENTS TWINKLE
+  Logos on /projects fade between opacity 0.55 and 0.95 in soft pulses
+  with randomized delays per logo. Reads as "stars in night sky".
+  Each :nth-child(N) has its own delay + duration in style.css.
+
+CONTACT TITLE SLIDESHOW
+  16:9 frame between "get in" and "touch" crossfades through project
+  covers on a 7s loop. Currently shows firstandlast + takeoff. To add
+  more: add <img> tags inside .title-loop, set animation-delay so each
+  is offset evenly (formula: -(N × 7 / totalImages)).
+
+FOOTER WORDMARK SHIMMER
+  Giant ".heybharat" at bottom of footer has a slow white-gradient
+  sweep across it every 6 seconds. Pure decoration.
+
+
+════════════════════════════════════════════════════════════════════════════
+  10. PERFORMANCE — KEEP THE SITE FAST
+════════════════════════════════════════════════════════════════════════════
+
+Total site weight should stay under 3 MB. Current state: ~2 MB.
+
+THE GOLDEN RULES
+  1. NEVER upload an image larger than 500 KB.
+  2. ALWAYS compress at tinypng.com before adding.
+  3. Cover images: 1920×1080 max, JPEG quality 85.
+  4. For modern format gains: save WebP versions too via squoosh.app.
+
+IMAGE LOADING ATTRIBUTES
+  Every <img> tag (except the first one on each page) has:
+    - loading="lazy"     →  image only loads when user scrolls near it
+    - decoding="async"   →  browser decodes off the main thread
+  Don't remove these. They're what makes the site feel snappy.
+
+THE <picture> TAG PATTERN
+  When you have both .jpg and .webp for an image, wrap in <picture>:
+    <picture>
+      <source srcset="/cover.webp" type="image/webp" />
+      <img src="/cover.jpg" alt="..." loading="lazy" decoding="async" />
+    </picture>
+  Modern browsers pick WebP, older ones fall back to JPG.
+
+DON'T USE THESE FORMATS
+  PNG — only use for logos with transparency. For photos, always JPG.
+  GIF — use MP4 video instead, or WebP animated.
+  TIFF, BMP, HEIC — never. Convert to JPG before uploading.
+
+
+════════════════════════════════════════════════════════════════════════════
+  11. DEPLOYING — HOW TO PUSH CHANGES TO GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+THE EASIEST WAY (browser-only)
+  1. Edit files locally on your computer.
+  2. Go to your GitHub repo in the browser.
+  3. For each changed file: navigate to it, click the pencil icon, paste
+     the new content, scroll down, commit.
+  4. For new files: click "Add file" → "Upload files" → drag in.
+  5. For new folders: click "Add file" → "Create new file" → type
+     foldername/filename.ext in the name field. The slash makes a folder.
+
+GITHUB DESKTOP (better for bulk changes)
+  1. Download desktop.github.com
+  2. Clone the heybharat.design repo
+  3. Edit files in your local folder
+  4. Open GitHub Desktop → it shows what changed
+  5. Write a commit message → click "Commit to main" → click "Push origin"
+
+AFTER PUSHING
+  GitHub Pages rebuilds in 1–2 minutes. Visit heybharat.design and hard
+  refresh (Ctrl+Shift+R / Cmd+Shift+R). If you don't see the change,
+  wait another minute and try again.
+
+IF SOMETHING BREAKS
+  Go to your repo → click "Commits" → find the commit before things
+  broke → click "..." → "Revert". GitHub creates a revert commit that
+  undoes everything. Push it. Site goes back to the previous state.
+
+
+════════════════════════════════════════════════════════════════════════════
+  12. CUSTOM DOMAIN — heybharat.design
+════════════════════════════════════════════════════════════════════════════
+
+The domain is connected via a CNAME file at the root of the repo.
+
+CONTENTS OF /CNAME
+  heybharat.design
+
+That's it. One line. No https://, no www., no slash.
+
+If the CNAME file gets deleted, the custom domain stops working. To
+restore: Add file → Create new file → name "CNAME" (all caps, no
+extension) → contents "heybharat.design" → commit.
+
+In repo Settings → Pages, the custom domain field should show
+"heybharat.design" and "Enforce HTTPS" should be checked.
+
+
+════════════════════════════════════════════════════════════════════════════
+  13. COMMON FIXES
+════════════════════════════════════════════════════════════════════════════
+
+"I uploaded a file but the site shows the old one"
+  → Hard refresh: Ctrl+Shift+R (Windows) / Cmd+Shift+R (Mac).
+    Browser cached the old version.
+
+"GitHub Pages says my domain isn't configured"
+  → Settings → Pages → re-type "heybharat.design" → Save.
+    Also check /CNAME file exists (Section 12).
+
+"The site loads with no CSS"
+  → /style.css is missing from the repo root, OR
+  → You opened the .html file via file:// instead of a real URL.
+    Run a local server: cd into the folder and run
+    `python -m http.server 8000`, then visit localhost:8000.
+
+"Image isn't showing"
+  → Filename mismatch. Check Section 4 — names are case-sensitive on
+    GitHub. firstandlast-cover.jpg ≠ FirstAndLast-Cover.jpg.
+
+"GitHub complains my files are too heavy"
+  → Image over 50 MB. Compress at tinypng.com (Section 6). 100 MB is
+    the hard limit; anything over 50 MB triggers a warning.
+
+"Animations aren't working on my computer"
+  → You may have "Reduce motion" enabled in OS settings. Some
+    animations respect that and freeze. The contact title slideshow
+    is intentionally exempt — it always runs.
+
+"Cursor is doing weird things on text"
+  → The custom cursor uses mix-blend-mode: difference, which inverts
+    colors under it. That's intentional. To turn it off, comment out
+    the cursor block in main.js (around line 65).
+
+
+════════════════════════════════════════════════════════════════════════════
+  14. SOCIAL & EXTERNAL PROFILE URLs
+════════════════════════════════════════════════════════════════════════════
+
+These are the canonical URLs used in the contact page social rows and the
+footer "Follow us" column. Always use the clean versions (no tracking
+parameters).
+
+  Behance   →  https://www.behance.net/bharataroradesign
+  LinkedIn  →  https://www.linkedin.com/in/bharat-arora027
+  Instagram →  https://instagram.com/bharataroradesign
+  Email     →  work@heybharat.design
+
+If you ever change any of these handles, update them in TWO places:
+  1. /contact/index.html  (the .socials block)
+  2. /layout.js           (the .footer__col "Follow us" list)
+
+
+════════════════════════════════════════════════════════════════════════════
+  15. FILES YOU CAN SAFELY DELETE LATER
+════════════════════════════════════════════════════════════════════════════
+
+If your repo is messy with old test files, these are safe to delete:
+  - first_last.jpg          (old name, replaced by firstandlast-cover.jpg)
+  - takeoff_main.jpg        (old name, replaced by takeoff-cover.jpg)
+  - any *.html file sitting at root that isn't /index.html or /CNAME
+    (these are leftovers from the pre-clean-URL structure)
+
+
+════════════════════════════════════════════════════════════════════════════
+  16. CHANGELOG — KEEP TRACK OF CHANGES
+════════════════════════════════════════════════════════════════════════════
+
+When you change the site, add a line here. Newest at the top.
+
+2026-05-18  Real social profiles wired in. Contact page socials list now
+            shows email + behance + linkedin + instagram (dribbble
+            removed, instagram handle updated). Footer "Follow us"
+            column now shows Behance + LinkedIn + Instagram (twitter
+            removed). All URLs are stripped of tracking parameters.
+            Behance: bharataroradesign. LinkedIn: bharat-arora027.
+            Instagram: bharataroradesign.
+2026-05-18  Initial instructions file created.
+2026-05-18  Switched to clean URL folder structure (no more .html in URLs).
+2026-05-18  Optimized cover images: 14–16 MB → 400 KB each. Added WebP
+            versions with <picture> fallback. Lazy loading on all images
+            below the fold.
+2026-05-18  Replaced text placeholder client labels on /projects with
+            real SVG logos (shoton, dring, being-ingenious, kidley,
+            hem-haw, maac, yamaha). Added soft star-twinkle animation
+            per logo with randomized timing.
+2026-05-18  Contact page: title is now "get in [slideshow] touch" with
+            an inline 16:9 image slideshow between the words. Words are
+            muted gray, turn white on title hover.
+2026-05-18  Cursor smoothing tightened (0.18 → 0.45) so the cursor's
+            mix-blend trail no longer flashes random text near the
+            footer brand link.
+2026-05-18  Footer wordmark ".heybharat" rebuilt: now center-aligned,
+            full text visible, white gradient shimmer animation on a
+            6s loop, pointer-events:none so it can't trigger hover.
+2026-05-18  Project section breathing room: max-width 1480px and 80px
+            padding on the projects page card list. Project card inner
+            bottom padding reduced (110px → 36px) — less empty space
+            below image inside each card.
+2026-05-18  Grid background simplified to static lines only (no light
+            beam animation). Vertical lines via repeating-linear-
+            gradient. All content sections z-index 5 so cards/cover
+            images never sit behind the grid.
+
+[ADD NEW ENTRIES BELOW THIS LINE]
+
+
+════════════════════════════════════════════════════════════════════════════
+  END OF INSTRUCTIONS
+════════════════════════════════════════════════════════════════════════════
