@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Takeoff — heybharat</title>
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .insta-section { padding: 80px 0 60px; }
+    .insta-section__label { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); margin-bottom: 28px; padding-top: 14px; border-top: 1px solid var(--line-2); }
+    .insta-section__title { font-weight: 500; font-size: clamp(28px,4vw,40px); letter-spacing: -0.03em; margin-bottom: 40px; }
+    .insta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (min-width: 768px) { .insta-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+    @media (min-width: 1200px) { .insta-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+    .insta-post { aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; background: var(--accent); display: flex; align-items: center; justify-content: center; position: relative; }
+    .insta-post img { width: 100%; height: 100%; object-fit: cover; }
+    .insta-post .ph { font-family: var(--font-mono); font-size: 13px; color: rgba(0,0,0,0.4); text-align: center; padding: 8px; }
+    .insta-post__label { position: absolute; bottom: 10px; left: 12px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.35); padding: 3px 8px; border-radius: 20px; }
+    .insta-post--dark .ph { color: rgba(255,255,255,0.3); }
+  </style>
+</head>
+<body data-page="projects" class="work-page work-page--takeoff" style="--accent: var(--yellow-card);">
+  <div data-mount="grid"></div>
+  <div data-mount="nav"></div>
+  <section class="work-head">
+    <div class="shell">
+      <div class="work-head__top">
+        <h1 class="work-head__title reveal-blur">takeoff</h1>
+        <p class="work-head__desc reveal">A meditation app that uses AI to customise your mindfulness practice and track your progress</p>
+      </div>
+    </div>
+  </section>
+  <div class="work-cover reveal">
+    <!-- ▼ TAKEOFF — COVER IMAGE
+         Replace with your own: <img src="/takeoff-cover.jpg" alt="takeoff cover" /> -->
+    <picture><source srcset="/takeoff-cover.webp" type="image/webp" /><img alt="takeoff party game" src="/takeoff-cover.jpg" decoding="async" /></picture>
+  </div>
+  <section class="shell">
+    <div class="work-body">
+      <div class="work-body__copy reveal">
+        <p>Takeoff is a lightweight meditation app that adapts session length, voice, and theme to your habits — rather than forcing you into a fixed routine. The visual system uses warm yellow as a grounding color, with quiet typography that gets out of the way.</p>
+      </div>
+      <aside class="work-meta reveal">
+        <div class="work-meta__row"><div class="work-meta__label">year</div><div class="work-meta__value">2024</div></div>
+        <div class="work-meta__row"><div class="work-meta__label">timeframe</div><div class="work-meta__value">45 days</div></div>
+        <div class="work-meta__row"><div class="work-meta__label">tools</div><div class="work-meta__value">Figma, Illustrator</div></div>
+        <div class="work-meta__row"><div class="work-meta__label">category</div><div class="work-meta__value">Personal Project</div></div>
+      </aside>
+    </div>
+  </section>
+  <section class="shell">
+    <div class="work-block reveal">
+      <div class="work-block__num">01</div>
+      <div class="work-block__img">
+        <!-- ▼ TAKEOFF — IMAGE ONE <img src="/takeoff-01.jpg" alt="Daily session view" /> -->
+        <span class="ph">.takeoff 01</span>
+      </div>
+      <p class="work-block__caption">Daily session view with adaptive duration.</p>
+    </div>
+  </section>
+  <section class="shell">
+    <div class="work-body" style="padding:60px 0;">
+      <div class="work-body__copy reveal" style="font-size:clamp(18px,3.4vw,22px);">
+        <p>We designed Takeoff around three principles: low pressure, high signal, and small surface area. No streaks. No leaderboards. Just sessions that get gradually better at meeting you where you are.</p>
+      </div>
+      <div></div>
+    </div>
+  </section>
+  <section class="shell">
+    <div class="work-block reveal">
+      <div class="work-block__num">02</div>
+      <div class="work-block__img">
+        <!-- ▼ TAKEOFF — IMAGE TWO <img src="/takeoff-02.jpg" alt="Onboarding flow" /> -->
+        <span class="ph">.takeoff 02</span>
+      </div>
+      <p class="work-block__caption">Onboarding flow that learns from your first three sessions.</p>
+    </div>
+  </section>
+  <section class="shell">
+    <div class="work-body" style="padding:60px 0 0;">
+      <div class="work-body__copy reveal" style="font-size:clamp(18px,3.4vw,22px);">
+        <p>The first beta retained 64% of users week-over-week — roughly three times the average for habit-focused apps at this stage.</p>
+      </div>
+      <div></div>
+    </div>
+  </section>
+  <section class="shell insta-section">
+    <p class="insta-section__label reveal">.social / instagram</p>
+    <h2 class="insta-section__title reveal">Posts designed for the feed</h2>
+    <div class="insta-grid reveal-stagger">
+      <div class="insta-post"><span class="ph">.post 01</span><span class="insta-post__label">post</span><!-- ▼ <img src="/takeoff-post-01.jpg" alt="Post 01" /> --></div>
+      <div class="insta-post"><span class="ph">.post 02</span><span class="insta-post__label">post</span><!-- ▼ <img src="/takeoff-post-02.jpg" alt="Post 02" /> --></div>
+      <div class="insta-post"><span class="ph">.post 03</span><span class="insta-post__label">post</span><!-- ▼ <img src="/takeoff-post-03.jpg" alt="Post 03" /> --></div>
+      <div class="insta-post"><span class="ph">.post 04</span><span class="insta-post__label">post</span><!-- ▼ <img src="/takeoff-post-04.jpg" alt="Post 04" /> --></div>
+      <div class="insta-post"><span class="ph">.post 05</span><span class="insta-post__label">post</span><!-- ▼ <img src="/takeoff-post-05.jpg" alt="Post 05" /> --></div>
+      <div class="insta-post"><span class="ph">.post 06</span><span class="insta-post__label">post</span><!-- ▼ <img src="/takeoff-post-06.jpg" alt="Post 06" /> --></div>
+    </div>
+  </section>
+  <section class="shell see-also">
+    <p class="see-also__label reveal">.see also</p>
+    <div class="see-also__list reveal-stagger">
+      <a href="/work/firstandlast/" class="see-also-row see-also-row--orange">
+        <div class="see-also-row__thumb"></div>
+        <div class="see-also-row__meta"><span class="see-also-row__cat">Personal Project</span><span class="see-also-row__title">first &amp; last</span></div>
+        <span class="see-also-row__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+      </a>
+      <a href="/work/aquaflow/" class="see-also-row see-also-row--white">
+        <div class="see-also-row__thumb"></div>
+        <div class="see-also-row__meta"><span class="see-also-row__cat">Branding and Identity</span><span class="see-also-row__title">aquaflow</span></div>
+        <span class="see-also-row__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+      </a>
+      <a href="/work/snackify/" class="see-also-row see-also-row--green">
+        <div class="see-also-row__thumb"></div>
+        <div class="see-also-row__meta"><span class="see-also-row__cat">Packaging Design</span><span class="see-also-row__title">snackify</span></div>
+        <span class="see-also-row__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+      </a>
+    </div>
+  </section>
+  <div data-mount="cta"></div>
+  <div data-mount="footer"></div>
+  <script src="/layout.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>
