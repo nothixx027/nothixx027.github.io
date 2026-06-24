@@ -94,87 +94,175 @@
     });
   }
 
-  // ============== Services: hover-to-open on desktop ==============
-  // Native <details> elements only toggle on click. To match the reference,
-  // we add hover-to-open on desktop with a small delay so quick mouse
-  // sweeps across the page don't trigger every row. Click still works
-  // everywhere as a fallback (mobile + accessibility).
-  if (window.matchMedia('(min-width: 1024px) and (hover: hover)').matches) {
-    const services = document.querySelectorAll('.service');
-    let hoverTimer;
-    services.forEach((s) => {
-      s.addEventListener('mouseenter', () => {
-        clearTimeout(hoverTimer);
-        hoverTimer = setTimeout(() => {
-          // Close all others, open this one
-          services.forEach((o) => { if (o !== s) o.removeAttribute('open'); });
-          s.setAttribute('open', '');
-        }, 120);
-      });
-    });
-    // When the cursor leaves the whole services list, no need to do anything —
-    // the most recently hovered row stays open (matches the reference behavior).
-  }
-
-  // ============== Reels: hover-to-unmute ==============
-  // Each .reel contains a muted autoplay <video>. On hover (desktop) or
-  // first tap (mobile), unmute that one video. Move cursor away (or tap
-  // outside) — mute it again. Only one reel can be unmuted at a time.
-  const reels = document.querySelectorAll('.reel');
-  if (reels.length) {
-    let activeReel = null;
-
-    const unmute = (reel) => {
-      // Mute the previously active reel (if any)
-      if (activeReel && activeReel !== reel) {
-        const v = activeReel.querySelector('video');
-        if (v) { v.muted = true; }
-        activeReel.classList.remove('is-unmuted');
+  // ============== Services: smooth expand/collapse + hover open ==============
+  // Native <details> snaps instantly. We hijack the open/close to animate
+  // the body's height smoothly. The CSS uses max-height + opacity + transform
+  // for a polished feel (transitions defined in .service__body block).
+  // Desktop also opens on hover with a small delay.
+  const services = document.querySelectorAll('.service');
+  if (services.length) {
+    const setOpen = (s, open) => {
+      if (open) {
+        // Cancel any pending close
+        s.dataset.closing = '';
+        s.setAttribute('open', '');
+        // The <details> needs the open attribute to render the body. CSS
+        // animates max-height from 0 → big value via .service[open] state.
+      } else {
+        s.removeAttribute('open');
       }
-      const v = reel.querySelector('video');
-      if (!v) return;
-      v.muted = false;
-      // Some browsers require an explicit play() after unmuting
-      const p = v.play();
-      if (p && typeof p.catch === 'function') p.catch(() => {});
-      reel.classList.add('is-unmuted');
-      activeReel = reel;
-    };
-
-    const mute = (reel) => {
-      const v = reel.querySelector('video');
-      if (v) v.muted = true;
-      reel.classList.remove('is-unmuted');
-      if (activeReel === reel) activeReel = null;
     };
 
     const isDesktop = window.matchMedia('(min-width: 1024px) and (hover: hover)').matches;
+    let hoverTimer;
 
-    reels.forEach((reel) => {
-      if (isDesktop) {
-        // Desktop: hover to unmute, leave to re-mute
-        reel.addEventListener('mouseenter', () => unmute(reel));
-        reel.addEventListener('mouseleave', () => mute(reel));
-      } else {
-        // Mobile: tap to toggle. Stop the click from navigating to Instagram
-        // immediately so the user can hear it first; second tap navigates.
-        reel.addEventListener('click', (e) => {
-          if (!reel.classList.contains('is-unmuted')) {
-            e.preventDefault();
-            unmute(reel);
+    services.forEach((s) => {
+      // Click toggle (works on all devices)
+      const summary = s.querySelector('summary');
+      if (summary) {
+        summary.addEventListener('click', (e) => {
+          e.preventDefault();
+          const willOpen = !s.hasAttribute('open');
+          if (willOpen) {
+            // Close all others first
+            services.forEach((o) => { if (o !== s) setOpen(o, false); });
           }
-          // Second click (when already unmuted) → navigate normally
+          setOpen(s, willOpen);
+        });
+      }
+
+      // Desktop: open on hover with brief delay
+      if (isDesktop) {
+        s.addEventListener('mouseenter', () => {
+          clearTimeout(hoverTimer);
+          hoverTimer = setTimeout(() => {
+            services.forEach((o) => { if (o !== s) setOpen(o, false); });
+            setOpen(s, true);
+          }, 120);
         });
       }
     });
+  }
 
-    // Mobile only: tap anywhere outside an unmuted reel → mute it
-    if (!isDesktop) {
-      document.addEventListener('click', (e) => {
-        if (!activeReel) return;
-        if (!e.target.closest('.reel')) mute(activeReel);
+
+  // ============== Selects: filter chips + lightbox ==============
+  // Filter chips at top toggle which pieces show. Click a piece to open
+  // it in a lightbox with title/client/year/description. Esc, arrows,
+  // outside-click, and X button all close.
+  const selectsGrid = document.querySelector('[data-selects-grid]');
+  if (selectsGrid) {
+    const pieces = Array.from(selectsGrid.querySelectorAll('.select'));
+    const chips = document.querySelectorAll('.filter-chip');
+    const emptyMsg = document.querySelector('[data-selects-empty]');
+
+    // ─── Filtering ───────────────────────────────────────────────
+    let activeFilter = 'all';
+    const applyFilter = (filter) => {
+      activeFilter = filter;
+      let visible = 0;
+      pieces.forEach((p) => {
+        const matches = filter === 'all' || p.dataset.type === filter;
+        p.classList.toggle('is-hidden', !matches);
+        if (matches) visible++;
+      });
+      if (emptyMsg) emptyMsg.classList.toggle('is-visible', visible === 0);
+    };
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        applyFilter(chip.dataset.filter);
+      });
+    });
+
+    // ─── Lightbox ────────────────────────────────────────────────
+    const lb         = document.querySelector('[data-lightbox]');
+    const lbMedia    = document.querySelector('[data-lightbox-media]');
+    const lbType     = document.querySelector('[data-lightbox-type]');
+    const lbTitle    = document.querySelector('[data-lightbox-title]');
+    const lbClient   = document.querySelector('[data-lightbox-client]');
+    const lbYear     = document.querySelector('[data-lightbox-year]');
+    const lbDesc     = document.querySelector('[data-lightbox-desc]');
+    const lbClose    = document.querySelector('[data-lightbox-close]');
+    const lbPrev     = document.querySelector('[data-lightbox-prev]');
+    const lbNext     = document.querySelector('[data-lightbox-next]');
+    let currentIndex = -1;
+
+    const getVisiblePieces = () => pieces.filter((p) => !p.classList.contains('is-hidden'));
+
+    const openLightbox = (piece) => {
+      if (!lb || !piece) return;
+      const visible = getVisiblePieces();
+      currentIndex = visible.indexOf(piece);
+
+      // Populate
+      const img = piece.querySelector('img');
+      const ph  = piece.querySelector('.select__ph');
+      lbMedia.innerHTML = '';
+      if (img) {
+        const big = document.createElement('img');
+        big.src = img.src;
+        big.alt = piece.dataset.title || '';
+        lbMedia.appendChild(big);
+      } else if (ph) {
+        // Show a clone of the placeholder for design preview
+        const phClone = ph.cloneNode(true);
+        phClone.style.aspectRatio = ph.style.aspectRatio || '4/5';
+        phClone.style.width = 'auto';
+        phClone.style.height = '70vh';
+        phClone.style.maxHeight = '80vh';
+        lbMedia.appendChild(phClone);
+      }
+      lbType.textContent   = piece.dataset.type    || '';
+      lbTitle.textContent  = piece.dataset.title   || '';
+      lbClient.textContent = piece.dataset.client  || '—';
+      lbYear.textContent   = piece.dataset.year    || '—';
+      lbDesc.textContent   = piece.dataset.desc    || '';
+
+      lb.classList.add('is-open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+    };
+
+    const closeLightbox = () => {
+      if (!lb) return;
+      lb.classList.remove('is-open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+      currentIndex = -1;
+    };
+
+    const navLightbox = (direction) => {
+      const visible = getVisiblePieces();
+      if (!visible.length) return;
+      currentIndex = (currentIndex + direction + visible.length) % visible.length;
+      openLightbox(visible[currentIndex]);
+    };
+
+    // Wire piece clicks
+    pieces.forEach((p) => {
+      p.addEventListener('click', () => openLightbox(p));
+    });
+
+    // Wire lightbox controls
+    if (lbClose) lbClose.addEventListener('click', closeLightbox);
+    if (lbPrev)  lbPrev .addEventListener('click', () => navLightbox(-1));
+    if (lbNext)  lbNext .addEventListener('click', () => navLightbox(+1));
+
+    // Click outside content closes
+    if (lb) {
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLightbox();
       });
     }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (!lb || !lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape')    closeLightbox();
+      if (e.key === 'ArrowLeft') navLightbox(-1);
+      if (e.key === 'ArrowRight')navLightbox(+1);
+    });
   }
 
   // ============== Grid ripple on click ==============

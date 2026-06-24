@@ -16,18 +16,6 @@
         font-size: clamp(80px, 8.5vw, 140px);
       }
     }
-
-    /* Instagram grid */
-    .insta-section { padding: 80px 0 60px; }
-    .insta-section__label { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); margin-bottom: 28px; padding-top: 14px; border-top: 1px solid var(--line-2); }
-    .insta-section__title { font-weight: 500; font-size: clamp(28px,4vw,40px); letter-spacing: -0.03em; margin-bottom: 40px; }
-    .insta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    @media (min-width: 768px) { .insta-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
-    @media (min-width: 1200px) { .insta-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
-    .insta-post { aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; background: var(--accent); display: flex; align-items: center; justify-content: center; position: relative; }
-    .insta-post img { width: 100%; height: 100%; object-fit: cover; }
-    .insta-post .ph { font-family: var(--font-mono); font-size: 13px; color: rgba(255,255,255,0.35); text-align: center; padding: 8px; }
-    .insta-post__label { position: absolute; bottom: 10px; left: 12px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.35); padding: 3px 8px; border-radius: 20px; }
   </style>
 </head>
 <body data-page="projects" class="work-page work-page--naughtydares work-page--roverride" style="--accent: #2a2a2a;">
@@ -96,20 +84,8 @@
   </section>
 
   <!-- ── INSTAGRAM POSTS ── -->
-  <section class="shell insta-section">
-    <p class="insta-section__label reveal">.social / instagram</p>
-    <h2 class="insta-section__title reveal">Posts designed for the feed</h2>
-    <div class="insta-grid reveal-stagger">
-      <div class="insta-post"><span class="ph">.post 01</span><span class="insta-post__label">post</span><!-- ▼ <img src="/naughtydares-post-01.jpg" alt="Post 01" /> --></div>
-      <div class="insta-post"><span class="ph">.post 02</span><span class="insta-post__label">post</span><!-- ▼ <img src="/naughtydares-post-02.jpg" alt="Post 02" /> --></div>
-      <div class="insta-post"><span class="ph">.post 03</span><span class="insta-post__label">post</span><!-- ▼ <img src="/naughtydares-post-03.jpg" alt="Post 03" /> --></div>
-      <div class="insta-post"><span class="ph">.post 04</span><span class="insta-post__label">post</span><!-- ▼ <img src="/naughtydares-post-04.jpg" alt="Post 04" /> --></div>
-      <div class="insta-post"><span class="ph">.post 05</span><span class="insta-post__label">post</span><!-- ▼ <img src="/naughtydares-post-05.jpg" alt="Post 05" /> --></div>
-      <div class="insta-post"><span class="ph">.post 06</span><span class="insta-post__label">post</span><!-- ▼ <img src="/naughtydares-post-06.jpg" alt="Post 06" /> --></div>
-    </div>
-  </section>
 
-  <section class="shell see-also">
+<section class="shell see-also">
     <p class="see-also__label reveal">.see also</p>
     <div class="see-also__list reveal-stagger">
       <a href="/work/firstandlast/" class="see-also-row see-also-row--orange">

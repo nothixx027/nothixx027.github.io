@@ -88,6 +88,15 @@ PROJECTS (/projects)
   Title + intro. Clients grid with 7 SVG logos (twinkle animation).
   Full list of project cards with descriptions to the right.
 
+SELECTS (/selects)
+  Masonry grid of individual one-off pieces — posters, social posts,
+  packaging, identity studies, illustrations. Filter chips at top:
+  All / Print / Social / Packaging / Identity / Illustration.
+  Click any piece to open a lightbox showing the piece full-size with
+  a sidebar of metadata (title, client, year, type, optional
+  description). Background grid blurs while lightbox is open.
+  Arrow keys navigate, Esc closes.
+
 ABOUT (/about)
   Title. Quick stats row (2+ years, India IST, available). Portrait +
   three-number stats (27+ clients, 47+ projects, 5+ industries) + bio
@@ -112,10 +121,15 @@ RESUME (/resume)
   you'll need to upload separately).
 
 WORK PAGES (/work/projectname)
-  Hero title + description, cover image, two body blocks with copy
-  and images, "see also" footer linking to 3 other works.
-  The "first & last", "takeoff", and "dring" pages also have an
-  Instagram posts grid below the body.
+  All work pages share one layout (cleanest expression on /work/snackify):
+    1. Hero title + short description
+    2. Cover image (16:9)
+    3. Body copy + meta sidebar (year, timeframe, tools, category)
+    4. Block 01 (16:9 image) + caption
+    5. Middle paragraph
+    6. Block 02 (16:9 image) + caption
+    7. Closing paragraph
+    8. See also row (3 links to other projects)
 
 
 ════════════════════════════════════════════════════════════════════════════
@@ -150,16 +164,6 @@ WORK PAGE INNER IMAGES (for the two body blocks)
   images get centered with accent-colored side margins (no awkward
   cropping).
   Target file size: under 500 KB each
-
-REELS (work pages with video — currently first & last)
-  firstandlast-reel-01.mp4 + .webm + .jpg (poster image)
-  firstandlast-reel-02.mp4 + .webm + .jpg
-  firstandlast-reel-03.mp4 + .webm + .jpg
-
-  Recommended: 540×960 (9:16 vertical), under 5 MB per video,
-  H.264 + AAC for MP4, VP9 + Opus for WebM.
-  The poster .jpg is the still frame shown before video loads.
-  Stored in /reels/ subfolder, not the root.
 
 INSTAGRAM POST GRIDS (work pages: first&last, takeoff, dring)
   firstandlast-post-01.jpg through firstandlast-post-06.jpg (+.webp)
@@ -227,6 +231,50 @@ STEP 5 — (Optional) Add a card on the homepage
 
 STEP 6 — Commit and push
   Commit message: "Add Kidley Tummy Tucker project"
+
+
+════════════════════════════════════════════════════════════════════════════
+  5b. HOW TO ADD A NEW SELECT (individual piece on /selects)
+════════════════════════════════════════════════════════════════════════════
+
+Selects are one-off pieces — a single poster, an Instagram post, a hang
+tag design — that don't deserve a full project page. They live on
+/selects/index.html as cards in a masonry grid.
+
+STEP 1 — Save your image
+  Drop it in /selects-images/ with a clear name:
+    /selects-images/{client}-{short-name}.jpg
+  Examples:
+    /selects-images/hemhaw-reflective-poster.jpg
+    /selects-images/kidley-hangtag-spring.jpg
+    /selects-images/personal-illustration-01.jpg
+
+  Compress at tinypng.com first. Target under 300 KB.
+  Any aspect ratio works — the masonry grid adapts.
+
+STEP 2 — Add a card to selects/index.html
+  Find the .selects-grid block. Copy any existing <div class="select">
+  block and paste it inside. Edit:
+    - data-type    : one of: print, social, packaging, identity, illustration
+                     (controls which filter shows it)
+    - data-title   : short title shown in lightbox header
+    - data-client  : "Hem & Haw" / "Kidley" / "Personal" / etc.
+    - data-year    : "2025"
+    - data-desc    : (optional) 1–2 sentence description shown in
+                     lightbox sidebar. Leave empty if not needed.
+  Replace the <div class="select__ph"> placeholder with an actual image:
+    <img src="/selects-images/{filename}.jpg" alt="{title}" loading="lazy" />
+
+STEP 3 — Adding a new filter genre
+  If a piece doesn't fit print/social/packaging/identity/illustration:
+    1. Open selects/index.html.
+    2. Inside .selects-filter, add another <button class="filter-chip"
+       data-filter="newgenre" type="button">New Genre</button>.
+    3. Use data-type="newgenre" on the matching pieces.
+  No CSS or JS to change.
+
+STEP 4 — Commit and push
+  Commit message: "Add new select: [piece name]"
 
 
 ════════════════════════════════════════════════════════════════════════════
@@ -522,6 +570,49 @@ If your repo is messy with old test files, these are safe to delete:
 
 When you change the site, add a line here. Newest at the top.
 
+2026-05-25  New SELECTS page (/selects) added for individual one-off
+            pieces. Masonry grid (CSS columns, 2/3/4 cols at mobile/
+            tablet/desktop), filterable by genre via chips at top
+            (All / Print / Social / Packaging / Identity / Illustration).
+            Click any piece → lightbox opens with full-size image,
+            sidebar showing title/client/year/type + optional desc;
+            background blurs via backdrop-filter. Esc, arrow keys,
+            outside click, and X all close the lightbox. Nav updated
+            in both top and mobile menus: now reads projects · selects
+            · about · services · contact · resume. Page comes with 8
+            placeholder cards to demo the layout — replace with real
+            pieces by editing data attributes (see Section 5b of this
+            file for the full how-to). Images live in /selects-images/.
+2026-05-25  Work page cleanup — First & Last and Takeoff stripped back
+            to the default Snackify layout. First & Last: removed the
+            reels shuffle-deck section, restored standard block 01 +
+            block 02 image placeholders. Takeoff: cleaned up formatting,
+            no structural change (already matched). Cover images for
+            both projects re-cropped to true 16:9 (1920×1080) so they
+            now center correctly inside the cover frame — no awkward
+            edge cropping. All reels-related CSS (~170 lines) and JS
+            (~65 lines) removed since no page uses them anymore. The
+            /reels/ folder and the unused /work-images/ folder were
+            deleted from the repo.
+2026-05-24  Multiple fixes — (1) Client logos sized up further (height
+            70/96/120px mobile/tablet/desktop, max-width 280px) with
+            deeper twinkle dim (0.5 → 1.0) for stronger visible shine.
+            (2) About page portrait now matches homepage exactly —
+            same 4/5 aspect ratio, no max-width cap, fills its grid
+            column. (3) First & Last work page reverted to clean
+            default layout — cover image only, no inner photos, no
+            key visual. Reels moved to a small "shuffle card pile"
+            at bottom: 3 cards stacked like a thrown hand, auto-
+            shuffle on scroll-in, fan out on hover, hover any single
+            card unmutes its video. Three unused photo files removed
+            (firstandlast-01, -02, -keyvisual). (4) Services dropdown
+            animation rewritten — smooth max-height + opacity + slide
+            cascade with staggered child reveal (was a hard snap).
+            (5) Contact social rows redesigned — bigger dark-gray
+            icon tiles (52×52, rounded 12px), bigger name text
+            (24-30px), each hover triggers: tile rotates -6° and
+            inverts to white, name gets growing underline, side
+            spotlight bar slides in, row slides 28px right.
 2026-05-24  First & Last work page built out with real content. Real
             year (2025), 4-day timeframe, Illustrator + Photoshop,
             category "Dring's Project". Hero copy describes the

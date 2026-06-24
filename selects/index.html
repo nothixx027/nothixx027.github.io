@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Selects — heybharat</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║         HOW TO ADD A NEW SELECT — selects/index.html                 ║
+  ╠══════════════════════════════════════════════════════════════════════╣
+  ║                                                                      ║
+  ║  Each piece is one <div class="select"> block inside .selects-grid.  ║
+  ║  Copy any existing block and edit the data attributes + image src.   ║
+  ║                                                                      ║
+  ║  FILE NAMING:                                                        ║
+  ║    Drop image in: /selects-images/{client}-{short-name}.jpg          ║
+  ║    Example: /selects-images/hemhaw-reflective-poster.jpg             ║
+  ║    Compress at tinypng.com first — target under 300 KB per image.    ║
+  ║    Any aspect ratio is fine — the masonry grid adapts.               ║
+  ║                                                                      ║
+  ║  DATA ATTRIBUTES (each <div class="select">):                        ║
+  ║    data-type    →  one of: print, social, packaging, identity,       ║
+  ║                    illustration   (controls which filter shows it)   ║
+  ║    data-title   →  short title shown in lightbox header              ║
+  ║    data-client  →  client name (e.g. "Hem & Haw" or "Personal")      ║
+  ║    data-year    →  year (e.g. "2025")                                ║
+  ║    data-desc    →  OPTIONAL — 1–2 sentence description shown in      ║
+  ║                    lightbox sidebar. Leave empty if not needed.      ║
+  ║                                                                      ║
+  ║  ADDING A NEW FILTER GENRE:                                          ║
+  ║    1. Add <button class="filter-chip" data-filter="newtype">...      ║
+  ║       inside .selects-filter below.                                  ║
+  ║    2. Use data-type="newtype" on the matching pieces.                ║
+  ║                                                                      ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+
+<body data-page="selects">
+
+  <div data-mount="grid"></div>
+  <div data-mount="nav"></div>
+
+  <section class="page-head">
+    <div class="shell">
+      <h1 class="page-head__title reveal-blur">selects</h1>
+      <p class="page-head__sub reveal">a closer look at individual pieces — posters, social, packaging, identity, illustration.</p>
+    </div>
+  </section>
+
+  <section class="shell">
+    <div class="selects-filter reveal" role="tablist">
+      <button class="filter-chip is-active" data-filter="all"           type="button">All</button>
+      <button class="filter-chip"           data-filter="print"         type="button">Print</button>
+      <button class="filter-chip"           data-filter="social"        type="button">Social</button>
+      <button class="filter-chip"           data-filter="packaging"     type="button">Packaging</button>
+      <button class="filter-chip"           data-filter="identity"      type="button">Identity</button>
+      <button class="filter-chip"           data-filter="illustration"  type="button">Illustration</button>
+    </div>
+
+    <!-- MASONRY GRID — uses CSS columns. Each .select is one piece.
+         The grid is populated with empty placeholder cards for now;
+         replace each block with your real piece (see comment at top). -->
+    <div class="selects-grid reveal" data-selects-grid>
+
+      <!-- ═════════════ PLACEHOLDER PIECES — REPLACE WITH YOUR REAL WORK ═════════════ -->
+
+      <div class="select"
+           data-type="print"
+           data-title="Reflective Lower campaign poster"
+           data-client="Hem &amp; Haw"
+           data-year="2025"
+           data-desc="A safety-first visual for nighttime runners. Stripes do the talking; the type stays out of the way.">
+        <div class="select__ph" style="aspect-ratio: 3/4; background: linear-gradient(135deg, #1a1a1a, #2a2a2a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="social"
+           data-title="Bamboo cotton series — story set"
+           data-client="Kidley"
+           data-year="2025"
+           data-desc="Three-frame story explaining what bamboo cotton actually does on a kid's skin.">
+        <div class="select__ph" style="aspect-ratio: 9/16; background: linear-gradient(135deg, #2a1f1a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="packaging"
+           data-title="Hang tag system"
+           data-client="Kidley"
+           data-year="2025"
+           data-desc="Category-coloured hang tags with a shared layout, built for the vendor to print at scale without supervision.">
+        <div class="select__ph" style="aspect-ratio: 1/1; background: linear-gradient(135deg, #1a2a1a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="identity"
+           data-title="Wordmark exploration"
+           data-client="Personal"
+           data-year="2024"
+           data-desc="">
+        <div class="select__ph" style="aspect-ratio: 4/5; background: linear-gradient(135deg, #1a1a2a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="illustration"
+           data-title="Editorial spot"
+           data-client="Personal"
+           data-year="2024"
+           data-desc="A standalone illustration done over a weekend.">
+        <div class="select__ph" style="aspect-ratio: 3/4; background: linear-gradient(135deg, #2a1a2a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="social"
+           data-title="Performance Shorts launch carousel"
+           data-client="Hem &amp; Haw"
+           data-year="2025"
+           data-desc="">
+        <div class="select__ph" style="aspect-ratio: 1/1; background: linear-gradient(135deg, #2a2a1a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="print"
+           data-title="Anniversary poster"
+           data-client="Suto Café"
+           data-year="2025"
+           data-desc="One year of Suto — a small poster for a quiet milestone.">
+        <div class="select__ph" style="aspect-ratio: 2/3; background: linear-gradient(135deg, #1a2a2a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="packaging"
+           data-title="Label refresh"
+           data-client="Preet Tractors"
+           data-year="2025"
+           data-desc="">
+        <div class="select__ph" style="aspect-ratio: 4/5; background: linear-gradient(135deg, #2a1a1a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <!-- ═════════════ END PLACEHOLDERS — paste your real pieces above this line ═════════════ -->
+
+    </div>
+
+    <p class="selects-empty" data-selects-empty>No pieces match this filter yet.</p>
+  </section>
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       LIGHTBOX — opened by main.js when a piece is clicked
+       Content is populated dynamically. Background grid gets blurred.
+       Close: click outside, press Esc, click X button, or use arrows.
+       ═════════════════════════════════════════════════════════════════════ -->
+  <div class="lightbox" data-lightbox aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox__close" data-lightbox-close aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M6 18 18 6"/></svg>
+    </button>
+
+    <button class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+
+    <div class="lightbox__inner">
+      <div class="lightbox__media" data-lightbox-media>
+        <!-- image is injected here at runtime -->
+      </div>
+      <aside class="lightbox__info" data-lightbox-info>
+        <p class="lightbox__type" data-lightbox-type></p>
+        <h2 class="lightbox__title" data-lightbox-title></h2>
+        <div class="lightbox__meta">
+          <div class="lightbox__meta-row">
+            <span class="lightbox__meta-label">client</span>
+            <span class="lightbox__meta-value" data-lightbox-client></span>
+          </div>
+          <div class="lightbox__meta-row">
+            <span class="lightbox__meta-label">year</span>
+            <span class="lightbox__meta-value" data-lightbox-year></span>
+          </div>
+        </div>
+        <p class="lightbox__desc" data-lightbox-desc></p>
+      </aside>
+    </div>
+  </div>
+
+  <div data-mount="cta"></div>
+  <div data-mount="footer"></div>
+
+  <script src="/layout.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>
