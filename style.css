@@ -267,7 +267,7 @@ body.is-loaded { opacity: 1; }
 }
 
 /* ============ Work cards — sticky stack (original behavior) ============ */
-.works { position: relative; padding: 0 0 100px; }
+.works { position: relative; padding: 0 0 60px; }
 .work-card {
   position: sticky;
   top: 90px;
@@ -402,8 +402,11 @@ body.is-loaded { opacity: 1; }
 }
 
 /* ============ Sections ============ */
-.section { padding: 100px 0; position: relative; }
-@media (min-width: 1024px) { .section { padding: 140px 0; } }
+/* Between-section padding. Kept generous on desktop but trimmed from
+   previous 100/140 to read tighter without compressing internal card
+   spacing. */
+.section { padding: 70px 0; position: relative; }
+@media (min-width: 1024px) { .section { padding: 100px 0; } }
 
 /* See all projects — homepage */
 .works__see-more {
@@ -730,12 +733,21 @@ body.is-loaded { opacity: 1; }
   border-top: 0;
   padding-top: 0;
   text-align: left;
-}
-[data-page="services"] .page-head {
-  padding: 100px 0 40px;
+  /* Cap mobile size so the title doesn't overflow horizontally or crash into
+     the fixed nav. Base rule is 18vw which is too aggressive on phones. */
+  font-size: clamp(56px, 14vw, 96px);
 }
 @media (min-width: 1024px) {
-  [data-page="services"] .page-head { padding: 140px 0 60px; }
+  [data-page="services"] .page-head__title {
+    font-size: clamp(140px, 13vw, 200px);
+  }
+}
+[data-page="services"] .page-head {
+  /* Generous top padding so the title clears the fixed nav with breathing room */
+  padding: 140px 0 40px;
+}
+@media (min-width: 1024px) {
+  [data-page="services"] .page-head { padding: 180px 0 60px; }
 }
 
 .services-list {
@@ -784,11 +796,12 @@ body.is-loaded { opacity: 1; }
 
 .service__title {
   font-weight: 400;
-  font-size: clamp(28px, 5vw, 40px);
+  font-size: clamp(24px, 5vw, 36px);
   letter-spacing: -0.025em;
-  line-height: 1.05;
+  line-height: 1.1;
   color: var(--ink-2);
   transition: color .25s var(--e-out);
+  text-align: left;
 }
 @media (min-width: 1024px) {
   .service__title { font-size: clamp(40px, 4vw, 56px); }
@@ -1171,6 +1184,15 @@ body.is-loaded { opacity: 1; }
   border-top: 0;
   padding-top: 24px;
   white-space: nowrap;
+  /* Mobile: shrink the title so "get in [frame] touch" fits one line at any
+     viewport. Desktop sizing comes from the base .page-head__title rule. */
+  font-size: clamp(40px, 11vw, 70px);
+}
+@media (min-width: 720px) {
+  .page-head__title--with-loop { font-size: clamp(70px, 12vw, 120px); }
+}
+@media (min-width: 1024px) {
+  .page-head__title--with-loop { font-size: clamp(120px, 11vw, 200px); }
 }
 .page-head__title--with-loop .title-word {
   display: inline-block;
@@ -1525,10 +1547,18 @@ body.is-loaded { opacity: 1; }
 .lightbox__inner {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 20px;
   width: 100%;
   max-width: 1100px;
   max-height: 90vh;
+  /* Allow the entire content (image + info) to scroll vertically if it
+     doesn't fit the viewport on mobile. The inner becomes the scroll
+     container so the user can scroll image and info as one unit. */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Padding inside so content doesn't touch the rounded edges or get
+     hidden behind the close button at the top. */
+  padding: 8px;
   transform: scale(0.96);
   opacity: 0;
   transition: opacity .35s var(--e-out) .05s, transform .4s var(--e-out) .05s;
@@ -1541,6 +1571,8 @@ body.is-loaded { opacity: 1; }
   .lightbox__inner {
     grid-template-columns: 1fr 320px;
     gap: 40px;
+    overflow: hidden;            /* on desktop image + info already fit, no scroll */
+    padding: 0;
   }
 }
 
@@ -1551,28 +1583,42 @@ body.is-loaded { opacity: 1; }
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 0;             /* let it shrink */
-  max-height: 80vh;
+  min-height: 0;
+  /* Cap media height on mobile so the info area is visible below it */
+  max-height: 55vh;
+}
+@media (min-width: 900px) {
+  .lightbox__media { max-height: 80vh; }
 }
 .lightbox__media img,
 .lightbox__media .select__ph {
   width: 100%;
   height: 100%;
-  max-height: 80vh;
+  max-height: 55vh;
   object-fit: contain;
   display: block;
 }
+@media (min-width: 900px) {
+  .lightbox__media img,
+  .lightbox__media .select__ph { max-height: 80vh; }
+}
 
-/* Info sidebar */
+/* Info sidebar — on mobile sits below media in normal flow; on desktop is
+   the right column with its own scroll. */
 .lightbox__info {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 18px;
-  padding: 8px 4px;
+  gap: 16px;
+  padding: 8px 4px 20px;
   color: var(--ink);
-  max-height: 80vh;
-  overflow-y: auto;
+}
+@media (min-width: 900px) {
+  .lightbox__info {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 8px 4px;
+  }
 }
 .lightbox__type {
   font-family: var(--font-mono);

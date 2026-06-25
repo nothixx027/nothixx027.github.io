@@ -570,6 +570,21 @@ If your repo is messy with old test files, these are safe to delete:
 
 When you change the site, add a line here. Newest at the top.
 
+2026-06-25  Mobile + spacing fixes — (1) Contact title shrunk on mobile/
+            tablet via new clamp scales so "get in [slideshow] touch"
+            fits one line at any viewport. Same cap on desktop fixes
+            the overflow past the right edge. (2) Services page top
+            padding bumped to 140px mobile / 180px desktop so the
+            title clears the fixed nav with breathing room. Services
+            title size capped at clamp(56px, 14vw, 96px) mobile so it
+            doesn't burst into the nav. Service row titles shrunk and
+            left-aligned for clean stacking when they wrap. (3) Selects
+            lightbox now scrollable on mobile — media capped at 55vh,
+            info area sits below in normal flow. Desktop layout
+            unchanged (image + sidebar side-by-side). (4) Between-
+            section vertical padding reduced (.section from 100/140
+            to 70/100, .works bottom from 100 to 60) to tighten the
+            page reading rhythm without compressing card internals.
 2026-05-25  New SELECTS page (/selects) added for individual one-off
             pieces. Masonry grid (CSS columns, 2/3/4 cols at mobile/
             tablet/desktop), filterable by genre via chips at top
