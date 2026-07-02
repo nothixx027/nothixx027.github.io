@@ -1178,21 +1178,23 @@ body.is-loaded { opacity: 1; }
   display: flex;
   flex-wrap: nowrap;                   /* keep get in [frame] touch on one row */
   align-items: center;
-  gap: 0.18em;
+  gap: 0.14em;
   line-height: 1;
   /* Override base: no top border so the inline frame doesn't visually break it */
   border-top: 0;
   padding-top: 24px;
   white-space: nowrap;
-  /* Mobile: shrink the title so "get in [frame] touch" fits one line at any
-     viewport. Desktop sizing comes from the base .page-head__title rule. */
-  font-size: clamp(40px, 11vw, 70px);
+  letter-spacing: -0.045em;             /* tighter tracking = more room for bigger font */
+  /* Mobile: push the font as big as the one-line math allows. The frame
+     shrinks alongside (see .title-loop mobile rule) so ~4.5em of characters
+     + a compact frame fits inside the viewport. */
+  font-size: clamp(56px, 15vw, 90px);
 }
 @media (min-width: 720px) {
-  .page-head__title--with-loop { font-size: clamp(70px, 12vw, 120px); }
+  .page-head__title--with-loop { font-size: clamp(90px, 13vw, 140px); }
 }
 @media (min-width: 1024px) {
-  .page-head__title--with-loop { font-size: clamp(120px, 11vw, 200px); }
+  .page-head__title--with-loop { font-size: clamp(140px, 11vw, 200px); }
 }
 .page-head__title--with-loop .title-word {
   display: inline-block;
@@ -1209,10 +1211,10 @@ body.is-loaded { opacity: 1; }
 .title-loop {
   position: relative;
   display: inline-block;
-  /* 16:9 frame to match project cover image ratio.
-     Height ~0.9em fits inline with the title text on one row. */
-  width: 1.6em;
-  height: 0.9em;
+  /* 16:9 frame. Mobile: compact (1.0em × 0.56em) so more room for the words.
+     Desktop: bigger frame (1.6em × 0.9em) since there's viewport to spare. */
+  width: 1.0em;
+  height: 0.56em;
   vertical-align: middle;
   flex: 0 0 auto;
   border-radius: 0.08em;
@@ -1221,6 +1223,12 @@ body.is-loaded { opacity: 1; }
   box-shadow:
     0 0.04em 0.12em rgba(0,0,0,0.45),
     inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+@media (min-width: 720px) {
+  .title-loop { width: 1.3em; height: 0.73em; }
+}
+@media (min-width: 1024px) {
+  .title-loop { width: 1.6em; height: 0.9em; }
 }
 .title-loop__img {
   position: absolute;

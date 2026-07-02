@@ -265,6 +265,72 @@
     });
   }
 
+  // ============== Contact form submit → Web3Forms ==============
+  // The form has data-contact-form. It normally POSTs to Web3Forms and
+  // redirects, but we intercept to keep the user on the page and show
+  // inline success/error state on the submit button.
+  const contactForm = document.querySelector('[data-contact-form]');
+  if (contactForm) {
+    const btn = contactForm.querySelector('[data-submit-btn]');
+    const originalLabel = btn ? btn.textContent : 'Submit';
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot check — if a bot filled the hidden checkbox, silently
+      // pretend success without sending anything.
+      const honeypot = contactForm.querySelector('input[name="botcheck"]');
+      if (honeypot && honeypot.checked) return;
+
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+      }
+
+      try {
+        // Build a JSON payload from the form fields. Web3Forms accepts
+        // both multipart form-data and JSON; JSON is cleaner here.
+        const data = new FormData(contactForm);
+        const payload = {};
+        data.forEach((value, key) => { payload[key] = value; });
+
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+          if (btn) btn.textContent = 'Sent ✓';
+          contactForm.reset();
+          // Restore button after a moment so the user can send again
+          setTimeout(() => {
+            if (btn) {
+              btn.textContent = originalLabel;
+              btn.disabled = false;
+            }
+          }, 2500);
+        } else {
+          throw new Error(result.message || 'Submission failed');
+        }
+      } catch (err) {
+        console.error('Contact form error:', err);
+        if (btn) {
+          btn.textContent = 'Try again';
+          setTimeout(() => {
+            btn.textContent = originalLabel;
+            btn.disabled = false;
+          }, 2500);
+        }
+      }
+    });
+  }
+
   // ============== Grid ripple on click ==============
   // Background click anywhere (but not on interactive elements)
   document.addEventListener('click', (e) => {

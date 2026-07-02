@@ -43,20 +43,46 @@
   <section class="section" style="padding-top:0;">
     <div class="shell">
       <div class="contact-grid">
-        <form class="contact-form reveal" onsubmit="event.preventDefault(); const b=this.querySelector('.submit-btn'); b.textContent='Sent ✓'; setTimeout(()=>{this.reset();b.textContent='Submit'},1500);">
+        <!-- ═══════════════════════════════════════════════════════════════
+             CONTACT FORM — posts to Web3Forms
+             The form submits via fetch to keep the user on the page and
+             show inline success/error feedback. Access key is public
+             (Web3Forms is designed this way). To change or rotate it,
+             update BOTH the hidden input value AND any docs mentioning it.
+
+             LOGIC LIVES IN main.js (search for "Contact form submit").
+             That handler:
+               1. Intercepts submit → prevents default redirect
+               2. Posts JSON to https://api.web3forms.com/submit
+               3. On success: shows "Sent ✓" state for ~2s, then resets
+               4. On error: shows "Try again" state briefly
+             ═══════════════════════════════════════════════════════════════ -->
+        <form class="contact-form reveal"
+              data-contact-form
+              action="https://api.web3forms.com/submit"
+              method="POST">
+          <!-- Web3Forms access key — public by design, safe to expose -->
+          <input type="hidden" name="access_key" value="88512c4e-381b-47a3-8309-98d7cec9d4c1" />
+          <!-- Optional: subject line for the emails you receive -->
+          <input type="hidden" name="subject" value="New enquiry from heybharat.design" />
+          <!-- Optional: sender name shown in your inbox -->
+          <input type="hidden" name="from_name" value="heybharat.design contact form" />
+          <!-- Honeypot to filter out bots (bots fill this; humans don't) -->
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
           <div class="contact-form__field">
             <label for="name">Name</label>
-            <input id="name" type="text" required placeholder="Your name" />
+            <input id="name" name="name" type="text" required placeholder="Your name" />
           </div>
           <div class="contact-form__field">
             <label for="email">Email</label>
-            <input id="email" type="email" required placeholder="hello@you.com" />
+            <input id="email" name="email" type="email" required placeholder="hello@you.com" />
           </div>
           <div class="contact-form__field">
             <label for="msg">Message</label>
-            <textarea id="msg" required placeholder="Tell me about your project…"></textarea>
+            <textarea id="msg" name="message" required placeholder="Tell me about your project…"></textarea>
           </div>
-          <button type="submit" class="submit-btn">Submit</button>
+          <button type="submit" class="submit-btn" data-submit-btn>Submit</button>
         </form>
 
         <div class="socials reveal-stagger">
