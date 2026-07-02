@@ -579,6 +579,18 @@ If your repo is messy with old test files, these are safe to delete:
 
 When you change the site, add a line here. Newest at the top.
 
+2026-07-02  Selects — added 5 real pieces to the top of the grid:
+            (1) Pinkvilla × Spotify partnership announcement (social,
+            2026), (2) Velora perfume launch — Pinkvilla Spotlight
+            (social, 2026), (3) Dring's pizza re-heating hack, a
+            three-panel illustrated tutorial (illustration, 2024),
+            (4) HELL typography experiment (illustration, 2022),
+            (5) Koenigsegg Ghost Regera spec poster (print, 2023,
+            personal fan piece — not commissioned by Koenigsegg).
+            Images compressed at quality 92 to keep them visually
+            crisp; both JPG and WebP variants sit in /selects-images/.
+            Six placeholders remain below the real pieces as visual
+            filler + reference examples until you fill them in.
 2026-06-25  Contact page — (1) Title font pushed bigger on mobile:
             clamp(56px, 15vw, 90px) mobile / (90px, 13vw, 140px)
             tablet / (140px, 11vw, 200px) desktop. Frame between
