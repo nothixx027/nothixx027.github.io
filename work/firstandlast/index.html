@@ -114,34 +114,40 @@
     </div>
   </section>
 
-  <section class="shell see-also">
-    <p class="see-also__label reveal">.see also</p>
-    <div class="see-also__list reveal-stagger">
-      <a href="/work/takeoff/" class="see-also-row see-also-row--yellow">
-        <div class="see-also-row__thumb"></div>
-        <div class="see-also-row__meta">
-          <span class="see-also-row__cat">Dring's Project</span>
-          <span class="see-also-row__title">takeoff</span>
-        </div>
-        <span class="see-also-row__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
-      </a>
-      <a href="/work/dring/" class="see-also-row see-also-row--dring">
-        <div class="see-also-row__thumb"></div>
-        <div class="see-also-row__meta">
-          <span class="see-also-row__cat">Dring's Project</span>
-          <span class="see-also-row__title">dring</span>
-        </div>
-        <span class="see-also-row__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
-      </a>
-      <a href="/work/naughtydares/" class="see-also-row see-also-row--gray">
-        <div class="see-also-row__thumb"></div>
-        <div class="see-also-row__meta">
-          <span class="see-also-row__cat">Dring's Project</span>
-          <span class="see-also-row__title">naughty dares</span>
-        </div>
-        <span class="see-also-row__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
-      </a>
-    </div>
+  <!-- ────────────────────────────────────────────────────────────────
+       NEXT PROJECT — the see-also section is now a single big card
+       that points to the next project in the loop, plus a small
+       "back to projects" link. Loop order (chronological on homepage):
+         firstandlast → aquaflow → snackify → takeoff → naughtydares
+         → dring → back to firstandlast
+       ──────────────────────────────────────────────────────────────── -->
+  <section class="shell next-project-section">
+    <p class="next-project-label reveal">.next project</p>
+
+    <a href="/work/aquaflow/" class="next-project-card reveal"
+       style="background: var(--white-card); color: var(--aquaflow-ink);">
+      <div class="next-project-card__left">
+        <span class="next-project-card__eyebrow">up next</span>
+        <h2 class="next-project-card__title">
+          <span>aquaflow</span>
+          <span class="next-project-card__arrow" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
+          </span>
+        </h2>
+        <span class="next-project-card__cat">Branding and Identity</span>
+      </div>
+      <div class="next-project-card__thumb">
+        <picture>
+          <source srcset="/aquaflow-cover.webp" type="image/webp" />
+          <img src="/aquaflow-cover.jpg" alt="aquaflow" loading="lazy" decoding="async" />
+        </picture>
+      </div>
+    </a>
+
+    <a href="/projects/" class="next-project-back reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span>back to all projects</span>
+    </a>
   </section>
 
   <div data-mount="cta"></div>

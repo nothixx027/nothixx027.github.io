@@ -16,7 +16,7 @@
         <a href="/" class="nav__logo">.heybharat</a>
         <ul class="nav__links">
           <li><a href="/projects/" class="${active('projects')}">projects</a></li>
-          <li><a href="/selects/" class="${active('selects')}">selects</a></li>
+          <li><a href="/selects/" class="${active('selects')}">more work</a></li>
           <li><a href="/about/" class="${active('about')}">about</a></li>
           <li><a href="/services/" class="${active('services')}">services</a></li>
           <li><a href="/contact/" class="${active('contact')}">contact</a></li>
@@ -36,7 +36,7 @@
       <div class="menu__inner">
         <ul class="menu__list">
           <li><a href="/projects/">projects</a></li>
-          <li><a href="/selects/">selects</a></li>
+          <li><a href="/selects/">more work</a></li>
           <li><a href="/about/">about</a></li>
           <li><a href="/services/">services</a></li>
           <li><a href="/contact/">contact</a></li>

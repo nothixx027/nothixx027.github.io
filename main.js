@@ -331,6 +331,102 @@
     });
   }
 
+  // ============== Selects preview strip: rotate every ~3s ==============
+  // The strip has 5 rotating slots (data-slot="0..4") + a fixed CTA tile
+  // (data-fixed) at the end. Pool of pieces is defined in an inline
+  // <script type="application/json" data-selects-pool> block inside each
+  // strip. Every ~3s, one random slot cross-fades to a random piece from
+  // the pool that isn't currently visible in the strip.
+  //
+  // To add a new piece to the rotation: edit the data-selects-pool JSON
+  // in index.html AND projects/index.html (both pages have the strip).
+  // Also drop the image in /selects-images/. That's it — no CSS or JS
+  // changes needed.
+  document.querySelectorAll('[data-selects-strip]').forEach((strip) => {
+    const poolScript = strip.querySelector('[data-selects-pool]');
+    if (!poolScript) return;
+
+    let pool;
+    try {
+      pool = JSON.parse(poolScript.textContent);
+    } catch (e) {
+      console.error('Selects pool JSON invalid:', e);
+      return;
+    }
+    if (!Array.isArray(pool) || pool.length < 2) {
+      return;
+    }
+
+    const slots = Array.from(strip.querySelectorAll('.selects-preview-card[data-slot]'));
+    if (!slots.length) return;
+
+    // If the pool has the same number of (or fewer) pieces as visible
+    // slots, there's nothing new to rotate to — just show them all.
+    // As soon as you add a 6th piece to the pool, rotation kicks in
+    // automatically.
+    if (pool.length <= slots.length) return;
+
+    // Track which pool indices are currently displayed so we don't repeat
+    const visible = new Set();
+    slots.forEach((slot) => {
+      const img = slot.querySelector('img');
+      if (!img) return;
+      const currentBase = img.getAttribute('src').split('/').pop().replace('.jpg', '');
+      const idx = pool.findIndex((p) => p.img === currentBase);
+      slot.dataset.poolIdx = idx >= 0 ? String(idx) : '-1';
+      if (idx >= 0) visible.add(idx);
+    });
+
+    const swapSlot = () => {
+      const slot = slots[Math.floor(Math.random() * slots.length)];
+      const currentIdx = parseInt(slot.dataset.poolIdx || '-1', 10);
+
+      // Pick a new pool piece that's not currently visible anywhere
+      const candidates = pool
+        .map((_, i) => i)
+        .filter((i) => !visible.has(i) && i !== currentIdx);
+      if (!candidates.length) return;
+
+      const newIdx = candidates[Math.floor(Math.random() * candidates.length)];
+      const piece = pool[newIdx];
+
+      // Cross-fade: fade the current slot out, swap image, fade in
+      slot.classList.add('is-swapping');
+      setTimeout(() => {
+        const img = slot.querySelector('img');
+        const source = slot.querySelector('source');
+        // Respect local-preview BASE prefix if set (window.__SITE_BASE);
+        // otherwise use root-absolute path which is how the deployed site
+        // serves everything.
+        const base = (typeof window !== 'undefined' && window.__SITE_BASE)
+          ? window.__SITE_BASE + 'selects-images/'
+          : '/selects-images/';
+        if (img) {
+          img.src = `${base}${piece.img}.jpg`;
+          img.alt = piece.alt;
+        }
+        if (source) {
+          source.srcset = `${base}${piece.img}.webp`;
+        }
+
+        // Update tracking
+        if (currentIdx >= 0) visible.delete(currentIdx);
+        visible.add(newIdx);
+        slot.dataset.poolIdx = String(newIdx);
+
+        // Fade back in
+        requestAnimationFrame(() => {
+          slot.classList.remove('is-swapping');
+        });
+      }, 400);
+    };
+
+    // Rotate every 3 seconds. Randomize slightly so multiple visible
+    // strips don't tick in lockstep.
+    const interval = 3000 + Math.floor(Math.random() * 500);
+    setInterval(swapSlot, interval);
+  });
+
   // ============== Grid ripple on click ==============
   // Background click anywhere (but not on interactive elements)
   document.addEventListener('click', (e) => {

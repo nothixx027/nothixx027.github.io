@@ -88,7 +88,7 @@ PROJECTS (/projects)
   Title + intro. Clients grid with 7 SVG logos (twinkle animation).
   Full list of project cards with descriptions to the right.
 
-SELECTS (/selects)
+SELECTS (/selects)  — nav label "more work"
   Masonry grid of individual one-off pieces — posters, social posts,
   packaging, identity studies, illustrations. Filter chips at top:
   All / Print / Social / Packaging / Identity / Illustration.
@@ -96,6 +96,10 @@ SELECTS (/selects)
   a sidebar of metadata (title, client, year, type, optional
   description). Background grid blurs while lightbox is open.
   Arrow keys navigate, Esc closes.
+
+  The page is also PREVIEWED on the homepage and on /projects/ via
+  a horizontal scrolling strip showing 5 pieces + a "see everything"
+  CTA. See "how to update the preview strip" note in section 5b.
 
 ABOUT (/about)
   Title. Quick stats row (2+ years, India IST, available). Portrait +
@@ -138,7 +142,17 @@ WORK PAGES (/work/projectname)
     5. Middle paragraph
     6. Block 02 (16:9 image) + caption
     7. Closing paragraph
-    8. See also row (3 links to other projects)
+    8. NEXT PROJECT card — single big colored card that points to the
+       next project in a fixed loop, plus a small "back to all
+       projects" link.
+
+  Loop order (change one page → update the whole loop):
+    firstandlast → aquaflow → snackify → takeoff → naughtydares
+    → dring → back to firstandlast
+
+  If you add or remove a project, edit the next-project-card block
+  at the bottom of every affected work page's index.html to keep
+  the chain unbroken.
 
 
 ════════════════════════════════════════════════════════════════════════════
@@ -284,6 +298,34 @@ STEP 3 — Adding a new filter genre
 
 STEP 4 — Commit and push
   Commit message: "Add new select: [piece name]"
+
+STEP 5 (recommended) — Add it to the rotating preview strip
+  The homepage and /projects/ page have a "more work" preview strip
+  showing 5 pieces + a "+ many more" tile at the end. The strip
+  auto-rotates: every ~3 seconds one card cross-fades to a fresh
+  piece pulled from a pool defined in the HTML.
+
+  To make YOUR new piece show up in the rotation:
+
+    1. Open BOTH index.html AND projects/index.html.
+    2. Find the <script type="application/json" data-selects-pool>
+       block inside .selects-preview-strip.
+    3. Add a new JSON entry for your piece. Example:
+         {"img":"kidley-hangtag-spring","alt":"Kidley hang tag"}
+       (the "img" value is the filename WITHOUT extension —
+       /selects-images/kidley-hangtag-spring.jpg must exist)
+    4. Don't touch the 5 initial <a class="selects-preview-card">
+       blocks below — they're just what shows on first paint.
+       Rotation swaps them out automatically.
+
+  ROTATION RULE: kicks in only when the pool has MORE than 5 pieces.
+  With exactly 5, all pieces stay visible (nothing to rotate to).
+  Add a 6th → rotation begins. Add a 20th → rotation cycles through
+  all of them evenly over time.
+
+  Reason to keep the pool in sync on both pages: the strip appears
+  on both /index and /projects, and they use the same rotation logic.
+  A different pool per page is fine too — just paste different JSON.
 
 
 ════════════════════════════════════════════════════════════════════════════
@@ -579,6 +621,39 @@ If your repo is messy with old test files, these are safe to delete:
 
 When you change the site, add a line here. Newest at the top.
 
+2026-07-29  Two fixes on top of the previous update:
+            (1) LOCAL PREVIEW BUG FIXED — the previous version of the
+            path-rewriting script used ' + BASE + ' string concat which
+            doesn't work inside template literals (backticks). All nav
+            links, footer links, and CTA links in layout.js rendered
+            as broken. Corrected to ${BASE} template-literal syntax.
+            Navigation now works in the local preview zip.
+            (2) The "more work" preview strip now auto-rotates. Every
+            ~3 seconds one card cross-fades to a fresh piece from a
+            pool defined in an inline JSON block inside each strip.
+            Rotation only activates when the pool has more than 5
+            pieces (otherwise all pieces stay visible — nothing to
+            rotate to). See Section 5b Step 5 for how to add new
+            pieces to the rotation.
+2026-07-02  Selects discoverability + work-page loop —
+            (1) Renamed nav "selects" → "more work" (both desktop and
+            mobile menus) so non-designers understand what it is. The
+            URL /selects/ is unchanged.
+            (2) Added a "more work" preview strip on the HOMEPAGE
+            between the last work card and .about — horizontal
+            scrolling row of 5 real selects + a "+ many more" CTA
+            tile. Same strip added to /projects/ after the last
+            project card. Catches visitors who never explored the
+            /selects/ page.
+            (3) Every work page's bottom section rebuilt — replaced
+            the 3-card "see also" row with a single big NEXT PROJECT
+            card that loops through all works:
+              firstandlast → aquaflow → snackify → takeoff →
+              naughtydares → dring → back to firstandlast.
+            Small "back to all projects" link sits below the next-
+            project card as a secondary option.
+            New CSS: .next-project-card, .selects-preview-section,
+            .selects-preview-strip, .selects-preview-cta.
 2026-07-02  Selects — added 5 real pieces to the top of the grid:
             (1) Pinkvilla × Spotify partnership announcement (social,
             2026), (2) Velora perfume launch — Pinkvilla Spotlight

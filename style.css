@@ -1717,6 +1717,278 @@ body.lightbox-open {
 .see-also-row__arrow { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
 .see-also-row__arrow svg { width: 100%; height: 100%; transition: transform .5s var(--e-out); }
 
+/* ============================================================
+   NEXT PROJECT — single big card that loops through all works.
+   Replaces the previous "see also" 3-card row on work pages.
+   User finishes reading → one obvious next step → keeps browsing.
+   ============================================================ */
+.next-project-section {
+  padding: 100px 0 60px;
+  position: relative;
+  z-index: 5;
+}
+@media (min-width: 1024px) { .next-project-section { padding: 140px 0 80px; } }
+
+.next-project-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-bottom: 32px;
+}
+.next-project-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-2);
+}
+
+/* The big card. Fills full width of shell. Height responds to content
+   inside. Colored by --accent inherited from the work-page body style. */
+.next-project-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  padding: 40px 28px;
+  border-radius: 14px;
+  background: var(--accent, var(--gray-card));
+  color: var(--accent-ink, var(--ink));
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.6s var(--e-out), box-shadow 0.6s var(--e-out);
+}
+@media (min-width: 720px) {
+  .next-project-card {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 60px 48px;
+    gap: 48px;
+  }
+}
+@media (min-width: 1024px) {
+  .next-project-card {
+    padding: 80px 80px;
+    gap: 80px;
+  }
+}
+
+@media (hover: hover) {
+  .next-project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .next-project-card:hover .next-project-card__arrow svg {
+    transform: translateX(10px);
+  }
+  .next-project-card:hover .next-project-card__thumb img {
+    transform: scale(1.04);
+  }
+}
+
+.next-project-card__left {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.next-project-card__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.next-project-card__title {
+  font-weight: 500;
+  font-size: clamp(48px, 10vw, 96px);
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+@media (min-width: 1024px) {
+  .next-project-card__title { font-size: clamp(72px, 8vw, 120px); }
+}
+.next-project-card__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.85em;
+  height: 0.85em;
+  flex-shrink: 0;
+}
+.next-project-card__arrow svg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s var(--e-out);
+}
+.next-project-card__cat {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+
+.next-project-card__thumb {
+  aspect-ratio: 16/9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.2);
+}
+.next-project-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--e-out);
+}
+
+/* Small "back to all projects" link under the next-project card */
+.next-project-back {
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color 0.3s var(--e-out), gap 0.3s var(--e-out);
+}
+.next-project-back:hover {
+  color: var(--ink);
+  gap: 14px;
+}
+.next-project-back svg {
+  width: 14px;
+  height: 14px;
+  transform: rotate(180deg);
+}
+
+/* ============================================================
+   SELECTS PREVIEW — horizontal strip used on the homepage below
+   the work cards. A compact peek at the selects grid to draw
+   people toward /projects/ or /selects/ for the full grid.
+   ============================================================ */
+.selects-preview-section {
+  padding: 60px 0 100px;
+  position: relative;
+  z-index: 5;
+}
+@media (min-width: 1024px) { .selects-preview-section { padding: 100px 0 140px; } }
+
+.selects-preview-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.selects-preview-head__left { display: flex; flex-direction: column; gap: 8px; }
+.selects-preview-head__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.selects-preview-head__title {
+  font-weight: 400;
+  font-size: clamp(28px, 5vw, 44px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* Horizontal scrolling strip — snap-scroll on mobile, natural on desktop */
+.selects-preview-strip {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0 20px;
+  margin: 0 calc(var(--pad-x) * -1);
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+  scrollbar-width: none;
+}
+.selects-preview-strip::-webkit-scrollbar { display: none; }
+@media (min-width: 1024px) { .selects-preview-strip { gap: 20px; } }
+
+.selects-preview-card {
+  flex: 0 0 auto;
+  width: 220px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #111;
+  scroll-snap-align: start;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.5s var(--e-out);
+  aspect-ratio: 3/4;
+  position: relative;
+}
+@media (min-width: 720px) { .selects-preview-card { width: 260px; } }
+@media (min-width: 1024px) { .selects-preview-card { width: 300px; } }
+
+.selects-preview-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--e-out);
+}
+@media (hover: hover) {
+  .selects-preview-card:hover { transform: translateY(-4px); }
+  .selects-preview-card:hover img { transform: scale(1.05); }
+}
+.selects-preview-card__ph {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Rotator cross-fade: JS toggles .is-swapping to fade a card out;
+   after the image is replaced, the class is removed and the card
+   fades back in. Add a tiny scale for elegance. */
+.selects-preview-card img {
+  transition: opacity 0.4s var(--e-out), transform 0.6s var(--e-out);
+}
+.selects-preview-card.is-swapping img {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.selects-preview-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  border: 1px solid var(--line-2);
+  border-radius: 100px;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  transition: background 0.3s var(--e-out), border-color 0.3s var(--e-out), gap 0.3s var(--e-out);
+}
+.selects-preview-cta:hover {
+  background: var(--ink);
+  color: #0a0a0a;
+  border-color: var(--ink);
+  gap: 16px;
+}
+.selects-preview-cta svg { width: 16px; height: 16px; }
+
 /* ============ Reveals ============ */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1s var(--e-out), transform 1s var(--e-out); }
 .reveal.is-in { opacity: 1; transform: translateY(0); }
