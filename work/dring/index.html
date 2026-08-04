@@ -5,344 +5,322 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dring — heybharat</title>
   <link rel="stylesheet" href="/style.css" />
-  <style>
-    /* ── Social media sections shared styles ── */
-    .social-section { padding: 80px 0 40px; }
-    .social-section + .social-section { padding-top: 40px; }
-    .social-section__header { margin-bottom: 32px; }
-    .social-section__label {
-      font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);
-      padding-top: 14px; border-top: 1px solid var(--line-2); margin-bottom: 12px;
-    }
-    .social-section__title {
-      font-weight: 500; font-size: clamp(24px,3.6vw,36px);
-      letter-spacing: -0.03em; color: var(--ink);
-    }
-    .social-section__desc {
-      font-family: var(--font-mono); font-size: 13px; color: var(--ink-2);
-      margin-top: 8px; line-height: 1.6;
-    }
-
-    /* ── Website Banner: 16:9 / wide ── */
-    .banner-grid { display: grid; gap: 16px; }
-    .banner-item { border-radius: 12px; overflow: hidden; background: var(--accent); position: relative; display: flex; align-items: center; justify-content: center; }
-    .banner-item--wide { aspect-ratio: 16/6; }
-    .banner-item--half { aspect-ratio: 16/9; }
-    @media (min-width: 768px) {
-      .banner-grid--halves { grid-template-columns: 1fr 1fr; }
-    }
-    .banner-item img { width: 100%; height: 100%; object-fit: cover; }
-    .banner-item .ph { font-family: var(--font-mono); font-size: 13px; color: rgba(0,0,0,0.35); }
-    .banner-item__tag { position: absolute; top: 12px; left: 14px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.4); padding: 3px 10px; border-radius: 20px; }
-
-    /* ── Instagram Posts: 1:1 ── */
-    .insta-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
-    @media (min-width: 768px) { .insta-grid { grid-template-columns: repeat(3,1fr); gap: 16px; } }
-    @media (min-width: 1200px) { .insta-grid { grid-template-columns: repeat(4,1fr); gap: 20px; } }
-    .insta-post { aspect-ratio: 1/1; border-radius: 12px; overflow: hidden; background: var(--accent); display: flex; align-items: center; justify-content: center; position: relative; }
-    .insta-post img { width: 100%; height: 100%; object-fit: cover; }
-    .insta-post .ph { font-family: var(--font-mono); font-size: 13px; color: rgba(0,0,0,0.35); text-align: center; padding: 8px; }
-    .insta-post__tag { position: absolute; bottom: 10px; left: 12px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.35); padding: 3px 8px; border-radius: 20px; }
-
-    /* ── Stories: 9:16 portrait ── */
-    .story-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
-    @media (min-width: 600px) { .story-grid { grid-template-columns: repeat(3,1fr); gap: 16px; } }
-    @media (min-width: 1024px) { .story-grid { grid-template-columns: repeat(5,1fr); gap: 20px; } }
-    .story-item { aspect-ratio: 9/16; border-radius: 16px; overflow: hidden; background: var(--accent); display: flex; align-items: center; justify-content: center; position: relative; }
-    .story-item img { width: 100%; height: 100%; object-fit: cover; }
-    .story-item .ph { font-family: var(--font-mono); font-size: 12px; color: rgba(0,0,0,0.35); text-align: center; padding: 10px; writing-mode: horizontal-tb; }
-    .story-item__tag { position: absolute; bottom: 12px; left: 12px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.38); padding: 3px 8px; border-radius: 20px; }
-
-    /* ── Reels: 9:16 in wider cards ── */
-    .reel-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
-    @media (min-width: 600px) { .reel-grid { grid-template-columns: repeat(3,1fr); gap: 16px; } }
-    @media (min-width: 1024px) { .reel-grid { grid-template-columns: repeat(4,1fr); gap: 20px; } }
-    .reel-item { aspect-ratio: 9/16; border-radius: 16px; overflow: hidden; background: var(--accent); display: flex; align-items: center; justify-content: center; position: relative; }
-    .reel-item img { width: 100%; height: 100%; object-fit: cover; }
-    .reel-item .ph { font-family: var(--font-mono); font-size: 12px; color: rgba(0,0,0,0.35); text-align: center; padding: 10px; }
-    .reel-item__tag { position: absolute; bottom: 12px; left: 12px; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.38); padding: 3px 8px; border-radius: 20px; }
-    .reel-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 44px; height: 44px; background: rgba(255,255,255,0.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-    .reel-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 3px; }
-  </style>
 </head>
 
 <!--
-  ╔══════════════════════════════════════════════════════════════════╗
-  ║         HOW TO ADD IMAGES — work-dring.html                      ║
-  ╠══════════════════════════════════════════════════════════════════╣
-  ║                                                                  ║
-  ║  IMAGE SLOTS — drop these EXACT filenames in the same folder:    ║
-  ║                                                                  ║
-  ║    COVER (16:9, 1920×1080)    →  dring-cover.jpg                 ║
-  ║    APP SCREEN 01 (16:9)       →  dring-app-01.jpg                ║
-  ║    APP SCREEN 02 (16:9)       →  dring-app-02.jpg                ║
-  ║    BANNER HERO (16:6 wide)    →  dring-banner-hero.jpg           ║
-  ║    BANNER FEATURE 01 (16:9)   →  dring-banner-feature-01.jpg     ║
-  ║    BANNER FEATURE 02 (16:9)   →  dring-banner-feature-02.jpg     ║
-  ║    BANNER CTA (16:6 wide)     →  dring-banner-cta.jpg            ║
-  ║    INSTAGRAM POSTS (1:1)      →  dring-post-01.jpg … -06.jpg     ║
-  ║    STORIES (9:16, 1080×1920)  →  dring-story-01.jpg … -05.jpg    ║
-  ║    REELS (9:16, 1080×1920)    →  dring-reel-01.jpg … -04.jpg     ║
-  ║                                                                  ║
-  ║  HOW: find the ▼ comment, remove <span class="ph">,              ║
-  ║  and replace with <img src="/FILENAME.jpg" alt="..." />           ║
-  ║                                                                  ║
-  ╚══════════════════════════════════════════════════════════════════╝
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║         DRING HUB — /work/dring/                                     ║
+  ╠══════════════════════════════════════════════════════════════════════╣
+  ║                                                                      ║
+  ║  This page is a HUB, not a normal case study. It sits at the top     ║
+  ║  of the Dring work with three sub-projects (First & Last, Naughty    ║
+  ║  Dares, Takeoff) and a body of social + behind-the-scenes work.      ║
+  ║                                                                      ║
+  ║  SECTIONS:                                                           ║
+  ║    1. Hero + meta                                                    ║
+  ║    2. Bio paragraph                                                  ║
+  ║    3. PRODUCTS — 3 clickable tiles → individual case studies         ║
+  ║    4. SOCIAL MEDIA — grid of Instagram statics (11 pieces)           ║
+  ║    5. BEHIND THE SCENES — real-world product photos (3)              ║
+  ║    6. Next project card + back to projects                           ║
+  ║                                                                      ║
+  ║  HOW TO ADD MORE SOCIAL PIECES:                                      ║
+  ║    1. Compress at tinypng.com (target under 300 KB).                 ║
+  ║    2. Drop the image in /dring-work/ folder.                         ║
+  ║    3. Copy any <a class="dring-social-tile"> block below and update  ║
+  ║       the image path + alt.                                          ║
+  ║                                                                      ║
+  ║  HOW TO ADD A NEW PRODUCT TILE:                                      ║
+  ║    1. Add a new tile in the "products" grid below.                   ║
+  ║    2. Point href to the product's own work page (or leave empty if   ║
+  ║       no case study yet — see the "designed for" section for how).   ║
+  ║                                                                      ║
+  ║  BANNER SLOT:                                                        ║
+  ║    A 16:9 empty banner sits between the hero and the body copy.      ║
+  ║    Drop /dring-cover.jpg + .webp in the root and it renders.         ║
+  ║    Until then, a solid purple placeholder shows.                     ║
+  ║                                                                      ║
+  ╚══════════════════════════════════════════════════════════════════════╝
 -->
 
-<body data-page="projects" class="work-page work-page--dring" style="--accent: var(--dring-card-ink);">
+<body data-page="projects" class="work-page work-page--dring" style="--accent: var(--dring-card);">
+
   <div data-mount="grid"></div>
   <div data-mount="nav"></div>
 
+  <!-- HERO -->
   <section class="work-head">
     <div class="shell">
       <div class="work-head__top">
         <h1 class="work-head__title reveal-blur">dring</h1>
-        <p class="work-head__desc reveal">App design, website banners, Instagram posts, stories, and reels — the full Dring social presence</p>
+        <p class="work-head__desc reveal">Two years in-house at Dring — three flagship party games designed end-to-end, plus every static, social post, and campaign creative in between.</p>
       </div>
     </div>
   </section>
 
+  <!-- COVER / BANNER SLOT
+       Drop /dring-cover.jpg + .webp in the root to fill this.
+       Until then, a solid purple 16:9 tile shows. -->
   <div class="work-cover reveal">
-    <!-- ▼ DRING — COVER IMAGE  →  dring-cover.jpg  (16:9, 1920×1080)
-         Replace the <span> below with: <img src="/dring-cover.jpg" alt="dring cover" /> -->
-    <span class="ph">.dring</span>
+    <picture>
+      <source srcset="/dring-cover.webp" type="image/webp" />
+      <img alt="Dring cover" src="/dring-cover.jpg" onerror="this.style.display='none'; this.parentElement.parentElement.classList.add('is-empty');" decoding="async" />
+    </picture>
   </div>
 
+  <!-- BODY: bio + meta -->
   <section class="shell">
     <div class="work-body">
       <div class="work-body__copy reveal">
-        <p>Dring needed an identity that could carry across product, web, and a full social media calendar without losing tone. The system is anchored by a deep electric purple — confident, distinct, never loud — extended through Instagram posts, stories, and reel covers built to read at thumbnail size.</p>
+        <p>Dring makes competitive party games — the kind you break out when the room is loud and everyone's already had a drink. I joined as the in-house designer and stayed for two years, running everything visual: three full product launches (First &amp; Last, Naughty Dares, Takeoff), packaging systems, and a steady drumbeat of social creative that had to look right at thumbnail size.</p>
       </div>
       <aside class="work-meta reveal">
-        <div class="work-meta__row"><div class="work-meta__label">year</div><div class="work-meta__value">2024</div></div>
-        <div class="work-meta__row"><div class="work-meta__label">timeframe</div><div class="work-meta__value">45 days</div></div>
-        <div class="work-meta__row"><div class="work-meta__label">tools</div><div class="work-meta__value">Figma, Illustrator, Photoshop</div></div>
-        <div class="work-meta__row"><div class="work-meta__label">category</div><div class="work-meta__value">Branding &amp; Social Media</div></div>
+        <div class="work-meta__row">
+          <div class="work-meta__label">years</div>
+          <div class="work-meta__value">2024 — 2025</div>
+        </div>
+        <div class="work-meta__row">
+          <div class="work-meta__label">role</div>
+          <div class="work-meta__value">Graphic Designer</div>
+        </div>
+        <div class="work-meta__row">
+          <div class="work-meta__label">tools</div>
+          <div class="work-meta__value">Illustrator, Photoshop</div>
+        </div>
+        <div class="work-meta__row">
+          <div class="work-meta__label">category</div>
+          <div class="work-meta__value">In-house, full-time</div>
+        </div>
       </aside>
     </div>
   </section>
 
-  <!-- App Screens -->
-  <section class="shell">
-    <div class="work-block reveal">
-      <div class="work-block__num">01</div>
-      <div class="work-block__img">
-        <!-- ▼ DRING — APP SCREEN 01  →  dring-app-01.jpg  (16:9)
-             Replace: <img src="/dring-app-01.jpg" alt="Daily session view" /> -->
-        <span class="ph">.dring — app screen 01</span>
-      </div>
-      <p class="work-block__caption">Daily session view with adaptive duration.</p>
-    </div>
-  </section>
-
-  <section class="shell">
-    <div class="work-body" style="padding:60px 0;">
-      <div class="work-body__copy reveal" style="font-size:clamp(18px,3.4vw,22px);">
-        <p>We designed Dring around three principles: low pressure, high signal, and small surface area. No streaks. No leaderboards. Just sessions that get gradually better at meeting you where you are — and a visual language built to extend naturally across every social format.</p>
-      </div>
-      <div></div>
-    </div>
-  </section>
-
-  <section class="shell">
-    <div class="work-block reveal">
-      <div class="work-block__num">02</div>
-      <div class="work-block__img">
-        <!-- ▼ DRING — APP SCREEN 02  →  dring-app-02.jpg  (16:9)
-             Replace: <img src="/dring-app-02.jpg" alt="Onboarding flow" /> -->
-        <span class="ph">.dring — app screen 02</span>
-      </div>
-      <p class="work-block__caption">Onboarding flow that learns from your first three sessions.</p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════
-       WEBSITE BANNERS
-  ══════════════════════════════════════════════ -->
-  <section class="shell social-section">
-    <div class="social-section__header reveal">
-      <p class="social-section__label">.website / banners</p>
-      <h2 class="social-section__title">Website banners</h2>
-      <p class="social-section__desc">Hero and feature banners designed for the Dring marketing site — desktop full-width.</p>
+  <!-- ═══════════════════════════════════════════════════════════════
+       PRODUCTS — three tiles linking to individual case studies
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="shell dring-section">
+    <div class="dring-section__head reveal">
+      <p class="dring-section__eyebrow">.products</p>
+      <h2 class="dring-section__title">Three products, launched end-to-end.</h2>
+      <p class="dring-section__desc">Packaging, brand mark, card design — every surface for each of these was done in-house.</p>
     </div>
 
-    <div class="banner-grid reveal-stagger">
-      <div class="banner-item banner-item--wide">
-        <!-- ▼ BANNER HERO  →  dring-banner-hero.jpg  (16:6, 1920×720)
-             Replace: <img src="/dring-banner-hero.jpg" alt="dring hero banner" /> -->
-        <span class="ph">.banner — hero</span>
-        <span class="banner-item__tag">hero banner — 1920×720</span>
-      </div>
+    <div class="dring-products-grid reveal-stagger">
 
-      <div class="banner-grid banner-grid--halves">
-        <div class="banner-item banner-item--half">
-          <!-- ▼ BANNER FEATURE 01  →  dring-banner-feature-01.jpg  (16:9, 1200×675) -->
-          <span class="ph">.banner — feature 01</span>
-          <span class="banner-item__tag">feature — 1200×675</span>
+      <a href="/work/firstandlast/" class="dring-product-tile" style="background: var(--orange); color: var(--orange-ink);">
+        <div class="dring-product-tile__thumb">
+          <picture>
+            <source srcset="/firstandlast-cover.webp" type="image/webp" />
+            <img src="/firstandlast-cover.jpg" alt="First &amp; Last" loading="lazy" decoding="async" />
+          </picture>
         </div>
-        <div class="banner-item banner-item--half">
-          <!-- ▼ BANNER FEATURE 02  →  dring-banner-feature-02.jpg  (16:9, 1200×675) -->
-          <span class="ph">.banner — feature 02</span>
-          <span class="banner-item__tag">feature — 1200×675</span>
+        <div class="dring-product-tile__body">
+          <span class="dring-product-tile__year">2025</span>
+          <h3 class="dring-product-tile__title">first &amp; last</h3>
+          <span class="dring-product-tile__cat">Party game · card deck</span>
         </div>
-      </div>
+        <span class="dring-product-tile__arrow" aria-hidden="true">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
+        </span>
+      </a>
 
-      <div class="banner-item banner-item--wide">
-        <!-- ▼ BANNER CTA  →  dring-banner-cta.jpg  (16:6, 1920×480) -->
-        <span class="ph">.banner — cta</span>
-        <span class="banner-item__tag">cta strip — 1920×480</span>
-      </div>
+      <a href="/work/naughtydares/" class="dring-product-tile" style="background: var(--gray-card); color: var(--ink);">
+        <div class="dring-product-tile__thumb">
+          <picture>
+            <source srcset="/naughtydares-cover.webp" type="image/webp" />
+            <img src="/naughtydares-cover.jpg" alt="Naughty Dares" loading="lazy" decoding="async" onerror="this.style.display='none';" />
+          </picture>
+        </div>
+        <div class="dring-product-tile__body">
+          <span class="dring-product-tile__year">2024</span>
+          <h3 class="dring-product-tile__title">naughty dares</h3>
+          <span class="dring-product-tile__cat">Party game · couples</span>
+        </div>
+        <span class="dring-product-tile__arrow" aria-hidden="true">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
+        </span>
+      </a>
+
+      <a href="/work/takeoff/" class="dring-product-tile" style="background: var(--yellow-card); color: var(--yellow-card-ink);">
+        <div class="dring-product-tile__thumb">
+          <picture>
+            <source srcset="/takeoff-cover.webp" type="image/webp" />
+            <img src="/takeoff-cover.jpg" alt="Takeoff" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+        <div class="dring-product-tile__body">
+          <span class="dring-product-tile__year">2024</span>
+          <h3 class="dring-product-tile__title">takeoff</h3>
+          <span class="dring-product-tile__cat">Party game · darts</span>
+        </div>
+        <span class="dring-product-tile__arrow" aria-hidden="true">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
+        </span>
+      </a>
+
+    </div>
+
+    <!-- "ALSO DESIGNED FOR" — products without case studies yet.
+         When you're ready to add more case studies later, replace
+         this section OR keep it as a "range" note. -->
+    <p class="dring-also-note reveal">also designed for: <em>Wild · Dialogue Baazi · Drama-Dol · Triple X · God of Mischief · Dring Pong · Blue Monday Beer Saturday Sunday · Horrible Friends · DRING OF</em></p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SOCIAL MEDIA STATICS — 11 pieces in a responsive grid
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="shell dring-section">
+    <div class="dring-section__head reveal">
+      <p class="dring-section__eyebrow">.social</p>
+      <h2 class="dring-section__title">Instagram statics.</h2>
+      <p class="dring-section__desc">Product launches, price drops, campaign creatives — every static designed to work at thumbnail scale.</p>
+    </div>
+
+    <div class="dring-social-grid reveal-stagger">
+
+      <a class="dring-social-tile" href="/dring-work/dring-wild-you-have-grown-up.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-wild-you-have-grown-up.webp" type="image/webp" />
+          <img src="/dring-work/dring-wild-you-have-grown-up.jpg" alt="Dring Wild — you have grown up and so has the game" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-dialogue-baazi-price-drop.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-dialogue-baazi-price-drop.webp" type="image/webp" />
+          <img src="/dring-work/dring-dialogue-baazi-price-drop.jpg" alt="Dialogue Baazi — biggest price drop" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-drama-dol-craziest-price.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-drama-dol-craziest-price.webp" type="image/webp" />
+          <img src="/dring-work/dring-drama-dol-craziest-price.jpg" alt="Drama-Dol — craziest price drop ever" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-triple-x-take-control.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-triple-x-take-control.webp" type="image/webp" />
+          <img src="/dring-work/dring-triple-x-take-control.jpg" alt="Triple X — take control, no hesitation" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-communication-is-sexxxy.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-communication-is-sexxxy.webp" type="image/webp" />
+          <img src="/dring-work/dring-communication-is-sexxxy.jpg" alt="Communication is Sexxxy" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-god-of-mischief-triple-x.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-god-of-mischief-triple-x.webp" type="image/webp" />
+          <img src="/dring-work/dring-god-of-mischief-triple-x.jpg" alt="God of Mischief — Triple X" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-pong-thrill-level.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-pong-thrill-level.webp" type="image/webp" />
+          <img src="/dring-work/dring-pong-thrill-level.jpg" alt="Dring Pong — thrill level infinite" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-first-and-last-quick-reflexes.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-first-and-last-quick-reflexes.webp" type="image/webp" />
+          <img src="/dring-work/dring-first-and-last-quick-reflexes.jpg" alt="First &amp; Last — a game of quick reflexes" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-blue-monday-beer-saturday.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-blue-monday-beer-saturday.webp" type="image/webp" />
+          <img src="/dring-work/dring-blue-monday-beer-saturday.jpg" alt="Blue Monday Beer Saturday Sunday — hand-slapping mayhem" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-horrible-friends-ufo.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-horrible-friends-ufo.webp" type="image/webp" />
+          <img src="/dring-work/dring-horrible-friends-ufo.jpg" alt="Horrible Friends — find out what your friends really think of you" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-social-tile" href="/dring-work/dring-of-honesty-and-chaos.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-of-honesty-and-chaos.webp" type="image/webp" />
+          <img src="/dring-work/dring-of-honesty-and-chaos.jpg" alt="DRING OF — the ultimate game of honesty and chaos" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════
-       INSTAGRAM POSTS
-  ══════════════════════════════════════════════ -->
-  <section class="shell social-section">
-    <div class="social-section__header reveal">
-      <p class="social-section__label">.social / instagram posts</p>
-      <h2 class="social-section__title">Posts — 1:1 square</h2>
-      <p class="social-section__desc">Feed posts designed to work individually and as a cohesive grid.</p>
+  <!-- ═══════════════════════════════════════════════════════════════
+       BEHIND THE SCENES — real product-in-hand shots from the studio
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="shell dring-section">
+    <div class="dring-section__head reveal">
+      <p class="dring-section__eyebrow">.behind the scenes</p>
+      <h2 class="dring-section__title">Shipped, held, played.</h2>
+      <p class="dring-section__desc">Real photos from the studio — designs off the screen and into the world.</p>
     </div>
 
-    <div class="insta-grid reveal-stagger">
-      <div class="insta-post">
-        <!-- ▼ POST 01  →  dring-post-01.jpg  (1:1) -->
-        <span class="ph">.post 01</span>
-        <span class="insta-post__tag">post</span>
-      </div>
-      <div class="insta-post">
-        <!-- ▼ POST 02  →  dring-post-02.jpg  (1:1) -->
-        <span class="ph">.post 02</span>
-        <span class="insta-post__tag">post</span>
-      </div>
-      <div class="insta-post">
-        <!-- ▼ POST 03  →  dring-post-03.jpg  (1:1) -->
-        <span class="ph">.post 03</span>
-        <span class="insta-post__tag">post</span>
-      </div>
-      <div class="insta-post">
-        <!-- ▼ POST 04  →  dring-post-04.jpg  (1:1) -->
-        <span class="ph">.post 04</span>
-        <span class="insta-post__tag">post</span>
-      </div>
-      <div class="insta-post">
-        <!-- ▼ POST 05  →  dring-post-05.jpg  (1:1) -->
-        <span class="ph">.post 05</span>
-        <span class="insta-post__tag">post</span>
-      </div>
-      <div class="insta-post">
-        <!-- ▼ POST 06  →  dring-post-06.jpg  (1:1) -->
-        <span class="ph">.post 06</span>
-        <span class="insta-post__tag">post</span>
-      </div>
+    <div class="dring-bts-grid reveal-stagger">
+
+      <a class="dring-bts-tile dring-bts-tile--tall" href="/dring-work/dring-bts-first-and-last-wall.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-bts-first-and-last-wall.webp" type="image/webp" />
+          <img src="/dring-work/dring-bts-first-and-last-wall.jpg" alt="First &amp; Last box in front of the Dring studio wall" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-bts-tile" href="/dring-work/dring-bts-naughty-dares-office.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-bts-naughty-dares-office.webp" type="image/webp" />
+          <img src="/dring-work/dring-bts-naughty-dares-office.jpg" alt="Naughty Dares box on a workshop table" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
+      <a class="dring-bts-tile" href="/dring-work/dring-bts-naughty-dares-flatlay.jpg" target="_blank" rel="noopener">
+        <picture>
+          <source srcset="/dring-work/dring-bts-naughty-dares-flatlay.webp" type="image/webp" />
+          <img src="/dring-work/dring-bts-naughty-dares-flatlay.jpg" alt="Naughty Dares packaging, instruction booklet, and card deck on a dark surface" loading="lazy" decoding="async" />
+        </picture>
+      </a>
+
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════
-       STORIES
-  ══════════════════════════════════════════════ -->
-  <section class="shell social-section">
-    <div class="social-section__header reveal">
-      <p class="social-section__label">.social / instagram stories</p>
-      <h2 class="social-section__title">Stories — 9:16 portrait</h2>
-      <p class="social-section__desc">Story frames designed for Instagram and Reels thumbnails — optimised for 1080×1920.</p>
-    </div>
-
-    <div class="story-grid reveal-stagger">
-      <div class="story-item">
-        <!-- ▼ STORY 01  →  dring-story-01.jpg  (9:16) -->
-        <span class="ph">.story 01</span>
-        <span class="story-item__tag">story</span>
-      </div>
-      <div class="story-item">
-        <!-- ▼ STORY 02  →  dring-story-02.jpg  (9:16) -->
-        <span class="ph">.story 02</span>
-        <span class="story-item__tag">story</span>
-      </div>
-      <div class="story-item">
-        <!-- ▼ STORY 03  →  dring-story-03.jpg  (9:16) -->
-        <span class="ph">.story 03</span>
-        <span class="story-item__tag">story</span>
-      </div>
-      <div class="story-item">
-        <!-- ▼ STORY 04  →  dring-story-04.jpg  (9:16) -->
-        <span class="ph">.story 04</span>
-        <span class="story-item__tag">story</span>
-      </div>
-      <div class="story-item">
-        <!-- ▼ STORY 05  →  dring-story-05.jpg  (9:16) -->
-        <span class="ph">.story 05</span>
-        <span class="story-item__tag">story</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════
-       REELS
-  ══════════════════════════════════════════════ -->
-  <section class="shell social-section" style="padding-bottom: 80px;">
-    <div class="social-section__header reveal">
-      <p class="social-section__label">.social / reels</p>
-      <h2 class="social-section__title">Reels — covers &amp; motion</h2>
-      <p class="social-section__desc">Reel cover frames and motion design thumbnails — 1080×1920, designed for autoplay scroll.</p>
-    </div>
-
-    <div class="reel-grid reveal-stagger">
-      <div class="reel-item">
-        <!-- ▼ REEL 01  →  dring-reel-01.jpg  (9:16) -->
-        <span class="ph">.reel 01</span>
-        <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <span class="reel-item__tag">reel</span>
-      </div>
-      <div class="reel-item">
-        <!-- ▼ REEL 02  →  dring-reel-02.jpg  (9:16) -->
-        <span class="ph">.reel 02</span>
-        <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <span class="reel-item__tag">reel</span>
-      </div>
-      <div class="reel-item">
-        <!-- ▼ REEL 03  →  dring-reel-03.jpg  (9:16) -->
-        <span class="ph">.reel 03</span>
-        <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <span class="reel-item__tag">reel</span>
-      </div>
-      <div class="reel-item">
-        <!-- ▼ REEL 04  →  dring-reel-04.jpg  (9:16) -->
-        <span class="ph">.reel 04</span>
-        <div class="reel-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <span class="reel-item__tag">reel</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ────────────────────────────────────────────────────────────────
-       NEXT PROJECT — the see-also section is now a single big card
-       that points to the next project in the loop, plus a small
-       "back to projects" link. Loop order (chronological on homepage):
-         firstandlast → aquaflow → snackify → takeoff → naughtydares
-         → dring → back to firstandlast
+  <!-- ─── NEXT PROJECT ─── -->
+    <!-- ────────────────────────────────────────────────────────────────
+       NEXT PROJECT — points to next in the loop.
+       Loop layout:
+         DRING (hub) → aquaflow → snackify → DRING (loops back)
+         Dring sub-products: firstandlast → naughtydares → takeoff
+                             → DRING (returns to hub)
        ──────────────────────────────────────────────────────────────── -->
   <section class="shell next-project-section">
     <p class="next-project-label reveal">.next project</p>
 
-    <a href="/work/firstandlast/" class="next-project-card reveal"
-       style="background: var(--orange); color: var(--orange-ink);">
+    <a href="/work/aquaflow/" class="next-project-card reveal"
+       style="background: var(--white-card); color: var(--aquaflow-ink);">
       <div class="next-project-card__left">
         <span class="next-project-card__eyebrow">up next</span>
         <h2 class="next-project-card__title">
-          <span>first &amp; last</span>
+          <span>aquaflow</span>
           <span class="next-project-card__arrow" aria-hidden="true">
             <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
           </span>
         </h2>
-        <span class="next-project-card__cat">Dring's Project</span>
+        <span class="next-project-card__cat">Branding and Identity</span>
       </div>
       <div class="next-project-card__thumb">
         <picture>
-          <source srcset="/firstandlast-cover.webp" type="image/webp" />
-          <img src="/firstandlast-cover.jpg" alt="first &amp; last" loading="lazy" decoding="async" />
+          <source srcset="/aquaflow-cover.webp" type="image/webp" />
+          <img src="/aquaflow-cover.jpg" alt="aquaflow" loading="lazy" decoding="async" />
         </picture>
       </div>
     </a>

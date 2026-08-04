@@ -134,7 +134,9 @@ RESUME (/resume)
   you'll need to upload separately).
 
 WORK PAGES (/work/projectname)
-  All work pages share one layout (cleanest expression on /work/snackify):
+
+  STANDARD LAYOUT (snackify, aquaflow, firstandlast, naughtydares,
+  takeoff — clean expression on /work/snackify):
     1. Hero title + short description
     2. Cover image (16:9)
     3. Body copy + meta sidebar (year, timeframe, tools, category)
@@ -142,13 +144,23 @@ WORK PAGES (/work/projectname)
     5. Middle paragraph
     6. Block 02 (16:9 image) + caption
     7. Closing paragraph
-    8. NEXT PROJECT card — single big colored card that points to the
-       next project in a fixed loop, plus a small "back to all
-       projects" link.
+    8. NEXT PROJECT card
 
-  Loop order (change one page → update the whole loop):
-    firstandlast → aquaflow → snackify → takeoff → naughtydares
-    → dring → back to firstandlast
+  DRING HUB LAYOUT (/work/dring — different from standard):
+    1. Hero title + description
+    2. Cover / banner slot (16:9, empty purple until you drop
+       /dring-cover.jpg)
+    3. Body + meta (2024-2025, Graphic Designer, in-house)
+    4. PRODUCTS — 3 tiles linking to First & Last, Naughty Dares,
+       Takeoff case studies. Includes "also designed for" inline
+       note listing 9 more Dring products.
+    5. SOCIAL — grid of 11 Instagram statics from /dring-work/
+    6. BEHIND THE SCENES — 3 studio photos of shipped products
+    7. NEXT PROJECT card
+
+  Loop order:
+    Top-level:        dring → aquaflow → snackify → dring
+    Dring sub-tree:   firstandlast → naughtydares → takeoff → dring
 
   If you add or remove a project, edit the next-project-card block
   at the bottom of every affected work page's index.html to keep
@@ -621,6 +633,32 @@ If your repo is messy with old test files, these are safe to delete:
 
 When you change the site, add a line here. Newest at the top.
 
+2026-08-03  Dring hub built + homepage restructure.
+            (1) NEW HUB PAGE at /work/dring/ replacing the old app-
+            focused Dring page. Sections: hero + meta (2024-2025,
+            Graphic Designer, in-house full-time), bio paragraph,
+            PRODUCTS grid with 3 clickable tiles (First & Last,
+            Naughty Dares, Takeoff → their existing case studies),
+            "also designed for" inline note listing 9 more Dring
+            products without case studies, SOCIAL grid with 11
+            Instagram statics, BEHIND-THE-SCENES with 3 studio
+            photos, next-project card, back link.
+            (2) HOMEPAGE reduced from 5 to 3 work cards — Dring
+            (purple, empty banner slot for now), Aquaflow, Snackify.
+            The 3 Dring product cards (First & Last, Takeoff,
+            Naughty Dares) are no longer surfaced at the top level.
+            (3) PROJECTS PAGE same restructure — 3 rows, Dring at
+            top with new description.
+            (4) NEXT-PROJECT LOOP updated to reflect new structure:
+              Top-level: dring → aquaflow → snackify → dring
+              Dring sub-products: firstandlast → naughtydares →
+              takeoff → dring (returns to hub)
+            (5) 14 new images added under /dring-work/: 11 social
+            statics + 3 behind-the-scenes shots, all JPG+WebP,
+            compressed at quality 90.
+            BANNER SLOT: drop /dring-cover.jpg + .webp in root to
+            fill the empty Dring visual on homepage, projects, and
+            hub page cover. Placeholder shows purple tile until then.
 2026-07-29  Two fixes on top of the previous update:
             (1) LOCAL PREVIEW BUG FIXED — the previous version of the
             path-rewriting script used ' + BASE + ' string concat which

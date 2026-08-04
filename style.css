@@ -1718,6 +1718,228 @@ body.lightbox-open {
 .see-also-row__arrow svg { width: 100%; height: 100%; transition: transform .5s var(--e-out); }
 
 /* ============================================================
+   DRING HUB (/work/dring/) — special section styling.
+   Only used on the Dring hub page. Products grid + social
+   statics + behind-the-scenes.
+   ============================================================ */
+
+.dring-section { padding: 80px 0 20px; position: relative; z-index: 5; }
+@media (min-width: 1024px) { .dring-section { padding: 100px 0 30px; } }
+.dring-section + .dring-section { padding-top: 40px; }
+
+.dring-section__head {
+  margin-bottom: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-2);
+}
+.dring-section__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-bottom: 12px;
+}
+.dring-section__title {
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.dring-section__desc {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-2);
+  max-width: 60ch;
+  line-height: 1.6;
+}
+@media (min-width: 1024px) {
+  .dring-section__desc { font-size: 14px; }
+}
+
+/* ─── PRODUCTS GRID ─── */
+.dring-products-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .dring-products-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+}
+
+.dring-product-tile {
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  position: relative;
+  transition: transform 0.5s var(--e-out), box-shadow 0.5s var(--e-out);
+}
+@media (hover: hover) {
+  .dring-product-tile:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  .dring-product-tile:hover .dring-product-tile__thumb img {
+    transform: scale(1.05);
+  }
+  .dring-product-tile:hover .dring-product-tile__arrow svg {
+    transform: translateX(6px);
+  }
+}
+
+.dring-product-tile__thumb {
+  aspect-ratio: 16/10;
+  background: rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+.dring-product-tile__thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--e-out);
+}
+
+.dring-product-tile__body {
+  padding: 24px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.dring-product-tile__year {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0.75;
+  letter-spacing: 0.04em;
+}
+.dring-product-tile__title {
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 32px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0;
+}
+.dring-product-tile__cat {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+.dring-product-tile__arrow {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dring-product-tile__arrow svg {
+  width: 100%; height: 100%;
+  transition: transform 0.5s var(--e-out);
+}
+
+/* "Also designed for" — inline text list of extra products */
+.dring-also-note {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.7;
+  padding: 20px 0 10px;
+  border-top: 1px solid var(--line-2);
+  margin-top: 30px;
+}
+.dring-also-note em { color: var(--ink-2); font-style: normal; }
+
+/* ─── SOCIAL GRID ─── */
+.dring-social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 768px) { .dring-social-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+@media (min-width: 1200px) { .dring-social-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
+
+.dring-social-tile {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
+  display: block;
+  aspect-ratio: 4/5;
+  position: relative;
+  transition: transform 0.5s var(--e-out);
+}
+.dring-social-tile img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s var(--e-out);
+}
+@media (hover: hover) {
+  .dring-social-tile:hover { transform: translateY(-3px); }
+  .dring-social-tile:hover img { transform: scale(1.05); }
+}
+
+/* ─── BEHIND THE SCENES ─── */
+.dring-bts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 768px) {
+  .dring-bts-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: minmax(0, auto);
+    gap: 20px;
+  }
+  /* First tile spans full height on the left */
+  .dring-bts-tile--tall {
+    grid-row: 1 / span 2;
+  }
+}
+
+.dring-bts-tile {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
+  display: block;
+  position: relative;
+  transition: transform 0.5s var(--e-out);
+}
+.dring-bts-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s var(--e-out);
+}
+.dring-bts-tile:not(.dring-bts-tile--tall) {
+  aspect-ratio: 1/1;
+}
+.dring-bts-tile--tall {
+  aspect-ratio: 3/4;
+}
+@media (min-width: 768px) {
+  .dring-bts-tile--tall { aspect-ratio: auto; height: 100%; min-height: 500px; }
+}
+@media (hover: hover) {
+  .dring-bts-tile:hover { transform: translateY(-3px); }
+  .dring-bts-tile:hover img { transform: scale(1.05); }
+}
+
+/* Empty cover fallback for Dring hub — plain purple tile when
+   /dring-cover.jpg doesn't exist yet. */
+.work-page--dring .work-cover.is-empty picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--dring-card);
+  border-radius: var(--radius);
+}
+
+/* ============================================================
    NEXT PROJECT — single big card that loops through all works.
    Replaces the previous "see also" 3-card row on work pages.
    User finishes reading → one obvious next step → keeps browsing.
