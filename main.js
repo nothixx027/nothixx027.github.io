@@ -146,9 +146,10 @@
 
 
   // ============== Selects: filter chips + lightbox ==============
-  // Filter chips at top toggle which pieces show. Click a piece to open
-  // it in a lightbox with title/client/year/description. Esc, arrows,
-  // outside-click, and X button all close.
+  // Filter chips at top toggle which pieces show. The lightbox itself
+  // is a GENERIC component wired further down — any grid marked with
+  // [data-lightbox-source] on its parent registers its clickable items
+  // for the same lightbox overlay.
   const selectsGrid = document.querySelector('[data-selects-grid]');
   if (selectsGrid) {
     const pieces = Array.from(selectsGrid.querySelectorAll('.select'));
@@ -174,38 +175,58 @@
         applyFilter(chip.dataset.filter);
       });
     });
+  }
 
-    // ─── Lightbox ────────────────────────────────────────────────
-    const lb         = document.querySelector('[data-lightbox]');
-    const lbMedia    = document.querySelector('[data-lightbox-media]');
-    const lbType     = document.querySelector('[data-lightbox-type]');
-    const lbTitle    = document.querySelector('[data-lightbox-title]');
-    const lbClient   = document.querySelector('[data-lightbox-client]');
-    const lbYear     = document.querySelector('[data-lightbox-year]');
-    const lbDesc     = document.querySelector('[data-lightbox-desc]');
-    const lbClose    = document.querySelector('[data-lightbox-close]');
-    const lbPrev     = document.querySelector('[data-lightbox-prev]');
-    const lbNext     = document.querySelector('[data-lightbox-next]');
+  // ============== Lightbox (generic) ==============
+  // Any element inside a container marked [data-lightbox-source] becomes
+  // a lightbox trigger. On click, the item's image opens in the fullscreen
+  // overlay with prev/next arrows within THAT source.
+  //
+  // Metadata fields (all optional) read from the CLICKED element's data-*:
+  //   data-title, data-client, data-year, data-type, data-desc
+  //
+  // Currently used by:
+  //   • /selects/       → the masonry grid ([data-selects-grid] also gets
+  //                       [data-lightbox-source] so its .select items open)
+  //   • /work/dring/    → the social statics grid + the BTS grid
+  const lb         = document.querySelector('[data-lightbox]');
+  const lbMedia    = document.querySelector('[data-lightbox-media]');
+  const lbType     = document.querySelector('[data-lightbox-type]');
+  const lbTitle    = document.querySelector('[data-lightbox-title]');
+  const lbClient   = document.querySelector('[data-lightbox-client]');
+  const lbYear     = document.querySelector('[data-lightbox-year]');
+  const lbDesc     = document.querySelector('[data-lightbox-desc]');
+  const lbClose    = document.querySelector('[data-lightbox-close]');
+  const lbPrev     = document.querySelector('[data-lightbox-prev]');
+  const lbNext     = document.querySelector('[data-lightbox-next]');
+
+  if (lb) {
+    let currentSource = null;   // the group of items being navigated
     let currentIndex = -1;
 
-    const getVisiblePieces = () => pieces.filter((p) => !p.classList.contains('is-hidden'));
+    const isVisible = (el) => !el.classList.contains('is-hidden');
+    const getVisibleItems = (source) => {
+      if (!source) return [];
+      return Array.from(source.querySelectorAll('[data-lightbox-item]'))
+        .filter(isVisible);
+    };
 
-    const openLightbox = (piece) => {
-      if (!lb || !piece) return;
-      const visible = getVisiblePieces();
-      currentIndex = visible.indexOf(piece);
+    const openLightbox = (item, source) => {
+      if (!lb || !item) return;
+      currentSource = source;
+      const visible = getVisibleItems(source);
+      currentIndex = visible.indexOf(item);
 
-      // Populate
-      const img = piece.querySelector('img');
-      const ph  = piece.querySelector('.select__ph');
+      // Populate media
+      const img = item.querySelector('img');
+      const ph  = item.querySelector('.select__ph');
       lbMedia.innerHTML = '';
       if (img) {
         const big = document.createElement('img');
         big.src = img.src;
-        big.alt = piece.dataset.title || '';
+        big.alt = item.dataset.title || img.alt || '';
         lbMedia.appendChild(big);
       } else if (ph) {
-        // Show a clone of the placeholder for design preview
         const phClone = ph.cloneNode(true);
         phClone.style.aspectRatio = ph.style.aspectRatio || '4/5';
         phClone.style.width = 'auto';
@@ -213,11 +234,18 @@
         phClone.style.maxHeight = '80vh';
         lbMedia.appendChild(phClone);
       }
-      lbType.textContent   = piece.dataset.type    || '';
-      lbTitle.textContent  = piece.dataset.title   || '';
-      lbClient.textContent = piece.dataset.client  || '—';
-      lbYear.textContent   = piece.dataset.year    || '—';
-      lbDesc.textContent   = piece.dataset.desc    || '';
+
+      // Metadata — optional. Fields hide themselves if empty (CSS handles).
+      if (lbType)   lbType.textContent   = item.dataset.type    || '';
+      if (lbTitle)  lbTitle.textContent  = item.dataset.title   || '';
+      if (lbClient) lbClient.textContent = item.dataset.client  || '';
+      if (lbYear)   lbYear.textContent   = item.dataset.year    || '';
+      if (lbDesc)   lbDesc.textContent   = item.dataset.desc    || '';
+
+      // Toggle metadata sidebar visibility based on whether ANY field has content
+      const hasMeta = (item.dataset.title || item.dataset.client ||
+                       item.dataset.year || item.dataset.desc);
+      lb.classList.toggle('is-media-only', !hasMeta);
 
       lb.classList.add('is-open');
       lb.setAttribute('aria-hidden', 'false');
@@ -225,40 +253,63 @@
     };
 
     const closeLightbox = () => {
-      if (!lb) return;
       lb.classList.remove('is-open');
       lb.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('lightbox-open');
+      currentSource = null;
       currentIndex = -1;
     };
 
     const navLightbox = (direction) => {
-      const visible = getVisiblePieces();
+      if (!currentSource) return;
+      const visible = getVisibleItems(currentSource);
       if (!visible.length) return;
       currentIndex = (currentIndex + direction + visible.length) % visible.length;
-      openLightbox(visible[currentIndex]);
+      openLightbox(visible[currentIndex], currentSource);
     };
 
-    // Wire piece clicks
-    pieces.forEach((p) => {
-      p.addEventListener('click', () => openLightbox(p));
+    // Wire ALL sources — any grid with [data-lightbox-source] gets its
+    // [data-lightbox-item] children wired to open the lightbox.
+    document.querySelectorAll('[data-lightbox-source]').forEach((source) => {
+      const items = source.querySelectorAll('[data-lightbox-item]');
+      items.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();  // <a> href would open in new tab — block it
+          openLightbox(item, source);
+        });
+      });
     });
 
-    // Wire lightbox controls
+    // Backward compat: /selects/ grid uses [data-selects-grid] and
+    // .select items (no [data-lightbox-item] markers). Treat that as
+    // a lightbox source too.
+    const selectsGridForLb = document.querySelector('[data-selects-grid]');
+    if (selectsGridForLb && !selectsGridForLb.hasAttribute('data-lightbox-source')) {
+      selectsGridForLb.setAttribute('data-lightbox-source', '');
+      const selectItems = selectsGridForLb.querySelectorAll('.select');
+      selectItems.forEach((item) => {
+        // Mark as lightbox item so getVisibleItems finds it
+        item.setAttribute('data-lightbox-item', '');
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          openLightbox(item, selectsGridForLb);
+        });
+      });
+    }
+
+    // Controls
     if (lbClose) lbClose.addEventListener('click', closeLightbox);
     if (lbPrev)  lbPrev .addEventListener('click', () => navLightbox(-1));
     if (lbNext)  lbNext .addEventListener('click', () => navLightbox(+1));
 
     // Click outside content closes
-    if (lb) {
-      lb.addEventListener('click', (e) => {
-        if (e.target === lb) closeLightbox();
-      });
-    }
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) closeLightbox();
+    });
 
     // Keyboard support
     document.addEventListener('keydown', (e) => {
-      if (!lb || !lb.classList.contains('is-open')) return;
+      if (!lb.classList.contains('is-open')) return;
       if (e.key === 'Escape')    closeLightbox();
       if (e.key === 'ArrowLeft') navLightbox(-1);
       if (e.key === 'ArrowRight')navLightbox(+1);
