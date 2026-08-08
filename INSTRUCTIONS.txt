@@ -633,6 +633,100 @@ If your repo is messy with old test files, these are safe to delete:
 
 When you change the site, add a line here. Newest at the top.
 
+2026-08-16  Big fix + SEO pass — 6 things in one build:
+            (1) UNIVERSAL PADDING FIX. Every section now respects the
+            site's horizontal breathing space. The bug: .dring-section,
+            .extras-section, .next-project-section, .selects-preview-
+            section all used `padding: X 0 Y` shorthand which reset
+            left/right padding to 0, killing the .shell wrapper's
+            var(--pad-x). Rewrote all four to use padding-top +
+            padding-bottom only. Products grid, social grid, next-
+            project card, and preview strips now have proper side
+            margins on every page.
+            (2) FAVICON. Added favicon.svg (scalable), favicon.ico
+            (multi-size 16/32/48 for old browsers), .png variants
+            for 16/32/48/180/192/512, apple-touch-icon.png, and
+            site.webmanifest. All 13 pages reference them in <head>.
+            Source: your uploaded "b" mark (white on dark).
+            (3) COPYRIGHT + HEART CREDIT. Added a meta row above the
+            giant footer wordmark showing "© 2026 Bharat Arora. All
+            rights reserved." on the left and "designed with ♥ by
+            Bharat" on the right. Heart has a subtle beat animation.
+            (4) NAUGHTY DARES COLOR. Changed from generic gray
+            (--gray-card #2a2a2a) to a deep wine burgundy sampled
+            from the box packaging (--naughtydares-card #7a1d26)
+            with cream ink (--naughtydares-card-ink #f0dbbb).
+            Updated in 3 places: work page body accent, Dring hub
+            product tile, F&L next-project card.
+            (5) BROKEN COVER FALLBACK. Every next-project-card thumb
+            now has an onerror handler that hides the broken-image
+            icon and shows a subtle dark tile instead. Kicks in for
+            aquaflow, snackify, etc. that don't have cover files yet.
+            (6) SEO PASS. Added to every page: unique <title>, meta
+            description, meta author, canonical link, Open Graph
+            tags (og:title, og:description, og:image, og:url) for
+            LinkedIn/Facebook previews, Twitter Card tags. Homepage
+            also has JSON-LD Person schema. Site root now has
+            robots.txt and sitemap.xml (13 URLs).
+2026-08-14  Naughty Dares 16:9 banner added.
+            (1) /naughtydares-cover.jpg + .webp replaced with real
+            1920×1080 banner (roses + pearls composition).
+            (2) Naughty Dares case study: cover restored to standard
+            <picture> block (was showing empty --accent placeholder).
+            (3) Removed Block 00 (roses shot as sub-image) since the
+            same photograph now works as the cover — no need to show
+            it twice on the page.
+2026-08-14  UNDO: covers restored to original 16:9 files.
+            Previous update wrongly replaced the 1920×1080 cover
+            images on Takeoff, First & Last, and Naughty Dares with
+            square 1080×1080 shots. The square images looked "half
+            cut" because the 16:9 cover frame uses object-fit:cover.
+            Fixes:
+            (1) Takeoff cover restored to /takeoff-cover.jpg (16:9).
+                Clean product shot (square) moved to sub-image Block 00.
+            (2) F&L cover restored to /firstandlast-cover.jpg (16:9).
+                Clean product shot moved to sub-image Block 00.
+            (3) Naughty Dares cover reverted to empty --accent
+                placeholder (no 16:9 cover ready yet). Roses shot
+                moved to sub-image Block 00.
+            (4) New CSS variant .work-block__img--square (aspect 1:1,
+                max-width 720px, object-fit:contain) applied to ALL
+                the square sub-images so nothing gets cropped.
+            (5) New CSS variant .work-cover--empty for the coloured
+                placeholder cover (used on Naughty Dares).
+2026-08-14  Naughty Dares case study rewritten.
+            (1) Cover = roses + pearls hero shot (was placeholder).
+            (2) Block 01 = candlelit table with card being read.
+            (3) Block 02 = campaign shot (card + lipstick + red glitter).
+            (4) Bio + captions rewritten with real card-game copy.
+            (5) Dring hub product tile for Naughty Dares now shows
+            the roses cover (was empty placeholder + broken-image
+            fallback).
+            (6) Bonus tile added to Dring hub social grid — the plain
+            box + card fan shot. Social grid grows from 15 to 16.
+            No extras strip on Naughty Dares — only 3 images total.
+            Add one later when more campaign creative comes in.
+2026-08-11  Takeoff + First & Last case studies + Dring hub — full
+            content pass.
+            (1) TAKEOFF case study rewritten with real party-game copy
+            (was leftover meditation-app text). Cover = clean product
+            shot, Block 01 = "what's inside the box", Block 02 =
+            party collage.
+            (2) FIRST & LAST case study rewritten with campaign copy.
+            Cover = clean product shot, Block 01 = 90 task cards,
+            Block 02 = friendly competition graphic.
+            (3) NEW "campaign creative" extras strip on both case
+            studies — horizontal scrolling row of 5 (Takeoff) and 4
+            (F&L) branded marketing graphics. Click any → opens in
+            lightbox with prev/next arrows and metadata.
+            (4) DRING HUB SOCIAL GRID expanded from 11 to 15 tiles —
+            added Takeoff "Ultimate Darts", Takeoff "friends playing",
+            F&L "Think Fast", and F&L "Ultimate Race".
+            (5) LOOP FIX: Takeoff was pointing back to naughtydares
+            (going backwards through the Dring sub-tree). Now correctly
+            closes the sub-tree by pointing to the Dring hub.
+            New CSS: .extras-section, .extras-strip, .extras-strip__card.
+            Images live in /takeoff-extras/ and /firstandlast-extras/.
 2026-08-03  Dring hub built + homepage restructure.
             (1) NEW HUB PAGE at /work/dring/ replacing the old app-
             focused Dring page. Sections: hero + meta (2024-2025,

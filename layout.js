@@ -91,6 +91,11 @@
               </ul>
             </div>
           </div>
+          <!-- Copyright + credit line — sits above the giant wordmark. -->
+          <div class="footer__meta">
+            <p class="footer__copyright">© 2026 Bharat Arora. All rights reserved.</p>
+            <p class="footer__credit">designed with <span class="footer__heart" aria-hidden="true">♥</span><span class="sr-only">love</span> by Bharat</p>
+          </div>
         </div>
       </div>
       <div class="footer__wordmark" aria-hidden="true">.heybharat</div>
