@@ -24,6 +24,10 @@
   --dring-card: #6e44ff;
   --dring-card-ink: #e0aaff;
   --gray-card: #2a2a2a;
+  /* Naughty Dares — deep wine burgundy sampled from the box packaging,
+     with a cream ink that echoes the "Naughty Dares" wordmark on the box. */
+  --naughtydares-card: #7a1d26;
+  --naughtydares-card-ink: #f0dbbb;
 
   --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
@@ -562,6 +566,56 @@ body.is-loaded { opacity: 1; }
   letter-spacing: -0.01em;
 }
 .footer__col-list a:hover { color: var(--ink); }
+
+/* Meta row — copyright + heart-authored credit sitting above the wordmark.
+   On desktop they split into two columns (copyright left, credit right).
+   On mobile they stack. */
+.footer__meta {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media (min-width: 720px) {
+  .footer__meta {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.footer__copyright,
+.footer__credit {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+.footer__heart {
+  display: inline-block;
+  color: #ff4d5e;
+  font-size: 13px;
+  margin: 0 4px;
+  transform: translateY(1px);
+  animation: heart-beat 1.8s ease-in-out infinite;
+}
+@keyframes heart-beat {
+  0%, 60%, 100% { transform: translateY(1px) scale(1); }
+  10%, 30%      { transform: translateY(1px) scale(1.25); }
+  20%           { transform: translateY(1px) scale(1.1); }
+}
+/* Screen-reader-only text for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* Giant watermark wordmark — centered with a slow white-gradient shimmer */
 .footer__wordmark {
@@ -1353,6 +1407,28 @@ body.is-loaded { opacity: 1; }
 }
 .work-block__img img { width: 100%; height: 100%; object-fit: cover; }
 .work-block__img .ph { font-family: var(--font-mono); font-size: 14px; color: rgba(0,0,0,0.55); }
+
+/* SQUARE variant: for 1080×1080 product/social shots that would otherwise
+   get top-and-bottom cropped by the 16:9 frame. Uses a 1:1 aspect box
+   with contain fitting so nothing gets cut off. Constrained max-width
+   keeps it from ballooning on wide screens. */
+.work-block__img--square {
+  aspect-ratio: 1/1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.work-block__img--square img { object-fit: contain; }
+
+/* Empty cover: colored 16:9 tile when no cover image is ready yet. */
+.work-cover--empty {
+  aspect-ratio: 16/9;
+}
+.work-cover--empty::before {
+  content: '';
+  flex: 1;
+  border-radius: var(--radius);
+  background: var(--accent);
+}
 .work-block__caption {
   font-family: var(--font-mono); font-size: 13px;
   color: var(--ink-2);
@@ -1723,8 +1799,8 @@ body.lightbox-open {
    statics + behind-the-scenes.
    ============================================================ */
 
-.dring-section { padding: 80px 0 20px; position: relative; z-index: 5; }
-@media (min-width: 1024px) { .dring-section { padding: 100px 0 30px; } }
+.dring-section { padding-top: 80px; padding-bottom: 20px; position: relative; z-index: 5; }
+@media (min-width: 1024px) { .dring-section { padding-top: 100px; padding-bottom: 30px; } }
 .dring-section + .dring-section { padding-top: 40px; }
 
 .dring-section__head {
@@ -1962,16 +2038,100 @@ body.lightbox-open {
 }
 
 /* ============================================================
+   EXTRAS STRIP — horizontal scrolling row of campaign creative
+   at the bottom of individual case study pages. Used by Takeoff
+   and First & Last to showcase branded marketing graphics
+   without cluttering the main case study flow.
+   ============================================================ */
+.extras-section {
+  padding-top: 40px;
+  padding-bottom: 80px;
+  position: relative;
+  z-index: 5;
+}
+@media (min-width: 1024px) { .extras-section { padding-top: 60px; padding-bottom: 100px; } }
+
+.extras-section__head {
+  padding-top: 24px;
+  border-top: 1px solid var(--line-2);
+  margin-bottom: 32px;
+}
+.extras-section__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-bottom: 12px;
+}
+.extras-section__title {
+  font-weight: 500;
+  font-size: clamp(24px, 3.5vw, 36px);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* Horizontal scroll strip — cards flow left-to-right, overflow scrolls */
+.extras-strip {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0 20px;
+  margin: 0 calc(var(--pad-x) * -1);
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+  scrollbar-width: none;
+}
+.extras-strip::-webkit-scrollbar { display: none; }
+@media (min-width: 1024px) { .extras-strip { gap: 20px; } }
+
+.extras-strip__card {
+  flex: 0 0 auto;
+  width: 260px;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
+  scroll-snap-align: start;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.5s var(--e-out);
+}
+@media (min-width: 720px)  { .extras-strip__card { width: 320px; } }
+@media (min-width: 1024px) { .extras-strip__card { width: 380px; } }
+
+.extras-strip__card picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.extras-strip__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--e-out);
+}
+@media (hover: hover) {
+  .extras-strip__card:hover { transform: translateY(-4px); }
+  .extras-strip__card:hover img { transform: scale(1.05); }
+}
+
+/* ============================================================
    NEXT PROJECT — single big card that loops through all works.
    Replaces the previous "see also" 3-card row on work pages.
    User finishes reading → one obvious next step → keeps browsing.
    ============================================================ */
 .next-project-section {
-  padding: 100px 0 60px;
+  padding-top: 100px;
+  padding-bottom: 60px;
   position: relative;
   z-index: 5;
 }
-@media (min-width: 1024px) { .next-project-section { padding: 140px 0 80px; } }
+@media (min-width: 1024px) { .next-project-section { padding-top: 140px; padding-bottom: 80px; } }
 
 .next-project-label {
   display: flex;
@@ -2118,11 +2278,12 @@ body.lightbox-open {
    people toward /projects/ or /selects/ for the full grid.
    ============================================================ */
 .selects-preview-section {
-  padding: 60px 0 100px;
+  padding-top: 60px;
+  padding-bottom: 100px;
   position: relative;
   z-index: 5;
 }
-@media (min-width: 1024px) { .selects-preview-section { padding: 100px 0 140px; } }
+@media (min-width: 1024px) { .selects-preview-section { padding-top: 100px; padding-bottom: 140px; } }
 
 .selects-preview-head {
   display: flex;
