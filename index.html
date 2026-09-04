@@ -39,7 +39,7 @@
     "name": "Bharat Arora",
     "alternateName": "heybharat",
     "url": "https://heybharat.design",
-    "image": "https://heybharat.design/myphoto.jpg",
+    "image": "https://heybharat.design/myphoto.webp",
     "jobTitle": "Graphic Designer",
     "description": "Graphic designer and illustrator with 2+ years of experience in branding, packaging, and visual design.",
     "sameAs": [
@@ -70,13 +70,13 @@
   ║                                                                  ║
   ║  NAMING CONVENTION (use these EXACT filenames):                  ║
   ║                                                                  ║
-  ║    Homepage card / Work-page cover:  {project}-cover.jpg         ║
-  ║    Inner work-page block images:     {project}-01.jpg, -02.jpg   ║
-  ║    Instagram posts (1:1 square):     {project}-post-01.jpg ...   ║
-  ║    Stories (9:16 portrait):          {project}-story-01.jpg ...  ║
-  ║    Reels (9:16 portrait):            {project}-reel-01.jpg ...   ║
-  ║    Website banners:                  {project}-banner-hero.jpg   ║
-  ║    App screens:                      {project}-app-01.jpg ...    ║
+  ║    Homepage card / Work-page cover:  {project}-cover.webp         ║
+  ║    Inner work-page block images:     {project}-01.webp, -02.webp   ║
+  ║    Instagram posts (1:1 square):     {project}-post-01.webp ...   ║
+  ║    Stories (9:16 portrait):          {project}-story-01.webp ...  ║
+  ║    Reels (9:16 portrait):            {project}-reel-01.webp ...   ║
+  ║    Website banners:                  {project}-banner-hero.webp   ║
+  ║    App screens:                      {project}-app-01.webp ...    ║
   ║                                                                  ║
   ║  HOW TO ADD:                                                     ║
   ║  1. Save your image with the exact name from the table below.    ║
@@ -84,19 +84,19 @@
   ║  3. Inside the .work-card__media div, replace                    ║
   ║       <span class="ph">...</span>                                ║
   ║     with                                                         ║
-  ║       <img src="/FILENAME.jpg" alt="Project name" />              ║
+  ║       <img src="/FILENAME.webp" alt="Project name" />              ║
   ║                                                                  ║
   ║  IMAGE SLOTS ON THIS PAGE — 16:9 (recommended 1600×900):         ║
   ║  ┌───────────────────────────────────────────────────────────┐   ║
-  ║  │  Card 1  first & last      →  firstandlast-cover.jpg      │   ║
-  ║  │  Card 2  aquaflow          →  aquaflow-cover.jpg          │   ║
-  ║  │  Card 3  snackify          →  snackify-cover.jpg          │   ║
-  ║  │  Card 4  takeoff           →  takeoff-cover.jpg           │   ║
-  ║  │  Card 5  naughty dares     →  naughtydares-cover.jpg      │   ║
+  ║  │  Card 1  first & last      →  firstandlast-cover.webp      │   ║
+  ║  │  Card 2  aquaflow          →  aquaflow-cover.webp          │   ║
+  ║  │  Card 3  snackify          →  snackify-cover.webp          │   ║
+  ║  │  Card 4  takeoff           →  takeoff-cover.webp           │   ║
+  ║  │  Card 5  naughty dares     →  naughtydares-cover.webp      │   ║
   ║  └───────────────────────────────────────────────────────────┘   ║
   ║                                                                  ║
   ║  ABOUT SECTION PORTRAIT:                                         ║
-  ║    Filename:  myphoto.jpg  (already wired up)                    ║
+  ║    Filename:  myphoto.webp  (already wired up)                    ║
   ║    Replace with your portrait, same filename — no code change.   ║
   ║                                                                  ║
   ╚══════════════════════════════════════════════════════════════════╝
@@ -132,7 +132,7 @@
            Naughty Dares). Clicking this opens /work/dring/ which shows
            all three products AND the social + BTS work.
 
-           BANNER: drop /dring-cover.jpg + .webp in the root and it fills
+           BANNER: drop /dring-cover.webp in the root and it fills
            the visual slot below. Until then, empty purple tile shows.
            ═══════════════════════════════════════════════════════════════ -->
       <a href="/work/dring/" class="work-card work-card--dring">
@@ -142,11 +142,45 @@
           <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
         </div>
         <div class="work-card__media">
-          <!-- ▼ DRING HUB — DROP /dring-cover.jpg IN ROOT WHEN READY
+          <!-- ▼ DRING HUB — DROP /dring-cover.webp IN ROOT WHEN READY
                Replace the <span> below with:
-                 <picture><source srcset="/dring-cover.webp" type="image/webp" />
-                 <img src="/dring-cover.jpg" alt="dring" /></picture> -->
+                 <img src="/dring-cover.webp" alt="dring" /> -->
           <span class="ph" style="color: rgba(255,255,255,0.55);">.dring — banner slot</span>
+        </div>
+      </a>
+
+      <!-- ═══════════════════════════════════════════════════════════════
+           KIDLEY — client work via Shoton Pictures. Identity + packaging
+           system for a 40-year-old Ludhiana clothing manufacturer.
+           BANNER: drop /kidley-cover.webp in the root to fill.
+           ═══════════════════════════════════════════════════════════════ -->
+      <a href="/work/kidley/" class="work-card work-card--kidley">
+        <div class="work-card__top"><span>2025 — 2026</span><span>Branding &amp; Packaging</span></div>
+        <div class="work-card__title-row">
+          <span class="work-card__title">kidley</span>
+          <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="work-card__media">
+          <!-- ▼ KIDLEY  →  kidley-cover.webp  (16:9, 1600×900)
+               Once your file is in the root, replace the <span> below with:
+                 <img src="/kidley-cover.webp" alt="kidley" /> -->
+          <span class="ph" style="color:rgba(255,255,255,0.45)">.kidley</span>
+        </div>
+      </a>
+
+      <!-- ═══════════════════════════════════════════════════════════════
+           HEM & HAW — client work via Shoton Pictures. Social system and
+           campaign creative for an early-stage athleisure label.
+           BANNER: drop /hemhaw-cover.webp in the root to fill.
+           ═══════════════════════════════════════════════════════════════ -->
+      <a href="/work/hemhaw/" class="work-card work-card--hemhaw">
+        <div class="work-card__top"><span>2025 — 2026</span><span>Social &amp; Campaign Design</span></div>
+        <div class="work-card__title-row">
+          <span class="work-card__title">hem &amp; haw</span>
+          <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="work-card__media">
+          <img src="/hemhaw-cover.webp" alt="hem &amp; haw" loading="lazy" decoding="async" />
         </div>
       </a>
 
@@ -157,9 +191,9 @@
           <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
         </div>
         <div class="work-card__media">
-          <!-- ▼ AQUAFLOW  →  aquaflow-cover.jpg  (16:9, 1600×900)
+          <!-- ▼ AQUAFLOW  →  aquaflow-cover.webp  (16:9, 1600×900)
                Once your file is in this folder, replace the <span> below with:
-               <img src="/aquaflow-cover.jpg" alt="aquaflow" /> -->
+               <img src="/aquaflow-cover.webp" alt="aquaflow" /> -->
           <span class="ph" style="color:rgba(255,255,255,0.6)">.aquaflow</span>
         </div>
       </a>
@@ -172,9 +206,9 @@
             <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
           </div>
           <div class="work-card__media">
-            <!-- ▼ SNACKIFY  →  snackify-cover.jpg  (16:9, 1600×900)
+            <!-- ▼ SNACKIFY  →  snackify-cover.webp  (16:9, 1600×900)
                  Once your file is in this folder, replace the <span> below with:
-                 <img src="/snackify-cover.jpg" alt="snackify" /> -->
+                 <img src="/snackify-cover.webp" alt="snackify" /> -->
             <span class="ph">.snackify</span>
           </div>
         </a>
@@ -232,38 +266,23 @@
 
         <!-- Initial cards (JS re-populates from the pool on load) -->
         <a href="/selects/" class="selects-preview-card" data-slot="0">
-          <picture>
-            <source srcset="/selects-images/pinkvilla-spotify-partnership.webp" type="image/webp" />
-            <img src="/selects-images/pinkvilla-spotify-partnership.jpg" alt="Pinkvilla × Spotify partnership" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/pinkvilla-spotify-partnership.webp" alt="Pinkvilla × Spotify partnership" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-slot="1">
-          <picture>
-            <source srcset="/selects-images/pinkvilla-velora-launch.webp" type="image/webp" />
-            <img src="/selects-images/pinkvilla-velora-launch.jpg" alt="Velora perfume launch" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/pinkvilla-velora-launch.webp" alt="Velora perfume launch" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-slot="2">
-          <picture>
-            <source srcset="/selects-images/dring-pizza-hack.webp" type="image/webp" />
-            <img src="/selects-images/dring-pizza-hack.jpg" alt="Dring's pizza re-heating hack" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/dring-pizza-hack.webp" alt="Dring's pizza re-heating hack" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-slot="3">
-          <picture>
-            <source srcset="/selects-images/personal-hell-typography.webp" type="image/webp" />
-            <img src="/selects-images/personal-hell-typography.jpg" alt="HELL typography experiment" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/personal-hell-typography.webp" alt="HELL typography experiment" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-slot="4">
-          <picture>
-            <source srcset="/selects-images/personal-ghost-regera-poster.webp" type="image/webp" />
-            <img src="/selects-images/personal-ghost-regera-poster.jpg" alt="Koenigsegg Ghost Regera poster" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/personal-ghost-regera-poster.webp" alt="Koenigsegg Ghost Regera poster" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-fixed>
@@ -285,10 +304,10 @@
         </div>
         <div>
           <div class="about-teaser__image reveal">
-            <!-- ▼ ABOUT TEASER PORTRAIT  →  myphoto.jpg
+            <!-- ▼ ABOUT TEASER PORTRAIT  →  myphoto.webp
                  Replace the file (same name) with your own portrait.
                  Recommended: square or tall crop, min 900px wide -->
-            <picture><source srcset="/myphoto.webp" type="image/webp" /><img alt="Portrait" loading="lazy" src="/myphoto.jpg" decoding="async" /></picture>
+            <img alt="Portrait" loading="lazy" src="/myphoto.webp" decoding="async" />
           </div>
           <a href="/about/" class="btn-outline reveal">
             about me

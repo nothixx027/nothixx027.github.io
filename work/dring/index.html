@@ -61,7 +61,7 @@
   ║                                                                      ║
   ║  BANNER SLOT:                                                        ║
   ║    A 16:9 empty banner sits between the hero and the body copy.      ║
-  ║    Drop /dring-cover.jpg + .webp in the root and it renders.         ║
+  ║    Drop /dring-cover.webp in the root and it renders.         ║
   ║    Until then, a solid purple placeholder shows.                     ║
   ║                                                                      ║
   ╚══════════════════════════════════════════════════════════════════════╝
@@ -83,13 +83,10 @@
   </section>
 
   <!-- COVER / BANNER SLOT
-       Drop /dring-cover.jpg + .webp in the root to fill this.
+       Drop /dring-cover.webp in the root to fill this.
        Until then, a solid purple 16:9 tile shows. -->
   <div class="work-cover reveal">
-    <picture>
-      <source srcset="/dring-cover.webp" type="image/webp" />
-      <img alt="Dring cover" src="/dring-cover.jpg" onerror="this.style.display='none'; this.parentElement.parentElement.classList.add('is-empty');" decoding="async" />
-    </picture>
+    <img alt="Dring cover" src="/dring-cover.webp" onerror="this.style.display='none'; this.parentElement.classList.add('is-empty');" decoding="async" />
   </div>
 
   <!-- BODY: bio + meta -->
@@ -133,10 +130,7 @@
 
       <a href="/work/firstandlast/" class="dring-product-tile" style="background: var(--orange); color: var(--orange-ink);">
         <div class="dring-product-tile__thumb">
-          <picture>
-            <source srcset="/firstandlast-cover.webp" type="image/webp" />
-            <img src="/firstandlast-cover.jpg" alt="First &amp; Last" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/firstandlast-cover.webp" alt="First &amp; Last" loading="lazy" decoding="async" />
         </div>
         <div class="dring-product-tile__body">
           <span class="dring-product-tile__year">2025</span>
@@ -150,10 +144,7 @@
 
       <a href="/work/naughtydares/" class="dring-product-tile" style="background: var(--naughtydares-card); color: var(--naughtydares-card-ink);">
         <div class="dring-product-tile__thumb">
-          <picture>
-            <source srcset="/naughtydares-cover.webp" type="image/webp" />
-            <img src="/naughtydares-cover.jpg" alt="Naughty Dares" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/naughtydares-cover.webp" alt="Naughty Dares" loading="lazy" decoding="async" />
         </div>
         <div class="dring-product-tile__body">
           <span class="dring-product-tile__year">2024</span>
@@ -167,10 +158,7 @@
 
       <a href="/work/takeoff/" class="dring-product-tile" style="background: var(--yellow-card); color: var(--yellow-card-ink);">
         <div class="dring-product-tile__thumb">
-          <picture>
-            <source srcset="/takeoff-cover.webp" type="image/webp" />
-            <img src="/takeoff-cover.jpg" alt="Takeoff" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/takeoff-cover.webp" alt="Takeoff" loading="lazy" decoding="async" />
         </div>
         <div class="dring-product-tile__body">
           <span class="dring-product-tile__year">2024</span>
@@ -203,115 +191,67 @@
     <div class="dring-social-grid reveal-stagger" data-lightbox-source>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Dring Wild" data-client="Wild" data-type="social launch" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-wild-you-have-grown-up.webp" type="image/webp" />
-          <img src="/dring-work/dring-wild-you-have-grown-up.jpg" alt="Dring Wild — you have grown up and so has the game" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-wild-you-have-grown-up.webp" alt="Dring Wild — you have grown up and so has the game" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Dialogue Baazi — price drop campaign" data-client="Dialogue Baazi" data-type="campaign" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-dialogue-baazi-price-drop.webp" type="image/webp" />
-          <img src="/dring-work/dring-dialogue-baazi-price-drop.jpg" alt="Dialogue Baazi — biggest price drop" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-dialogue-baazi-price-drop.webp" alt="Dialogue Baazi — biggest price drop" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Drama-Dol — price drop" data-client="Drama-Dol" data-type="campaign" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-drama-dol-craziest-price.webp" type="image/webp" />
-          <img src="/dring-work/dring-drama-dol-craziest-price.jpg" alt="Drama-Dol — craziest price drop ever" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-drama-dol-craziest-price.webp" alt="Drama-Dol — craziest price drop ever" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Triple X — take control" data-client="Triple X" data-type="social launch" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-triple-x-take-control.webp" type="image/webp" />
-          <img src="/dring-work/dring-triple-x-take-control.jpg" alt="Triple X — take control, no hesitation" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-triple-x-take-control.webp" alt="Triple X — take control, no hesitation" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Communication is Sexxxy" data-client="Triple X" data-type="poster" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-communication-is-sexxxy.webp" type="image/webp" />
-          <img src="/dring-work/dring-communication-is-sexxxy.jpg" alt="Communication is Sexxxy" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-communication-is-sexxxy.webp" alt="Communication is Sexxxy" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="God of Mischief" data-client="Triple X" data-type="social launch" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-god-of-mischief-triple-x.webp" type="image/webp" />
-          <img src="/dring-work/dring-god-of-mischief-triple-x.jpg" alt="God of Mischief — Triple X" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-god-of-mischief-triple-x.webp" alt="God of Mischief — Triple X" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Dring Pong — thrill level infinite" data-client="Dring Pong" data-type="social launch" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-pong-thrill-level.webp" type="image/webp" />
-          <img src="/dring-work/dring-pong-thrill-level.jpg" alt="Dring Pong — thrill level infinite" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-pong-thrill-level.webp" alt="Dring Pong — thrill level infinite" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="First &amp; Last — quick reflexes" data-client="First & Last" data-type="social launch" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-first-and-last-quick-reflexes.webp" type="image/webp" />
-          <img src="/dring-work/dring-first-and-last-quick-reflexes.jpg" alt="First &amp; Last — a game of quick reflexes" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-first-and-last-quick-reflexes.webp" alt="First &amp; Last — a game of quick reflexes" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Blue Monday Beer Saturday Sunday" data-client="Blue Monday BSS" data-type="social launch" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-blue-monday-beer-saturday.webp" type="image/webp" />
-          <img src="/dring-work/dring-blue-monday-beer-saturday.jpg" alt="Blue Monday Beer Saturday Sunday — hand-slapping mayhem" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-blue-monday-beer-saturday.webp" alt="Blue Monday Beer Saturday Sunday — hand-slapping mayhem" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Horrible Friends — UFO" data-client="Horrible Friends" data-type="social launch" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-horrible-friends-ufo.webp" type="image/webp" />
-          <img src="/dring-work/dring-horrible-friends-ufo.jpg" alt="Horrible Friends — find out what your friends really think of you" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-horrible-friends-ufo.webp" alt="Horrible Friends — find out what your friends really think of you" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="DRING OF — honesty and chaos" data-client="DRING OF" data-type="social launch" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-of-honesty-and-chaos.webp" type="image/webp" />
-          <img src="/dring-work/dring-of-honesty-and-chaos.jpg" alt="DRING OF — the ultimate game of honesty and chaos" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-of-honesty-and-chaos.webp" alt="DRING OF — the ultimate game of honesty and chaos" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Takeoff — the ultimate darts party game" data-client="Takeoff" data-type="social launch" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/takeoff-ultimate-darts.webp" type="image/webp" />
-          <img src="/dring-work/takeoff-ultimate-darts.jpg" alt="Takeoff — the ultimate darts party game" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/takeoff-ultimate-darts.webp" alt="Takeoff — the ultimate darts party game" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Takeoff — friends playing" data-client="Takeoff" data-type="lifestyle" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/takeoff-friends-playing.webp" type="image/webp" />
-          <img src="/dring-work/takeoff-friends-playing.jpg" alt="Takeoff — friends playing at a party" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/takeoff-friends-playing.webp" alt="Takeoff — friends playing at a party" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="First &amp; Last — think fast or drink fast" data-client="First &amp; Last" data-type="social launch" data-year="2025">
-        <picture>
-          <source srcset="/dring-work/fl-think-fast.webp" type="image/webp" />
-          <img src="/dring-work/fl-think-fast.jpg" alt="First & Last — think fast or drink fast" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/fl-think-fast.webp" alt="First & Last — think fast or drink fast" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="First &amp; Last — the ultimate race" data-client="First &amp; Last" data-type="social launch" data-year="2025">
-        <picture>
-          <source srcset="/dring-work/fl-ultimate-race.webp" type="image/webp" />
-          <img src="/dring-work/fl-ultimate-race.jpg" alt="First & Last — the ultimate race against time and your friends" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/fl-ultimate-race.webp" alt="First & Last — the ultimate race against time and your friends" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-social-tile" href="#" data-lightbox-item data-title="Naughty Dares — product feature" data-client="Naughty Dares" data-type="product" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/naughtydares-box-and-cards.webp" type="image/webp" />
-          <img src="/dring-work/naughtydares-box-and-cards.jpg" alt="Naughty Dares box with card fan on a light background" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/naughtydares-box-and-cards.webp" alt="Naughty Dares box with card fan on a light background" loading="lazy" decoding="async" />
       </a>
 
     </div>
@@ -330,24 +270,15 @@
     <div class="dring-bts-grid reveal-stagger" data-lightbox-source>
 
       <a class="dring-bts-tile dring-bts-tile--tall" href="#" data-lightbox-item data-title="First &amp; Last box at the Dring studio" data-client="First & Last" data-type="behind the scenes" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-bts-first-and-last-wall.webp" type="image/webp" />
-          <img src="/dring-work/dring-bts-first-and-last-wall.jpg" alt="First &amp; Last box in front of the Dring studio wall" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-bts-first-and-last-wall.webp" alt="First &amp; Last box in front of the Dring studio wall" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-bts-tile" href="#" data-lightbox-item data-title="Naughty Dares on a workshop table" data-client="Naughty Dares" data-type="behind the scenes" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-bts-naughty-dares-office.webp" type="image/webp" />
-          <img src="/dring-work/dring-bts-naughty-dares-office.jpg" alt="Naughty Dares box on a workshop table" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-bts-naughty-dares-office.webp" alt="Naughty Dares box on a workshop table" loading="lazy" decoding="async" />
       </a>
 
       <a class="dring-bts-tile" href="#" data-lightbox-item data-title="Naughty Dares packaging + card deck flatlay" data-client="Naughty Dares" data-type="behind the scenes" data-year="2024">
-        <picture>
-          <source srcset="/dring-work/dring-bts-naughty-dares-flatlay.webp" type="image/webp" />
-          <img src="/dring-work/dring-bts-naughty-dares-flatlay.jpg" alt="Naughty Dares packaging, instruction booklet, and card deck on a dark surface" loading="lazy" decoding="async" />
-        </picture>
+        <img src="/dring-work/dring-bts-naughty-dares-flatlay.webp" alt="Naughty Dares packaging, instruction booklet, and card deck on a dark surface" loading="lazy" decoding="async" />
       </a>
 
     </div>
@@ -357,30 +288,28 @@
     <!-- ────────────────────────────────────────────────────────────────
        NEXT PROJECT — points to next in the loop.
        Loop layout:
-         DRING (hub) → aquaflow → snackify → DRING (loops back)
+         DRING (hub) → kidley → hem & haw → aquaflow → snackify
+                     → DRING (loops back)
          Dring sub-products: firstandlast → naughtydares → takeoff
                              → DRING (returns to hub)
        ──────────────────────────────────────────────────────────────── -->
   <section class="shell next-project-section">
     <p class="next-project-label reveal">.next project</p>
 
-    <a href="/work/aquaflow/" class="next-project-card reveal"
-       style="background: var(--white-card); color: var(--aquaflow-ink);">
+    <a href="/work/kidley/" class="next-project-card reveal"
+       style="background: var(--kidley-card); color: var(--kidley-card-ink);">
       <div class="next-project-card__left">
         <span class="next-project-card__eyebrow">up next</span>
         <h2 class="next-project-card__title">
-          <span>aquaflow</span>
+          <span>kidley</span>
           <span class="next-project-card__arrow" aria-hidden="true">
             <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
           </span>
         </h2>
-        <span class="next-project-card__cat">Branding and Identity</span>
+        <span class="next-project-card__cat">Branding &amp; Packaging</span>
       </div>
       <div class="next-project-card__thumb">
-        <picture>
-          <source srcset="/aquaflow-cover.webp" type="image/webp" />
-          <img src="/aquaflow-cover.jpg" alt="aquaflow" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.parentElement.style.background='rgba(0,0,0,0.15)';" />
-        </picture>
+        <img src="/kidley-cover.webp" alt="kidley" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.style.background='rgba(0,0,0,0.15)';" />
       </div>
     </a>
 

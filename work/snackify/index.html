@@ -38,12 +38,12 @@
   ║                                                                  ║
   ║  IMAGE SLOTS — drop these EXACT filenames in the same folder:    ║
   ║                                                                  ║
-  ║    COVER (16:9, 1920×1080)    →  snackify-cover.jpg              ║
-  ║    BLOCK 01 (16:9, 1600×900)  →  snackify-01.jpg                 ║
-  ║    BLOCK 02 (16:9, 1600×900)  →  snackify-02.jpg                 ║
+  ║    COVER (16:9, 1920×1080)    →  snackify-cover.webp              ║
+  ║    BLOCK 01 (16:9, 1600×900)  →  snackify-01.webp                 ║
+  ║    BLOCK 02 (16:9, 1600×900)  →  snackify-02.webp                 ║
   ║                                                                  ║
   ║  HOW: find the ▼ comment, remove <span class="ph">,              ║
-  ║  and replace with <img src="/FILENAME.jpg" alt="..." />           ║
+  ║  and replace with <img src="/FILENAME.webp" alt="..." />           ║
   ║                                                                  ║
   ╚══════════════════════════════════════════════════════════════════╝
 -->
@@ -63,8 +63,8 @@
   </section>
 
   <div class="work-cover reveal">
-    <!-- ▼ SNACKIFY — COVER  →  snackify-cover.jpg  (16:9, 1920×1080)
-         Replace: <img src="/snackify-cover.jpg" alt="snackify cover" /> -->
+    <!-- ▼ SNACKIFY — COVER  →  snackify-cover.webp  (16:9, 1920×1080)
+         Replace: <img src="/snackify-cover.webp" alt="snackify cover" /> -->
     <span class="ph">.snackify</span>
   </div>
 
@@ -98,8 +98,8 @@
     <div class="work-block reveal">
       <div class="work-block__num">01</div>
       <div class="work-block__img">
-        <!-- ▼ SNACKIFY — BLOCK 01  →  snackify-01.jpg  (16:9)
-             Replace: <img src="/snackify-01.jpg" alt="snackify packaging system" /> -->
+        <!-- ▼ SNACKIFY — BLOCK 01  →  snackify-01.webp  (16:9)
+             Replace: <img src="/snackify-01.webp" alt="snackify packaging system" /> -->
         <span class="ph">.snackify 01</span>
       </div>
       <p class="work-block__caption">Modular packaging system across box sizes.</p>
@@ -119,8 +119,8 @@
     <div class="work-block reveal">
       <div class="work-block__num">02</div>
       <div class="work-block__img">
-        <!-- ▼ SNACKIFY — BLOCK 02  →  snackify-02.jpg  (16:9)
-             Replace: <img src="/snackify-02.jpg" alt="snackify seasonal variants" /> -->
+        <!-- ▼ SNACKIFY — BLOCK 02  →  snackify-02.webp  (16:9)
+             Replace: <img src="/snackify-02.webp" alt="snackify seasonal variants" /> -->
         <span class="ph">.snackify 02</span>
       </div>
       <p class="work-block__caption">Seasonal flavor variants using a shared visual language.</p>
@@ -139,7 +139,8 @@
   <!-- ────────────────────────────────────────────────────────────────
        NEXT PROJECT — points to next in the loop.
        Loop layout:
-         DRING (hub) → aquaflow → snackify → DRING (loops back)
+         DRING (hub) → kidley → hem & haw → aquaflow → snackify
+                     → DRING (loops back)
          Dring sub-products: firstandlast → naughtydares → takeoff
                              → DRING (returns to hub)
        ──────────────────────────────────────────────────────────────── -->
@@ -159,10 +160,7 @@
         <span class="next-project-card__cat">In-house Design</span>
       </div>
       <div class="next-project-card__thumb">
-        <picture>
-          <source srcset="/dring-cover.webp" type="image/webp" />
-          <img src="/dring-cover.jpg" alt="dring" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.parentElement.style.background='rgba(0,0,0,0.15)';" />
-        </picture>
+        <img src="/dring-cover.webp" alt="dring" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.style.background='rgba(0,0,0,0.15)';" />
       </div>
     </a>
 

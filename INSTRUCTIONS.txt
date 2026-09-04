@@ -1,6 +1,6 @@
 ════════════════════════════════════════════════════════════════════════════
   HEYBHARAT.DESIGN — SITE INSTRUCTIONS
-  Last updated: 18 May 2026
+  Last updated: 3 September 2026
 ════════════════════════════════════════════════════════════════════════════
 
 This is your manual for the site. Anytime you (or anyone helping you) needs
@@ -35,6 +35,8 @@ This is exactly how files are organized in the GitHub repo:
   /main.js                           →  animations, cursor, menu toggle
   /IMAGE-NAMING-GUIDE.txt            →  image file naming reference
   /INSTRUCTIONS.txt                  →  THIS FILE
+  /build-preview.py                  →  builds preview.html (see Section 2b)
+  /preview.html                      →  BUILD ARTIFACT — do not commit or edit
 
   /about/index.html                  →  heybharat.design/about
   /contact/index.html                →  heybharat.design/contact
@@ -48,6 +50,8 @@ This is exactly how files are organized in the GitHub repo:
   /work/takeoff/index.html           →  heybharat.design/work/takeoff
   /work/dring/index.html             →  heybharat.design/work/dring
   /work/naughtydares/index.html      →  heybharat.design/work/naughtydares
+  /work/kidley/index.html            →  heybharat.design/work/kidley
+  /work/hemhaw/index.html            →  heybharat.design/work/hemhaw
 
   /logos/shoton.svg                  →  client logo (whitened by CSS)
   /logos/dring.svg
@@ -57,21 +61,81 @@ This is exactly how files are organized in the GitHub repo:
   /logos/maac.svg
   /logos/yamaha.svg
 
-  /firstandlast-cover.jpg            →  cover image (16:9)
-  /firstandlast-cover.webp           →  same image, modern format
-  /takeoff-cover.jpg
+  /hemhaw-extras/                    →  8 campaign statics (4:5) for the
+                                        Hem & Haw scroll strip
+  /hemhaw-cover.webp                 →  composite 16:9 built from the 4:5
+  /hemhaw-01.webp  /hemhaw-02.webp      originals (see 2026-09-03 entry)
+
+  /firstandlast-cover.webp           →  cover image (16:9)
   /takeoff-cover.webp
-  /myphoto.jpg                       →  portrait photo for about + homepage
-  /myphoto.webp
+  /myphoto.webp                      →  portrait photo for about + homepage
 
 Why this structure?
   Each page lives in its own folder as "index.html". GitHub Pages then
   serves the folder as a clean URL (no .html extension). You get
   /projects instead of /projects.html.
 
-Why .webp next to .jpg?
-  WebP files are ~30% smaller. The browser picks WebP if it can, falls
-  back to JPG if not. Together they're called via <picture> tags in HTML.
+Why .webp only, and no .jpg?
+  Every image on this site is a single .webp. There is no JPG twin and
+  no <picture> element anywhere — images are plain <img src="....webp">.
+
+  Two reasons. First, WebP is supported by every browser released since
+  2020, so the JPG fallback never actually got served to anyone. Second,
+  and this is the binding one: GitHub's web uploader takes a maximum of
+  100 files per drag-and-drop, and carrying both formats put the repo at
+  151. WebP-only puts it at 95.
+
+  RULE GOING FORWARD: export images as .webp and nothing else. Do not
+  add a .jpg twin back in, and do not wrap images in <picture>. Keep the
+  repo under 100 files — see the 2026-09-03 entry for the count.
+
+
+════════════════════════════════════════════════════════════════════════════
+  2b. PREVIEW — SEEING CHANGES BEFORE YOU PUSH
+════════════════════════════════════════════════════════════════════════════
+
+RULE: every time the site changes, rebuild the preview and look at it
+before pushing to GitHub. Never push a change you haven't seen.
+
+WHY YOU CAN'T JUST OPEN index.html
+  Every path on this site is absolute — /style.css, /logos/dring.svg,
+  /work/kidley/. Those only resolve on a real server. Double-clicking
+  index.html gives you an unstyled page with broken images.
+
+THE FIX
+  From inside the site folder, run:
+
+      python3 build-preview.py
+
+  That writes preview.html next to it. Open that file in any browser —
+  no server, no internet, no install. Tabs across the top switch between
+  all 15 pages, and links inside a page jump to the right tab.
+
+WHAT IT DOES
+  Bundles style.css, layout.js, main.js and every image into the one
+  file. Each page renders in its own iframe, so the JS behaves exactly
+  as it does live — nav, reveals, cursor, lightbox, all of it.
+
+TWO THINGS TO KNOW
+  1. Images over 900 KB are skipped to keep the file openable. If a
+     cover looks missing in preview but exists in the repo, that's why —
+     raise MAX_INLINE_BYTES at the top of the script, or (better)
+     compress the image, since it's too heavy for the live site anyway.
+  2. The script still contains logic to drop a .jpg when a matching
+     .webp exists. That's now a no-op, since there are no JPGs left in
+     the repo, but it's harmless and worth keeping in case one sneaks
+     back in.
+
+preview.html is a BUILD ARTIFACT. Don't commit it. Don't edit it —
+edit the real pages and re-run the script. Add it to .gitignore if
+you're using one.
+
+ALTERNATIVE (real local server)
+  If you'd rather browse the actual files, cd into the site folder and:
+      python3 -m http.server 8000
+  Then visit localhost:8000. This serves the true structure, so absolute
+  paths resolve normally. The preview file is for when you want one
+  thing you can open, keep, or send to someone.
 
 
 ════════════════════════════════════════════════════════════════════════════
@@ -149,7 +213,7 @@ WORK PAGES (/work/projectname)
   DRING HUB LAYOUT (/work/dring — different from standard):
     1. Hero title + description
     2. Cover / banner slot (16:9, empty purple until you drop
-       /dring-cover.jpg)
+       /dring-cover.webp)
     3. Body + meta (2024-2025, Graphic Designer, in-house)
     4. PRODUCTS — 3 tiles linking to First & Last, Naughty Dares,
        Takeoff case studies. Includes "also designed for" inline
@@ -159,7 +223,8 @@ WORK PAGES (/work/projectname)
     7. NEXT PROJECT card
 
   Loop order:
-    Top-level:        dring → aquaflow → snackify → dring
+    Top-level:        dring → kidley → hem & haw → aquaflow → snackify
+                      → dring
     Dring sub-tree:   firstandlast → naughtydares → takeoff → dring
 
   If you add or remove a project, edit the next-project-card block
@@ -174,25 +239,29 @@ WORK PAGES (/work/projectname)
 All image filenames are LOWERCASE, hyphen-separated, no spaces.
 
 COVER IMAGES (used on homepage cards + projects page + work-page heros)
-  firstandlast-cover.jpg + .webp     →  for /work/firstandlast
-  aquaflow-cover.jpg + .webp         →  for /work/aquaflow
-  snackify-cover.jpg + .webp         →  for /work/snackify
-  takeoff-cover.jpg + .webp          →  for /work/takeoff
-  dring-cover.jpg + .webp            →  for /work/dring
-  naughtydares-cover.jpg + .webp     →  for /work/naughtydares
+  firstandlast-cover.webp     →  for /work/firstandlast
+  aquaflow-cover.webp         →  for /work/aquaflow
+  snackify-cover.webp         →  for /work/snackify
+  takeoff-cover.webp          →  for /work/takeoff
+  dring-cover.webp            →  for /work/dring
+  naughtydares-cover.webp     →  for /work/naughtydares
+  kidley-cover.webp           →  for /work/kidley
+  hemhaw-cover.webp           →  for /work/hemhaw
 
   Recommended size: 1920×1080 (16:9 ratio)
   Quality: JPEG 85, WebP 85
   Target file size: under 500 KB each
 
 WORK PAGE INNER IMAGES (for the two body blocks)
-  firstandlast-01.jpg + .webp, firstandlast-02.jpg + .webp
-  firstandlast-keyvisual.jpg + .webp  (small framed callout below hero)
-  aquaflow-01.jpg + .webp, aquaflow-02.jpg + .webp
-  snackify-01.jpg + .webp, snackify-02.jpg + .webp
-  takeoff-01.jpg + .webp, takeoff-02.jpg + .webp
-  dring-01.jpg + .webp, dring-02.jpg + .webp
-  naughtydares-01.jpg + .webp, naughtydares-02.jpg + .webp
+  firstandlast-01.webp, firstandlast-02.webp
+  firstandlast-keyvisual.webp  (small framed callout below hero)
+  aquaflow-01.webp, aquaflow-02.webp
+  snackify-01.webp, snackify-02.webp
+  takeoff-01.webp, takeoff-02.webp
+  dring-01.webp, dring-02.webp
+  naughtydares-01.webp, naughtydares-02.webp
+  kidley-01.webp, kidley-02.webp
+  hemhaw-01.webp, hemhaw-02.webp
 
   Recommended size: 1920×1080 (16:9) for horizontal shots,
   1200×1500 for portrait. Both fit the 16:9 image frame — portrait
@@ -201,22 +270,22 @@ WORK PAGE INNER IMAGES (for the two body blocks)
   Target file size: under 500 KB each
 
 INSTAGRAM POST GRIDS (work pages: first&last, takeoff, dring)
-  firstandlast-post-01.jpg through firstandlast-post-06.jpg (+.webp)
-  takeoff-post-01.jpg through takeoff-post-06.jpg (+.webp)
-  dring-post-01.jpg through dring-post-06.jpg (+.webp)
+  firstandlast-post-01.webp through firstandlast-post-06.webp 
+  takeoff-post-01.webp through takeoff-post-06.webp 
+  dring-post-01.webp through dring-post-06.webp 
 
   Recommended size: 1080×1080 (square, 1:1)
   Target file size: under 200 KB each
 
 DRING-SPECIFIC EXTRA IMAGES (work-dring.html has more sections)
-  dring-app-01.jpg, dring-app-02.jpg                        (16:9)
-  dring-banner-hero.jpg, dring-banner-cta.jpg               (16:6 wide)
-  dring-banner-feature-01.jpg, dring-banner-feature-02.jpg  (16:9)
-  dring-story-01.jpg through dring-story-05.jpg             (9:16 portrait)
-  dring-reel-01.jpg through dring-reel-04.jpg               (9:16 portrait)
+  dring-app-01.webp, dring-app-02.webp                        (16:9)
+  dring-banner-hero.webp, dring-banner-cta.webp               (16:6 wide)
+  dring-banner-feature-01.webp, dring-banner-feature-02.webp  (16:9)
+  dring-story-01.webp through dring-story-05.webp             (9:16 portrait)
+  dring-reel-01.webp through dring-reel-04.webp               (9:16 portrait)
 
 PORTRAIT (about section + about page)
-  myphoto.jpg + .webp
+  myphoto.webp
   Recommended size: 1200×1200 (square) or 1200×1500 (portrait)
 
 
@@ -242,9 +311,9 @@ STEP 2 — Make the page
 
 STEP 3 — Add images (with proper names)
   In the repo root, add:
-    kidley-tummy-tucker-cover.jpg + .webp     (1920×1080)
-    kidley-tummy-tucker-01.jpg + .webp         (1920×1080)
-    kidley-tummy-tucker-02.jpg + .webp         (1920×1080)
+    kidley-tummy-tucker-cover.webp     (1920×1080)
+    kidley-tummy-tucker-01.webp         (1920×1080)
+    kidley-tummy-tucker-02.webp         (1920×1080)
   Always compress them at TinyPNG.com before uploading.
 
 STEP 4 — Add a card on the projects page
@@ -254,7 +323,7 @@ STEP 4 — Add a card on the projects page
     - year + category text
     - title text
     - .proj-card__media: replace the <span class="ph"> with
-      <img src="/kidley-tummy-tucker-cover.jpg" alt="..." />
+      <img src="/kidley-tummy-tucker-cover.webp" alt="..." />
     - .proj-row__desc text (the short description to the right)
     - Color: add proj-row--orange / --white / --green / --yellow /
       --dring / --gray (pick one — see Section 9 for color tokens)
@@ -278,11 +347,11 @@ tag design — that don't deserve a full project page. They live on
 
 STEP 1 — Save your image
   Drop it in /selects-images/ with a clear name:
-    /selects-images/{client}-{short-name}.jpg
+    /selects-images/{client}-{short-name}.webp
   Examples:
-    /selects-images/hemhaw-reflective-poster.jpg
-    /selects-images/kidley-hangtag-spring.jpg
-    /selects-images/personal-illustration-01.jpg
+    /selects-images/hemhaw-reflective-poster.webp
+    /selects-images/kidley-hangtag-spring.webp
+    /selects-images/personal-illustration-01.webp
 
   Compress at tinypng.com first. Target under 300 KB.
   Any aspect ratio works — the masonry grid adapts.
@@ -298,7 +367,7 @@ STEP 2 — Add a card to selects/index.html
     - data-desc    : (optional) 1–2 sentence description shown in
                      lightbox sidebar. Leave empty if not needed.
   Replace the <div class="select__ph"> placeholder with an actual image:
-    <img src="/selects-images/{filename}.jpg" alt="{title}" loading="lazy" />
+    <img src="/selects-images/{filename}.webp" alt="{title}" loading="lazy" />
 
 STEP 3 — Adding a new filter genre
   If a piece doesn't fit print/social/packaging/identity/illustration:
@@ -325,7 +394,7 @@ STEP 5 (recommended) — Add it to the rotating preview strip
     3. Add a new JSON entry for your piece. Example:
          {"img":"kidley-hangtag-spring","alt":"Kidley hang tag"}
        (the "img" value is the filename WITHOUT extension —
-       /selects-images/kidley-hangtag-spring.jpg must exist)
+       /selects-images/kidley-hangtag-spring.webp must exist)
     4. Don't touch the 5 initial <a class="selects-preview-card">
        blocks below — they're just what shows on first paint.
        Rotation swaps them out automatically.
@@ -352,10 +421,9 @@ Compressing before upload (ALWAYS DO THIS)
   1. Open tinypng.com
   2. Drop your raw images (any format, any size)
   3. Download the compressed versions
-  4. Rename to match the naming rules in Section 4
-  5. For best results, also visit squoosh.app and save a WebP version
-     at quality 80–85
-  6. Upload both the .jpg and .webp to the repo root
+  4. Open squoosh.app and export as WebP at quality 80–85
+  5. Rename to match the naming rules in Section 4
+  6. Upload the .webp to the repo root — that file only. No JPG twin.
 
 Why this matters
   Original camera photos are often 10–15 MB each. Compressed versions
@@ -366,7 +434,7 @@ For the services page images
   Each service row has a small square image (180×180 max). Edit
   /services/index.html → find the .service__media block for the
   service you want to update → swap the <img src="..."> path to
-  point at your own file (e.g. /service-packaging.jpg). Currently
+  point at your own file (e.g. /service-packaging.webp). Currently
   uses Unsplash URLs as placeholders.
 
 
@@ -426,7 +494,13 @@ CARD COLORS
   --yellow-card-ink:  #1a1500   (text on yellow-card)
   --dring-card:       #6e44ff   (dring — purple)
   --dring-card-ink:   #e0aaff   (text on dring — light purple)
-  --gray-card:        #2a2a2a   (naughty dares)
+  --gray-card:        #2a2a2a   (legacy, unused)
+  --naughtydares-card:     #7a1d26   (naughty dares — wine burgundy)
+  --naughtydares-card-ink: #f0dbbb   (cream text on burgundy)
+  --kidley-card:      #1A2B4A   (kidley — brand navy)
+  --kidley-card-ink:  #ffffff   (white text on navy)
+  --hemhaw-card:      #101418   (hem & haw — near black)
+  --hemhaw-card-ink:  #C8FF3D   (hi-vis text, echoes reflective strip)
 
 TYPOGRAPHY
   --font-sans:        Geist (display font)
@@ -497,23 +571,29 @@ IMAGE LOADING ATTRIBUTES
     - decoding="async"   →  browser decodes off the main thread
   Don't remove these. They're what makes the site feel snappy.
 
-THE <picture> TAG PATTERN
-  When you have both .jpg and .webp for an image, wrap in <picture>:
-    <picture>
-      <source srcset="/cover.webp" type="image/webp" />
-      <img src="/cover.jpg" alt="..." loading="lazy" decoding="async" />
-    </picture>
-  Modern browsers pick WebP, older ones fall back to JPG.
+NO <picture> TAG — PLAIN <img> ONLY
+  This site used to wrap images in <picture> with a WebP source and a
+  JPG fallback. That's gone. Every image is now a single <img>:
+    <img src="/cover.webp" alt="..." loading="lazy" decoding="async" />
+  Don't reintroduce <picture>. It doubles the file count for a fallback
+  no browser since 2020 has needed, and the repo has to stay under
+  GitHub's 100-file upload cap. See Section 2 and the 2026-09-03 entry.
 
 DON'T USE THESE FORMATS
-  PNG — only use for logos with transparency. For photos, always JPG.
-  GIF — use MP4 video instead, or WebP animated.
-  TIFF, BMP, HEIC — never. Convert to JPG before uploading.
+  PNG — only for logos with transparency and the favicons. Not photos.
+  JPG — no longer used anywhere. Convert to WebP.
+  GIF — use MP4 video instead, or animated WebP.
+  TIFF, BMP, HEIC — never. Convert to WebP before uploading.
 
 
 ════════════════════════════════════════════════════════════════════════════
   11. DEPLOYING — HOW TO PUSH CHANGES TO GITHUB
 ════════════════════════════════════════════════════════════════════════════
+
+BEFORE YOU PUSH — ALWAYS
+  Run `python3 build-preview.py` and open preview.html. Check the pages
+  you touched. Pushing an unreviewed change means the broken version is
+  live for however long it takes you to notice.
 
 THE EASIEST WAY (browser-only)
   1. Edit files locally on your computer.
@@ -581,7 +661,7 @@ In repo Settings → Pages, the custom domain field should show
 
 "Image isn't showing"
   → Filename mismatch. Check Section 4 — names are case-sensitive on
-    GitHub. firstandlast-cover.jpg ≠ FirstAndLast-Cover.jpg.
+    GitHub. firstandlast-cover.webp ≠ FirstAndLast-Cover.webp.
 
 "GitHub complains my files are too heavy"
   → Image over 50 MB. Compress at tinypng.com (Section 6). 100 MB is
@@ -621,8 +701,8 @@ If you ever change any of these handles, update them in TWO places:
 ════════════════════════════════════════════════════════════════════════════
 
 If your repo is messy with old test files, these are safe to delete:
-  - first_last.jpg          (old name, replaced by firstandlast-cover.jpg)
-  - takeoff_main.jpg        (old name, replaced by takeoff-cover.jpg)
+  - first_last.webp          (old name, replaced by firstandlast-cover.webp)
+  - takeoff_main.webp        (old name, replaced by takeoff-cover.webp)
   - any *.html file sitting at root that isn't /index.html or /CNAME
     (these are leftovers from the pre-clean-URL structure)
 
@@ -669,7 +749,7 @@ When you change the site, add a line here. Newest at the top.
             also has JSON-LD Person schema. Site root now has
             robots.txt and sitemap.xml (13 URLs).
 2026-08-14  Naughty Dares 16:9 banner added.
-            (1) /naughtydares-cover.jpg + .webp replaced with real
+            (1) /naughtydares-cover.webp replaced with real
             1920×1080 banner (roses + pearls composition).
             (2) Naughty Dares case study: cover restored to standard
             <picture> block (was showing empty --accent placeholder).
@@ -682,9 +762,9 @@ When you change the site, add a line here. Newest at the top.
             square 1080×1080 shots. The square images looked "half
             cut" because the 16:9 cover frame uses object-fit:cover.
             Fixes:
-            (1) Takeoff cover restored to /takeoff-cover.jpg (16:9).
+            (1) Takeoff cover restored to /takeoff-cover.webp (16:9).
                 Clean product shot (square) moved to sub-image Block 00.
-            (2) F&L cover restored to /firstandlast-cover.jpg (16:9).
+            (2) F&L cover restored to /firstandlast-cover.webp (16:9).
                 Clean product shot moved to sub-image Block 00.
             (3) Naughty Dares cover reverted to empty --accent
                 placeholder (no 16:9 cover ready yet). Roses shot
@@ -750,7 +830,7 @@ When you change the site, add a line here. Newest at the top.
             (5) 14 new images added under /dring-work/: 11 social
             statics + 3 behind-the-scenes shots, all JPG+WebP,
             compressed at quality 90.
-            BANNER SLOT: drop /dring-cover.jpg + .webp in root to
+            BANNER SLOT: drop /dring-cover.webp in root to
             fill the empty Dring visual on homepage, projects, and
             hub page cover. Placeholder shows purple tile until then.
 2026-07-29  Two fixes on top of the previous update:
@@ -889,7 +969,7 @@ When you change the site, add a line here. Newest at the top.
             devices, with hover-to-open added in main.js for desktop.
             Open row shows a square image, description, and category
             tag pills. Images currently use Unsplash placeholders —
-            swap to /service-XXX.jpg when ready.
+            swap to /service-XXX.webp when ready.
 2026-05-19  About page: added three-stat row above bio paragraphs
             (27+ clients, 47+ projects, 5+ industries). Industries
             listed below the 5+ number: fashion & clothing, F&B,
@@ -939,6 +1019,153 @@ When you change the site, add a line here. Newest at the top.
             beam animation). Vertical lines via repeating-linear-
             gradient. All content sections z-index 5 so cards/cover
             images never sit behind the grid.
+
+2026-09-03  Two client projects added — KIDLEY and HEM & HAW, both
+            done through Shoton Pictures.
+            (1) NEW PAGES at /work/kidley/ and /work/hemhaw/, both on
+            the standard work-page layout (cover + body/meta + block 01
+            + middle para + block 02 + closing + next-project).
+            (2) IMAGE SLOTS ARE STILL EMPTY. Both pages, plus their
+            homepage and projects-page cards, show a .ph placeholder
+            until you drop these six files in the repo ROOT:
+              kidley-cover / kidley-01 / kidley-02   (.jpg + .webp)
+              hemhaw-cover / hemhaw-01 / hemhaw-02   (.jpg + .webp)
+            Each slot has a ▼ comment with the exact <picture> block
+            to paste in. Same pattern aquaflow and snackify use.
+            (3) NEW COLOUR TOKENS — --kidley-card #1A2B4A with
+            --kidley-card-ink #FFD3C2 (navy + coral-cream, sampled
+            from the Kidley palette); --hemhaw-card #101418 with
+            --hemhaw-card-ink #C8FF3D (near-black + hi-vis, echoing
+            the reflective strip on the hero product). Modifiers added
+            for .work-card, .proj-card, .proj-row, .see-also-row, and
+            .work-page accents.
+            (4) LOOP UPDATED. Top level is now dring → kidley →
+            hem & haw → aquaflow → snackify → dring. Only the Dring
+            hub's next-project card changed target (aquaflow → kidley);
+            aquaflow and snackify keep their existing targets.
+            (5) Both cards sit directly after Dring on the homepage
+            and the projects page — real client work above the two
+            concept pieces. Sitemap grown from 13 to 15 URLs.
+            (6) COPY IS A FIRST DRAFT written from brand context, not
+            from a brief. Check the role, dates, and claims on both
+            pages before pushing.
+
+2026-09-03  Preview build added. New /build-preview.py bundles the whole
+            site — CSS, JS, images, all 15 pages — into a single
+            self-contained preview.html you can open in any browser with
+            no server. Tabs across the top switch pages; links inside a
+            page jump to the matching tab. Each page renders in its own
+            iframe so layout.js and main.js behave exactly as they do
+            live. Two size tricks keep the file openable: images over
+            900 KB are skipped, and where a .jpg and .webp are the same
+            picture only the .webp is bundled (32 MB → 7.3 MB).
+            preview.html is a build artifact — don't commit it, don't
+            edit it, re-run the script instead. Full how-to in the new
+            Section 2b. Standing rule from here on: rebuild the preview
+            and look at it before every push.
+
+2026-09-03  Cover banner ratio fixed site-wide + Kidley set to white.
+            (1) COVER RATIO BUG. Every work-page cover was rendering at
+            roughly 1.5:1 instead of 16:9, so a 1920x1080 cover lost
+            about 14% of its height to object-fit:cover — worst on
+            /work/takeoff, /work/firstandlast and /work/naughtydares,
+            where it read as almost square. Cause: .work-cover carried
+            BOTH the page's horizontal padding and aspect-ratio:16/9,
+            and with box-sizing:border-box the ratio sized the padded
+            box — leaving the visible image (width - 2*pad-x) wide at
+            full height. Fix: aspect-ratio moved off the container and
+            onto the image, the .ph tile, and .work-cover--empty::before.
+            Added a .work-cover picture rule so the <picture> wrapper
+            passes flex sizing through, and swapped the Dring hub's
+            empty-cover height:100% for aspect-ratio:16/9. Covers are
+            now a true 16:9 at every viewport width. No markup changed
+            and no image was re-cropped.
+            RULE: banners/covers are 16:9 (1920x1080). Square 1:1 shots
+            are for the numbered sub-blocks only, via
+            .work-block__img--square — that behaviour is unchanged.
+            (2) KIDLEY now uses white text. --kidley-card-ink is #ffffff
+            (was coral-cream #FFD3C2). Also updated the Kidley card
+            placeholder ink on the homepage and projects page, and the
+            work page's --accent, so meta labels, block numbers, and
+            rules stay legible on the dark background.
+
+2026-09-03  Hem & Haw page filled in with real work. Was placeholder-only;
+            now carries a cover, both numbered blocks, and an 8-piece
+            campaign strip.
+            (1) SOURCE ASSETS. Eight 1080x1440 (4:5) statics and posters:
+            three product statics (baggy lower male, baggy lower female,
+            reflective lower male), two dark-studio campaign frames
+            ("Your Pace.", "Reflect"), one daylight lifestyle profile
+            showing the side snap buttons, and two posters ("Outrun
+            Limits." for the running shorts, "But they can't stop us."
+            for women's running). All eight live uncropped in the new
+            /hemhaw-extras/ folder as .jpg + .webp.
+            (2) COVER AND BLOCKS ARE COMPOSITES. None of the source
+            images is 16:9, and centre-cropping a 4:5 poster to 16:9
+            cuts the headline off. So /hemhaw-cover, /hemhaw-01 and
+            /hemhaw-02 are 1920x1080 contact sheets built from the
+            originals at exactly 4:5 — nothing is cropped — laid on the
+            brand ground (#101418 for cover and 02, off-white #F4F4F2
+            for 01, matching the statics' own backgrounds). Cover is a
+            2-up of the dark-studio frames; 01 is a 3-up of the product
+            statics; 02 is a 3-up of the campaign posters. If a real
+            16:9 hero ever gets shot, just overwrite hemhaw-cover.
+            (3) EXTRAS STRIP + NEW CSS. The strip follows the Takeoff
+            pattern (horizontal scroll, click to open the shared
+            lightbox, arrows and Esc work). New modifier in style.css:
+            .extras-strip--portrait sets cards to 4:5 instead of the
+            default 1:1, since a square crop lops the type off the
+            posters. Takeoff and First & Last are untouched.
+            (4) PLACEHOLDERS CLEARED. The .ph tiles on the Hem & Haw
+            card are gone from both the homepage and /projects, and the
+            Kidley page's next-project thumbnail now resolves instead of
+            404-ing. Kidley itself is still placeholder-only.
+            (5) Block captions rewritten to match what's actually shown.
+
+2026-09-03  Dropped every .jpg. The repo carried each image twice — a
+            .jpg and a .webp of the same picture, served through a
+            <picture> element — which put it at 151 files. GitHub's web
+            uploader only accepts 100 files per drag-and-drop.
+            (1) WHAT CHANGED. Deleted all 56 .jpg files. Every one had a
+            .webp twin, so no image was lost. All 91 <picture> blocks
+            across the 15 pages collapsed to a plain <img> pointing at
+            the .webp; alt, loading, decoding and the onerror fallbacks
+            on the next-project thumbnails were all carried over intact.
+            (2) NO QUALITY LOSS. The .webp was already the file every
+            visitor received — a <source> beats the <img> fallback in
+            every browser made since 2020. The JPGs were dead weight
+            being uploaded and stored but never served.
+            (3) ALSO UPDATED. main.js (the Selects strip rotator built
+            its swap URLs from .jpg and set a <source> srcset that no
+            longer exists); the JSON-LD "image" field on the homepage;
+            and every paste-in comment block, so the templates for
+            Kidley and the other unshot covers now say .webp only.
+            (4) COUNT: 151 → 95 files. That's 5 spare. Section 2 of this
+            file now carries the rule: export .webp only, never re-add a
+            .jpg twin, never reintroduce <picture>.
+            (5) UNTOUCHED: the 7 already-missing assets stay missing —
+            resume.pdf, and the aquaflow / snackify / dring / kidley
+            covers referenced by next-project cards.
+
+2026-09-04  Removed two dead files. Neither favicon.ico (379 bytes) nor
+            favicon-48.png (1 KB) is referenced by anything (site.webmanifest asks for 192 and 512, the
+            HTML asks for the .svg plus 16 and 32). Neither was doing
+            any work. 95 -> 93 files.
+            VERIFIED at the same time, after the JPG removal: all 15
+            pages carry the same alt text they did before, none empty
+            (97 <img> tags: 95 with real alt text, plus the two
+            decorative title-loop images on /contact that correctly
+            carry alt="" so screen readers skip them). Every <title>, <meta> and <link>
+            in every <head> is byte-identical to the pre-change version.
+            Twelve of the fifteen pages are identical once the format
+            swap is normalised out; the only three that differ are the
+            homepage, /projects and /work/hemhaw, which is exactly where
+            the Hem & Haw work was added on 2026-09-03.
+            NOTE ON THE 100-FILE LIMIT: it applies to a single
+            drag-and-drop upload in the GitHub web UI, not to the repo.
+            A repo can hold thousands of files. If the count ever goes
+            over again, upload in two batches, or use GitHub Desktop,
+            and the limit stops mattering.
 
 [ADD NEW ENTRIES BELOW THIS LINE]
 

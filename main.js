@@ -422,7 +422,7 @@
     slots.forEach((slot) => {
       const img = slot.querySelector('img');
       if (!img) return;
-      const currentBase = img.getAttribute('src').split('/').pop().replace('.jpg', '');
+      const currentBase = img.getAttribute('src').split('/').pop().replace('.webp', '');
       const idx = pool.findIndex((p) => p.img === currentBase);
       slot.dataset.poolIdx = idx >= 0 ? String(idx) : '-1';
       if (idx >= 0) visible.add(idx);
@@ -453,11 +453,8 @@
           ? window.__SITE_BASE + 'selects-images/'
           : '/selects-images/';
         if (img) {
-          img.src = `${base}${piece.img}.jpg`;
+          img.src = `${base}${piece.img}.webp`;
           img.alt = piece.alt;
-        }
-        if (source) {
-          source.srcset = `${base}${piece.img}.webp`;
         }
 
         // Update tracking

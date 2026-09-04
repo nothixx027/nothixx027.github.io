@@ -38,12 +38,12 @@
   ║                                                                  ║
   ║  IMAGE SLOTS — drop these EXACT filenames in the same folder:    ║
   ║                                                                  ║
-  ║    COVER (16:9, 1920×1080)    →  aquaflow-cover.jpg              ║
-  ║    BLOCK 01 (16:9, 1600×900)  →  aquaflow-01.jpg                 ║
-  ║    BLOCK 02 (16:9, 1600×900)  →  aquaflow-02.jpg                 ║
+  ║    COVER (16:9, 1920×1080)    →  aquaflow-cover.webp              ║
+  ║    BLOCK 01 (16:9, 1600×900)  →  aquaflow-01.webp                 ║
+  ║    BLOCK 02 (16:9, 1600×900)  →  aquaflow-02.webp                 ║
   ║                                                                  ║
   ║  HOW: find the ▼ comment, remove <span class="ph">,              ║
-  ║  and replace with <img src="/FILENAME.jpg" alt="..." />           ║
+  ║  and replace with <img src="/FILENAME.webp" alt="..." />           ║
   ║                                                                  ║
   ╚══════════════════════════════════════════════════════════════════╝
 -->
@@ -63,8 +63,8 @@
   </section>
 
   <div class="work-cover reveal">
-    <!-- ▼ AQUAFLOW — COVER  →  aquaflow-cover.jpg  (16:9, 1920×1080)
-         Replace: <img src="/aquaflow-cover.jpg" alt="aquaflow cover" /> -->
+    <!-- ▼ AQUAFLOW — COVER  →  aquaflow-cover.webp  (16:9, 1920×1080)
+         Replace: <img src="/aquaflow-cover.webp" alt="aquaflow cover" /> -->
     <span class="ph">.aquaflow</span>
   </div>
 
@@ -98,8 +98,8 @@
     <div class="work-block reveal">
       <div class="work-block__num">01</div>
       <div class="work-block__img">
-        <!-- ▼ AQUAFLOW — BLOCK 01  →  aquaflow-01.jpg  (16:9)
-             Replace: <img src="/aquaflow-01.jpg" alt="aquaflow bottle labels" /> -->
+        <!-- ▼ AQUAFLOW — BLOCK 01  →  aquaflow-01.webp  (16:9)
+             Replace: <img src="/aquaflow-01.webp" alt="aquaflow bottle labels" /> -->
         <span class="ph">.aquaflow 01</span>
       </div>
       <p class="work-block__caption">Final bottle labels paired with the primary color system.</p>
@@ -119,8 +119,8 @@
     <div class="work-block reveal">
       <div class="work-block__num">02</div>
       <div class="work-block__img">
-        <!-- ▼ AQUAFLOW — BLOCK 02  →  aquaflow-02.jpg  (16:9)
-             Replace: <img src="/aquaflow-02.jpg" alt="aquaflow van livery" /> -->
+        <!-- ▼ AQUAFLOW — BLOCK 02  →  aquaflow-02.webp  (16:9)
+             Replace: <img src="/aquaflow-02.webp" alt="aquaflow van livery" /> -->
         <span class="ph">.aquaflow 02</span>
       </div>
       <p class="work-block__caption">Delivery van livery applied across the fleet.</p>
@@ -139,7 +139,8 @@
   <!-- ────────────────────────────────────────────────────────────────
        NEXT PROJECT — points to next in the loop.
        Loop layout:
-         DRING (hub) → aquaflow → snackify → DRING (loops back)
+         DRING (hub) → kidley → hem & haw → aquaflow → snackify
+                     → DRING (loops back)
          Dring sub-products: firstandlast → naughtydares → takeoff
                              → DRING (returns to hub)
        ──────────────────────────────────────────────────────────────── -->
@@ -159,10 +160,7 @@
         <span class="next-project-card__cat">Packaging Design</span>
       </div>
       <div class="next-project-card__thumb">
-        <picture>
-          <source srcset="/snackify-cover.webp" type="image/webp" />
-          <img src="/snackify-cover.jpg" alt="snackify" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.parentElement.style.background='rgba(0,0,0,0.15)';" />
-        </picture>
+        <img src="/snackify-cover.webp" alt="snackify" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.style.background='rgba(0,0,0,0.15)';" />
       </div>
     </a>
 

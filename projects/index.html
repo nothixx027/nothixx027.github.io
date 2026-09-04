@@ -41,19 +41,19 @@
   ║                                                                  ║
   ║  IMAGE SLOTS ON THIS PAGE — 16:9 (recommended 1600×900):         ║
   ║  ┌───────────────────────────────────────────────────────────┐   ║
-  ║  │  Card 1  first & last      →  firstandlast-cover.jpg      │   ║
-  ║  │  Card 2  aquaflow          →  aquaflow-cover.jpg          │   ║
-  ║  │  Card 3  snackify          →  snackify-cover.jpg          │   ║
-  ║  │  Card 4  dring             →  dring-cover.jpg             │   ║
-  ║  │  Card 5  takeoff           →  takeoff-cover.jpg           │   ║
-  ║  │  Card 6  naughty dares     →  naughtydares-cover.jpg      │   ║
+  ║  │  Card 1  first & last      →  firstandlast-cover.webp      │   ║
+  ║  │  Card 2  aquaflow          →  aquaflow-cover.webp          │   ║
+  ║  │  Card 3  snackify          →  snackify-cover.webp          │   ║
+  ║  │  Card 4  dring             →  dring-cover.webp             │   ║
+  ║  │  Card 5  takeoff           →  takeoff-cover.webp           │   ║
+  ║  │  Card 6  naughty dares     →  naughtydares-cover.webp      │   ║
   ║  └───────────────────────────────────────────────────────────┘   ║
   ║                                                                  ║
   ║  HOW TO ADD:                                                     ║
   ║  Inside each .proj-card__media div, replace                      ║
   ║       <span class="ph">...</span>                                ║
   ║  with                                                            ║
-  ║       <img src="/FILENAME.jpg" alt="project name" />              ║
+  ║       <img src="/FILENAME.webp" alt="project name" />              ║
   ║                                                                  ║
   ╚══════════════════════════════════════════════════════════════════╝
 -->
@@ -103,14 +103,52 @@
           <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
         </div>
         <div class="proj-card__media">
-          <!-- ▼ DRING HUB  →  drop /dring-cover.jpg + .webp in the root
+          <!-- ▼ DRING HUB  →  drop /dring-cover.webp in the root
                to fill this slot. Replace the <span> below with:
-                 <picture><source srcset="/dring-cover.webp" type="image/webp" />
-                 <img src="/dring-cover.jpg" alt="dring" /></picture> -->
+                 <img src="/dring-cover.webp" alt="dring" /> -->
           <span class="ph">.dring — banner slot</span>
         </div>
       </a>
       <div class="proj-row__desc">Two years in-house — three flagship party games (First &amp; Last, Naughty Dares, Takeoff) plus every social static and campaign creative in between.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         KIDLEY — client work via Shoton Pictures.
+         Drop /kidley-cover.webp in the root to fill the slot.
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="proj-row proj-row--kidley">
+      <a href="/work/kidley/" class="proj-card proj-card--kidley">
+        <div class="proj-card__top"><span>2025 — 2026</span><span>Branding &amp; Packaging</span></div>
+        <div class="proj-card__title-row">
+          <span class="proj-card__title">kidley</span>
+          <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="proj-card__media">
+          <!-- ▼ KIDLEY  →  kidley-cover.webp  (16:9)
+               Replace the <span> below with:
+                 <img src="/kidley-cover.webp" alt="kidley" /> -->
+          <span class="ph">.kidley</span>
+        </div>
+      </a>
+      <div class="proj-row__desc">Forty years of manufacturing in Ludhiana, finally given a brand — positioning, a category colour system, and packaging specced so the vendor prints it right.</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         HEM & HAW — client work via Shoton Pictures.
+         Drop /hemhaw-cover.webp in the root to fill the slot.
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="proj-row proj-row--hemhaw">
+      <a href="/work/hemhaw/" class="proj-card proj-card--hemhaw">
+        <div class="proj-card__top"><span>2025 — 2026</span><span>Social &amp; Campaign Design</span></div>
+        <div class="proj-card__title-row">
+          <span class="proj-card__title">hem &amp; haw</span>
+          <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="proj-card__media">
+          <img src="/hemhaw-cover.webp" alt="hem &amp; haw" loading="lazy" decoding="async" />
+        </div>
+      </a>
+      <div class="proj-row__desc">An athleisure label built on one hero product — a reflective track pant — and a social system that could run every day without going flat.</div>
     </div>
 
     <div class="proj-row proj-row--white">
@@ -121,8 +159,8 @@
           <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
         </div>
         <div class="proj-card__media">
-          <!-- ▼ AQUAFLOW  →  aquaflow-cover.jpg  (16:9)
-               Replace the <span> below with: <img src="/aquaflow-cover.jpg" alt="aquaflow" /> -->
+          <!-- ▼ AQUAFLOW  →  aquaflow-cover.webp  (16:9)
+               Replace the <span> below with: <img src="/aquaflow-cover.webp" alt="aquaflow" /> -->
           <span class="ph">.aquaflow</span>
         </div>
       </a>
@@ -137,8 +175,8 @@
           <span class="proj-card__arrow"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
         </div>
         <div class="proj-card__media">
-          <!-- ▼ SNACKIFY  →  snackify-cover.jpg  (16:9)
-               Replace the <span> below with: <img src="/snackify-cover.jpg" alt="snackify" /> -->
+          <!-- ▼ SNACKIFY  →  snackify-cover.webp  (16:9)
+               Replace the <span> below with: <img src="/snackify-cover.webp" alt="snackify" /> -->
           <span class="ph">.snackify</span>
         </div>
       </a>
@@ -178,38 +216,23 @@
         </script>
 
         <a href="/selects/" class="selects-preview-card" data-slot="0">
-          <picture>
-            <source srcset="/selects-images/pinkvilla-spotify-partnership.webp" type="image/webp" />
-            <img src="/selects-images/pinkvilla-spotify-partnership.jpg" alt="Pinkvilla × Spotify partnership" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/pinkvilla-spotify-partnership.webp" alt="Pinkvilla × Spotify partnership" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-slot="1">
-          <picture>
-            <source srcset="/selects-images/pinkvilla-velora-launch.webp" type="image/webp" />
-            <img src="/selects-images/pinkvilla-velora-launch.jpg" alt="Velora perfume launch" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/pinkvilla-velora-launch.webp" alt="Velora perfume launch" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-slot="2">
-          <picture>
-            <source srcset="/selects-images/dring-pizza-hack.webp" type="image/webp" />
-            <img src="/selects-images/dring-pizza-hack.jpg" alt="Dring's pizza re-heating hack" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/dring-pizza-hack.webp" alt="Dring's pizza re-heating hack" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-slot="3">
-          <picture>
-            <source srcset="/selects-images/personal-hell-typography.webp" type="image/webp" />
-            <img src="/selects-images/personal-hell-typography.jpg" alt="HELL typography experiment" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/personal-hell-typography.webp" alt="HELL typography experiment" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-slot="4">
-          <picture>
-            <source srcset="/selects-images/personal-ghost-regera-poster.webp" type="image/webp" />
-            <img src="/selects-images/personal-ghost-regera-poster.jpg" alt="Koenigsegg Ghost Regera poster" loading="lazy" decoding="async" />
-          </picture>
+          <img src="/selects-images/personal-ghost-regera-poster.webp" alt="Koenigsegg Ghost Regera poster" loading="lazy" decoding="async" />
         </a>
 
         <a href="/selects/" class="selects-preview-card" data-fixed>

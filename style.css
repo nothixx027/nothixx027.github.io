@@ -28,6 +28,13 @@
      with a cream ink that echoes the "Naughty Dares" wordmark on the box. */
   --naughtydares-card: #7a1d26;
   --naughtydares-card-ink: #f0dbbb;
+  /* Kidley — navy from the brand palette, white text. */
+  --kidley-card: #1A2B4A;
+  --kidley-card-ink: #ffffff;
+  /* Hem & Haw — near-black with a hi-vis ink, echoing the reflective
+     strip on the hero product. */
+  --hemhaw-card: #101418;
+  --hemhaw-card-ink: #C8FF3D;
 
   --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
@@ -324,6 +331,8 @@ body.is-loaded { opacity: 1; }
 .work-card--green  { background: var(--green-card); color: var(--green-card-ink); }
 .work-card--yellow { background: var(--yellow-card); color: var(--yellow-card-ink); }
 .work-card--dring { background: var(--dring-card); color: var(--dring-card-ink); }
+.work-card--kidley { background: var(--kidley-card); color: var(--kidley-card-ink); }
+.work-card--hemhaw { background: var(--hemhaw-card); color: var(--hemhaw-card-ink); }
 
 .work-card--gray   { background: var(--gray-card); color: var(--ink); }
 
@@ -1319,6 +1328,8 @@ body.is-loaded { opacity: 1; }
 .work-page--aquaflow { --accent: var(--aquaflow-ink); }
 .work-page--snackify { --accent: var(--green-card-ink); }
 .work-page--zengo    { --accent: var(--yellow-card); }
+.work-page--kidley   { --accent: var(--kidley-card-ink); }
+.work-page--hemhaw   { --accent: var(--hemhaw-card-ink); }
 .work-page--roverride { --accent: #ffffff; }
 
 .work-head { padding: 140px 0 0; position: relative; z-index: 5; }
@@ -1347,24 +1358,33 @@ body.is-loaded { opacity: 1; }
 }
 
 /* Cover */
+/* Cover — TRUE 16:9 banner.
+   The aspect-ratio must sit on the IMAGE, not on this container. This
+   element carries the page's horizontal padding, and with box-sizing:
+   border-box an aspect-ratio here sizes the padded box — so the visible
+   image ends up (width − 2×pad-x) wide at full height, landing around
+   1.5:1 and cropping a 1920×1080 source top and bottom. Keep the ratio
+   on the child and this stays a real 16:9 banner at every width. */
 .work-cover {
   width: 100%;
   margin-top: 80px;
   padding: 0 var(--pad-x);
-  aspect-ratio: 16/9;
   box-sizing: border-box;
   display: flex;
   position: relative;
   z-index: 5;
 }
 .work-cover img {
-  width: 100%; height: 100%;
+  width: 100%;
+  aspect-ratio: 16/9;
+  height: auto;
   object-fit: cover;
   border-radius: var(--radius);
   flex: 1;
 }
 .work-cover span.ph {
   flex: 1;
+  aspect-ratio: 16/9;
   border-radius: var(--radius);
   background: var(--accent);
   display: flex; align-items: center; justify-content: center;
@@ -1419,13 +1439,13 @@ body.is-loaded { opacity: 1; }
 }
 .work-block__img--square img { object-fit: contain; }
 
-/* Empty cover: colored 16:9 tile when no cover image is ready yet. */
-.work-cover--empty {
-  aspect-ratio: 16/9;
-}
+/* Empty cover: colored 16:9 tile when no cover image is ready yet.
+   Ratio sits on the ::before for the same reason as .work-cover above —
+   the parent carries the page padding. */
 .work-cover--empty::before {
   content: '';
   flex: 1;
+  aspect-ratio: 16/9;
   border-radius: var(--radius);
   background: var(--accent);
 }
@@ -1779,6 +1799,8 @@ body.lightbox-open {
 .see-also-row--green { background: var(--green-card); color: var(--green-card-ink); }
 .see-also-row--yellow { background: var(--yellow-card); color: var(--yellow-card-ink); }
 .see-also-row--dring { background: var(--dring-card); color: var(--dring-card-ink); }
+.see-also-row--kidley { background: var(--kidley-card); color: var(--kidley-card-ink); }
+.see-also-row--hemhaw { background: var(--hemhaw-card); color: var(--hemhaw-card-ink); }
 .see-also-row--gray { background: var(--gray-card); color: var(--ink); }
 .see-also-row__thumb {
   width: 100%; aspect-ratio: 16/9;
@@ -1948,11 +1970,6 @@ body.lightbox-open {
   transition: transform 0.5s var(--e-out);
   cursor: pointer;
 }
-.dring-social-tile picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
 .dring-social-tile img {
   width: 100%; height: 100%;
   /* Contain = whole design visible, no crop.
@@ -1998,11 +2015,6 @@ body.lightbox-open {
   transition: transform 0.5s var(--e-out);
   cursor: pointer;
 }
-.dring-bts-tile picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
 .dring-bts-tile img {
   width: 100%;
   height: 100%;
@@ -2028,11 +2040,14 @@ body.lightbox-open {
 }
 
 /* Empty cover fallback for Dring hub — plain purple tile when
-   /dring-cover.jpg doesn't exist yet. */
-.work-page--dring .work-cover.is-empty picture {
-  display: block;
-  width: 100%;
-  height: 100%;
+   /dring-cover.webp doesn't exist yet. The onerror handler on the <img>
+   hides it and puts .is-empty on .work-cover; this ::before then fills
+   the slot. Ratio sits on the pseudo-element, not the container, for the
+   same padding reason documented at .work-cover--empty above. */
+.work-page--dring .work-cover.is-empty::before {
+  content: '';
+  flex: 1;
+  aspect-ratio: 16/9;
   background: var(--dring-card);
   border-radius: var(--radius);
 }
@@ -2103,11 +2118,13 @@ body.lightbox-open {
 @media (min-width: 720px)  { .extras-strip__card { width: 320px; } }
 @media (min-width: 1024px) { .extras-strip__card { width: 380px; } }
 
-.extras-strip__card picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+/* PORTRAIT variant: for 1080×1440 (4:5) social statics. The default 1:1
+   card centre-crops, which lops the headline off a poster whose type sits
+   near the top or bottom edge. Used by /work/hemhaw. */
+.extras-strip--portrait .extras-strip__card { aspect-ratio: 4/5; }
+@media (min-width: 720px)  { .extras-strip--portrait .extras-strip__card { width: 300px; } }
+@media (min-width: 1024px) { .extras-strip--portrait .extras-strip__card { width: 340px; } }
+
 .extras-strip__card img {
   width: 100%;
   height: 100%;
@@ -2439,6 +2456,8 @@ body.lightbox-open {
 .proj-row--green  .proj-row__desc { color: var(--green-card-ink); }
 .proj-row--yellow .proj-row__desc { color: var(--yellow-card); }
 .proj-row--dring  .proj-row__desc { color: var(--dring-card-ink); }
+.proj-row--kidley .proj-row__desc { color: var(--kidley-card-ink); }
+.proj-row--hemhaw .proj-row__desc { color: var(--hemhaw-card-ink); }
 .proj-row--gray   .proj-row__desc { color: var(--ink-2); }
 
 .proj-card {
@@ -2455,6 +2474,8 @@ body.lightbox-open {
 .proj-card--green  { background: var(--green-card); color: var(--green-card-ink); }
 .proj-card--yellow { background: var(--yellow-card); color: var(--yellow-card-ink); }
 .proj-card--dring { background: var(--dring-card); color: var(--dring-card-ink); }
+.proj-card--kidley { background: var(--kidley-card); color: var(--kidley-card-ink); }
+.proj-card--hemhaw { background: var(--hemhaw-card); color: var(--hemhaw-card-ink); }
 
 .proj-card--gray   { background: var(--gray-card); color: var(--ink); }
 
@@ -2493,6 +2514,8 @@ body.lightbox-open {
 .proj-card--white  .proj-card__media { background: var(--aquaflow-ink); }
 .proj-card--yellow .proj-card__media { background: rgba(0,0,0,0.1); }
 .proj-card--dring  .proj-card__media { background: rgba(255,255,255,0.12); }
+.proj-card--kidley .proj-card__media { background: rgba(255,255,255,0.10); }
+.proj-card--hemhaw .proj-card__media { background: rgba(255,255,255,0.07); }
 .proj-card__media img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
 .proj-card__media .ph {
   font-family: var(--font-mono); font-size: 14px; color: rgba(255,255,255,0.22);
@@ -2500,6 +2523,8 @@ body.lightbox-open {
 .proj-card--orange .proj-card__media .ph,
 .proj-card--yellow .proj-card__media .ph { color: rgba(0,0,0,0.2); }
 .proj-card--dring  .proj-card__media .ph { color: rgba(224,170,255,0.45); }
+.proj-card--kidley .proj-card__media .ph { color: rgba(255,255,255,0.45); }
+.proj-card--hemhaw .proj-card__media .ph { color: rgba(200,255,61,0.40); }
 
 
 /* project card image visibility fix */
