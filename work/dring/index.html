@@ -60,9 +60,9 @@
   ║       no case study yet — see the "designed for" section for how).   ║
   ║                                                                      ║
   ║  BANNER SLOT:                                                        ║
-  ║    A 16:9 empty banner sits between the hero and the body copy.      ║
-  ║    Drop /dring-cover.webp in the root and it renders.         ║
-  ║    Until then, a solid purple placeholder shows.                     ║
+  ║    A 16:9 banner sits between the hero and the body copy.            ║
+  ║    /dring-cover.webp is in place. The onerror fallback stays         ║
+  ║    wired, so a missing file still paints a solid purple tile.        ║
   ║                                                                      ║
   ╚══════════════════════════════════════════════════════════════════════╝
 -->
@@ -82,11 +82,11 @@
     </div>
   </section>
 
-  <!-- COVER / BANNER SLOT
-       Drop /dring-cover.webp in the root to fill this.
-       Until then, a solid purple 16:9 tile shows. -->
+  <!-- COVER / BANNER SLOT — /dring-cover.webp
+       The onerror stays wired: if the file ever goes missing the img
+       hides itself and .is-empty paints a solid purple 16:9 tile. -->
   <div class="work-cover reveal">
-    <img alt="Dring cover" src="/dring-cover.webp" onerror="this.style.display='none'; this.parentElement.classList.add('is-empty');" decoding="async" />
+    <img alt="Dring party card games, including First &amp; Last, at a house party" src="/dring-cover.webp" onerror="this.style.display='none'; this.parentElement.classList.add('is-empty');" decoding="async" />
   </div>
 
   <!-- BODY: bio + meta -->

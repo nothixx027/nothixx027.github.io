@@ -43,7 +43,33 @@
   ║    BLOCK 02 (16:9, 1600×900)  →  kidley-02.webp           ║
   ║                                                                      ║
   ║  HOW: find the ▼ comment, delete the <span class="ph"> line,         ║
-  ║  and paste the <img src="/kidley-cover.webp" alt="Kidley brand identity" decoding="async" /> -->
+  ║  and paste the <img> tag written just above it.                      ║
+  ║                                                                      ║
+  ║  SQUARE SOURCES: don't drop a 1080×1080 file straight in — every     ║
+  ║  block on the site is 16:9. Extend it to 1920×1080 first, the way    ║
+  ║  Takeoff and First & Last were (see the 2026-09-04 changelog).       ║
+  ║                                                                      ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+
+<body data-page="projects" class="work-page work-page--kidley" style="--accent: var(--kidley-card-ink);">
+
+  <div data-mount="grid"></div>
+  <div data-mount="nav"></div>
+
+  <section class="work-head">
+    <div class="shell">
+      <div class="work-head__top">
+        <h1 class="work-head__title reveal-blur">kidley</h1>
+        <p class="work-head__desc reveal">Forty years of manufacturing, no brand to show for it. An identity and packaging system built so the factory finally reads as a label.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="work-cover reveal">
+    <!-- ▼ KIDLEY — COVER  →  kidley-cover.webp  (16:9, 1920×1080)
+         Replace the <span> below with:
+           <img src="/kidley-cover.webp" alt="Kidley brand identity" decoding="async" /> -->
     <span class="ph">.kidley — cover slot</span>
   </div>
 

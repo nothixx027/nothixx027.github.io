@@ -2086,21 +2086,69 @@ body.lightbox-open {
   margin: 0;
 }
 
-/* Horizontal scroll strip — cards flow left-to-right, overflow scrolls */
+/* Horizontal scroll strip — cards flow left-to-right, overflow scrolls.
+
+   This used to break out of .shell with a negative margin and pull itself
+   back in with padding. The padding didn't hold, so the row sat flush to
+   the page edge while the heading above it stayed inset — the one element
+   on the site that ignored the page gutter. It now just sits inside .shell
+   like everything else, so both sides line up with the heading.
+
+   No scroll-snap. With snap on, a drag or an arrow click that lands a few
+   pixels off gets yanked back to the nearest card, which reads as the row
+   refusing to move. main.js adds click-drag and arrow buttons; the
+   scrollbar is styled rather than hidden so there's a visible handle. */
 .extras-strip {
   display: flex;
   gap: 14px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 4px 0 20px;
-  margin: 0 calc(var(--pad-x) * -1);
-  padding-left: var(--pad-x);
-  padding-right: var(--pad-x);
-  scrollbar-width: none;
+  padding: 4px 0 14px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent, #666) transparent;
+  cursor: grab;
 }
-.extras-strip::-webkit-scrollbar { display: none; }
+.extras-strip.is-dragging { cursor: grabbing; }
+.extras-strip.is-dragging a { pointer-events: none; }
+.extras-strip::-webkit-scrollbar { height: 6px; }
+.extras-strip::-webkit-scrollbar-track { background: transparent; }
+.extras-strip::-webkit-scrollbar-thumb {
+  background: var(--accent, #666);
+  opacity: 0.5;
+  border-radius: 3px;
+}
 @media (min-width: 1024px) { .extras-strip { gap: 20px; } }
+
+/* Arrow buttons — injected by main.js, so the markup stays clean.
+   Hidden until the row actually overflows, and on touch, where swiping
+   is the natural gesture and floating buttons just cover the cards. */
+.extras-strip-wrap { position: relative; }
+.extras-strip-arrow {
+  position: absolute;
+  top: calc(50% - 7px);            /* offset for the scrollbar gutter */
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  display: none;
+  align-items: center; justify-content: center;
+  border: 1px solid var(--accent, #666);
+  border-radius: 50%;
+  background: var(--bg, #0a0a0a);
+  color: var(--accent, #fff);
+  cursor: pointer;
+  z-index: 6;
+  opacity: 0.9;
+  transition: opacity 0.25s var(--e-out), transform 0.25s var(--e-out);
+}
+.extras-strip-arrow svg { width: 20px; height: 20px; }
+.extras-strip-arrow--prev { left: -10px; }
+.extras-strip-arrow--next { right: -10px; }
+.extras-strip-arrow:disabled { opacity: 0.2; cursor: default; }
+@media (hover: hover) {
+  .extras-strip-wrap.has-overflow .extras-strip-arrow { display: flex; }
+  .extras-strip-arrow:not(:disabled):hover { opacity: 1; }
+  .extras-strip-arrow--prev:not(:disabled):hover { transform: translateY(-50%) translateX(-2px); }
+  .extras-strip-arrow--next:not(:disabled):hover { transform: translateY(-50%) translateX(2px); }
+}
 
 .extras-strip__card {
   flex: 0 0 auto;
@@ -2109,7 +2157,6 @@ body.lightbox-open {
   border-radius: 12px;
   overflow: hidden;
   background: #111;
-  scroll-snap-align: start;
   cursor: pointer;
   text-decoration: none;
   color: inherit;

@@ -475,6 +475,92 @@
     setInterval(swapSlot, interval);
   });
 
+  // ============== Extras strip: drag + arrow buttons ==============
+  // Touch devices swipe natively. On desktop there was no affordance at
+  // all, so this adds click-drag and a pair of arrow buttons.
+  //
+  // Deliberately NO wheel handling. Hijacking a vertical wheel to scroll
+  // sideways means the page stops moving whenever the cursor happens to
+  // be over the strip, which is worse than the problem it solves.
+  // Trackpads already send deltaX for a real sideways swipe and the
+  // browser handles that on its own.
+  document.querySelectorAll('.extras-strip').forEach((strip) => {
+
+    // --- wrap it so the arrows have something to anchor to ---
+    const wrap = document.createElement('div');
+    wrap.className = 'extras-strip-wrap';
+    strip.parentNode.insertBefore(wrap, strip);
+    wrap.appendChild(strip);
+
+    const arrow = (dir) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'extras-strip-arrow extras-strip-arrow--' + dir;
+      b.setAttribute('aria-label', dir === 'prev' ? 'Scroll left' : 'Scroll right');
+      b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="' +
+        (dir === 'prev' ? 'M15 6l-6 6 6 6' : 'M9 6l6 6-6 6') + '"/></svg>';
+      wrap.appendChild(b);
+      return b;
+    };
+    const prev = arrow('prev');
+    const next = arrow('next');
+
+    // Scroll by one card plus its gap, so a click lands cleanly.
+    const step = () => {
+      const card = strip.querySelector('.extras-strip__card');
+      const gap = parseFloat(getComputedStyle(strip).gap) || 16;
+      return card ? card.getBoundingClientRect().width + gap : strip.clientWidth * 0.8;
+    };
+    prev.addEventListener('click', () => strip.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => strip.scrollBy({ left:  step(), behavior: 'smooth' }));
+
+    // Grey out whichever arrow has nowhere to go, and hide both if the
+    // whole row already fits.
+    const sync = () => {
+      const max = strip.scrollWidth - strip.clientWidth;
+      wrap.classList.toggle('has-overflow', max > 1);
+      prev.disabled = strip.scrollLeft <= 1;
+      next.disabled = strip.scrollLeft >= max - 1;
+    };
+    strip.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+
+    // --- click-drag ---
+    // The 4px threshold matters: without it every click on a card counts
+    // as a zero-length drag and the lightbox stops opening.
+    let down = false, moved = false, startX = 0, startScroll = 0;
+
+    strip.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
+      down = true; moved = false;
+      startX = e.clientX;
+      startScroll = strip.scrollLeft;
+    });
+
+    strip.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) {
+        moved = true;
+        strip.classList.add('is-dragging');
+        try { strip.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      if (moved) {
+        e.preventDefault();
+        strip.scrollLeft = startScroll - dx;
+      }
+    });
+
+    const release = () => {
+      down = false;
+      if (moved) setTimeout(() => strip.classList.remove('is-dragging'), 0);
+    };
+    strip.addEventListener('pointerup', release);
+    strip.addEventListener('pointercancel', release);
+    strip.addEventListener('pointerleave', release);
+  });
+
   // ============== Grid ripple on click ==============
   // Background click anywhere (but not on interactive elements)
   document.addEventListener('click', (e) => {

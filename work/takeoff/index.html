@@ -38,7 +38,7 @@
   ║                                                                      ║
   ║  COVER: /takeoff-cover.webp (1920×1080, 16:9) — the ORIGINAL hero.    ║
   ║                                                                      ║
-  ║  SUB-IMAGE BLOCKS (all 1080×1080 square, use --square variant):      ║
+  ║  SUB-IMAGE BLOCKS (all 1920×1080, 16:9, same frame as the cover):    ║
   ║    Block 00  →  /takeoff-clean-product.webp (dartboard + darts)       ║
   ║    Block 01  →  /takeoff-whats-inside-the-box.webp                    ║
   ║    Block 02  →  /takeoff-party-collage.webp                           ║
@@ -47,9 +47,12 @@
   ║    takeoff-features-3, takeoff-game-highlights, takeoff-hook-detail, ║
   ║    takeoff-magnetic-darts, takeoff-how-to-play                       ║
   ║                                                                      ║
-  ║  ⚠️  Square images use .work-block__img--square so they render        ║
-  ║  with object-fit: contain — nothing gets cropped. If you use a       ║
-  ║  16:9 image in a block, drop the --square class.                     ║
+  ║  ⚠️  These were 1080×1080 squares in a narrower 720px frame, which    ║
+  ║  made them the odd ones out on the site. They are now extended to    ║
+  ║  16:9 in the file itself — the square sits sharp and uncropped in    ║
+  ║  the middle, with a blurred, darkened copy of itself filling the     ║
+  ║  sides (or a flat colour where the artwork already had one). Drop    ║
+  ║  a real 1920×1080 export in and it replaces this cleanly.            ║
   ║                                                                      ║
   ╚══════════════════════════════════════════════════════════════════════╝
 -->
@@ -86,12 +89,11 @@
     </div>
   </section>
 
-  <!-- Sub-image block: clean product shot (1080×1080 square, uses contain
-       so nothing gets cropped even though it's not 16:9). -->
+  <!-- Sub-image block: clean product shot, extended to 16:9. -->
   <section class="shell">
-    <div class="work-block work-block--square reveal">
+    <div class="work-block reveal">
       <div class="work-block__num">00</div>
-      <div class="work-block__img work-block__img--square">
+      <div class="work-block__img">
         <img src="/takeoff-clean-product.webp" alt="Takeoff — the dartboard and darts as sold" loading="lazy" decoding="async" />
       </div>
       <p class="work-block__caption">Everything in the box: a magnetic dartboard, four darts, and a hook.</p>
@@ -101,7 +103,7 @@
   <section class="shell">
     <div class="work-block reveal">
       <div class="work-block__num">01</div>
-      <div class="work-block__img work-block__img--square">
+      <div class="work-block__img">
         <img src="/takeoff-whats-inside-the-box.webp" alt="Takeoff — what's inside the box: dartboard + 4 magnetic darts" loading="lazy" decoding="async" />
       </div>
       <p class="work-block__caption">One dartboard, four magnetic darts — everything needed to start a game.</p>
@@ -120,7 +122,7 @@
   <section class="shell">
     <div class="work-block reveal">
       <div class="work-block__num">02</div>
-      <div class="work-block__img work-block__img--square">
+      <div class="work-block__img">
         <img src="/takeoff-party-collage.webp" alt="Takeoff in play — party moments" loading="lazy" decoding="async" />
       </div>
       <p class="work-block__caption">Tested at real gatherings. Loud, competitive, and forgiving of missed shots.</p>
@@ -192,7 +194,7 @@
         <span class="next-project-card__cat">In-house Design · Hub</span>
       </div>
       <div class="next-project-card__thumb">
-        <img src="/dring-cover.webp" alt="dring" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.style.background='rgba(0,0,0,0.15)';" />
+        <img src="/dring-cover.webp" alt="Dring party card games, including First &amp; Last, at a house party" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.style.background='rgba(0,0,0,0.15)';" />
       </div>
     </a>
 

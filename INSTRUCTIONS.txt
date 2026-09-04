@@ -1167,6 +1167,130 @@ When you change the site, add a line here. Newest at the top.
             over again, upload in two batches, or use GitHub Desktop,
             and the limit stops mattering.
 
+2026-09-04b Four fixes, one of them a bug I caused on 2026-09-04.
+
+            (1) KIDLEY PAGE WAS BROKEN — MY FAULT. The regex that
+            collapsed <picture> blocks into plain <img> tags ran over the
+            whole file instead of respecting comment boundaries. Kidley's
+            header comment contains the sentence "paste the <picture>
+            block written just above it" — a bare <picture> with no
+            closing tag. The regex paired it with the </picture> in the
+            NEXT comment further down and deleted everything between:
+            the end of the header comment, the <body> tag, the entire
+            work-head section (the "kidley" h1 and its description), and
+            the opening of the cover div. With no <body> there was no
+            work-page class, so --accent never resolved and the
+            placeholder tiles rendered as nothing at all. That is the
+            blank you saw. The page has been rebuilt from the original
+            and reconverted with a comment-aware pass.
+            Worth recording why my check missed it: I verified the
+            conversion by normalising the old and new files with the SAME
+            regex, so both sides had the identical hole and compared
+            equal. The check has been redone properly — strip comments
+            first, then compare visible text — and all 15 pages are now
+            confirmed intact.
+
+            (2) SQUARE BLOCKS ARE NOW 16:9. Eight sub-images were
+            1080x1080 and sat in a 720px-wide contain frame, so they
+            were visibly narrower than every other block on the site.
+            They have been extended to 1920x1080 in the file itself:
+            the square sits sharp and uncropped in the centre, and the
+            sides are filled with a heavily blurred, darkened copy of
+            the same image — or a flat colour where the artwork already
+            had a uniform background (fl-whats-inside-the-box,
+            takeoff-whats-inside-the-box, both seamless).
+            Affected: fl-clean-product, fl-whats-inside-the-box,
+            fl-friendly-competition, takeoff-clean-product,
+            takeoff-whats-inside-the-box, takeoff-party-collage,
+            naughtydares-candle-scene, naughtydares-lipstick-card.
+            The --square class is gone from all HTML. The CSS rule stays
+            in style.css but is now unused; if a real 1920x1080 export
+            ever replaces one of these, it drops straight in.
+
+            (3) EXTRAS STRIP NOW LINES UP WITH THE PAGE. It used to
+            break out of .shell with a negative margin and pull itself
+            back with padding-left/right. The padding wasn't holding, so
+            the row sat flush against the page edge while its own
+            heading stayed inset — the only element on the site ignoring
+            the gutter. The negative margin and compensating padding are
+            both gone; it now sits inside .shell like everything else.
+
+            (4) THE STRIP ACTUALLY SCROLLS NOW. The scrollbar was hidden
+            (scrollbar-width: none), which on a desktop mouse left no
+            handle to drag and no sign there was anything further right.
+            The scrollbar is now styled and visible, tinted with the
+            page accent, and main.js adds click-and-drag plus
+            wheel-to-scroll. The drag has a 4px threshold so a plain
+            click still opens the lightbox, and the wheel hands scrolling
+            back to the page at either end rather than trapping it.
+            Snap softened from mandatory to proximity so dragging feels
+            free instead of magnetised.
+
+2026-09-04c Reverted the wheel handler added in 2026-09-04b. It made
+            things worse: hovering the strip froze the page scroll and
+            the row often didn't move either.
+            WHY IT FAILED. Two causes stacked. The handler called
+            preventDefault on a vertical wheel to redirect it sideways,
+            so the page stopped whenever the cursor passed over the
+            strip — hostile even when working. And scroll-snap was set
+            to proximity with snap-align on each card, so a small wheel
+            delta got snapped straight back to the card it started on:
+            page blocked, row apparently stuck.
+            WHAT REPLACED IT.
+            - No wheel handling at all. The page scrolls normally over
+              the strip. Trackpads already send deltaX for a real
+              sideways swipe and the browser handles that itself.
+            - scroll-snap removed entirely, from the container and the
+              cards. Nothing fights a drag or an arrow click now.
+            - Arrow buttons, injected by main.js so the page markup
+              stays clean. One card + gap per click, smooth scroll,
+              greyed out at each end, hidden entirely when the row
+              already fits or on touch devices where swiping is natural.
+            - Click-drag kept, with its 4px threshold so a plain click
+              still opens the lightbox.
+            - Styled scrollbar kept as the visible handle.
+
+2026-09-04d Dring cover added — /dring-cover.webp. Built from a group
+            shot of the games in play at a house party: 6016x4016 source
+            cropped to 16:9 from the base (the raised arms at the top
+            are the composition, so the trim came off the bottom) and
+            resampled to 1920x1080.
+            FILLS FIVE SLOTS AT ONCE, all previously broken or empty:
+            the Dring hub cover, the Dring cards on the homepage and
+            /projects (both were still .ph placeholder tiles), and the
+            next-project thumbnails on /work/snackify and /work/takeoff,
+            which were 404-ing.
+            ALT TEXT: "Dring party card games, including First & Last,
+            at a house party" — First & Last is the only game in the
+            frame Bharat designed, so it's the only one named. The other
+            boxes are visible but are not his work and are not credited
+            in alt text, captions or metadata anywhere.
+            The onerror fallback on the hub cover is deliberately kept:
+            if the file ever goes missing the img hides and .is-empty
+            paints the solid purple 16:9 tile, same as before.
+            94 files. Still missing: kidley-cover, aquaflow-cover,
+            snackify-cover, resume.pdf.
+
+2026-09-04e Attempted to make the homepage sticky cards fit a laptop
+            viewport by capping the card image's width against the space
+            left on screen. REVERTED IMMEDIATELY at Bharat's request —
+            it wrecked the cards. The cap made the image sit noticeably
+            narrower than the card with dead colour either side, which
+            broke the look far worse than the clipping it was meant to
+            solve.
+            The work-card CSS is byte-for-byte back to what it was:
+            .work-card, .work-card__media and .work-card-last-wrap all
+            verified identical to the pre-change file. No --card-chrome
+            variable, no max-height query, no svh units anywhere.
+            THE UNDERLYING ISSUE IS STILL OPEN. On a 1080p laptop only
+            about 60% of a card is visible before the next one slides
+            over it, because a full-width 16:9 image plus the sticky
+            offset, padding and title row comes to roughly 1190px. Any
+            future attempt needs to solve it WITHOUT shrinking the image
+            away from the card edges — likely by reworking the card
+            layout itself (image beside the title rather than under it),
+            not by capping the existing one.
+
 [ADD NEW ENTRIES BELOW THIS LINE]
 
 
