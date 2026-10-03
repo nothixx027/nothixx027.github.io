@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Bharat Arora — Graphic Designer & Illustrator</title>
+  <meta name="theme-color" content="#050505" />
+  <link rel="stylesheet" href="/style.css" />
+  <!-- ═════════════ SEO + FAVICON ═════════════ -->
+  <meta name="description" content="Portfolio of Bharat Arora — graphic designer and illustrator based in India. Two years in-house at Dring designing party games, brand identity, packaging, and social creative." />
+  <meta name="author" content="Bharat Arora" />
+  <link rel="canonical" href="https://heybharat.design/" />
+  <!-- Open Graph (Facebook, LinkedIn) -->
+  <meta property="og:title" content="Bharat Arora — Graphic Designer & Illustrator" />
+  <meta property="og:description" content="Portfolio of Bharat Arora — graphic designer and illustrator based in India. Two years in-house at Dring designing party games, brand identity, packaging, and social creative." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://heybharat.design/" />
+  <meta property="og:image" content="https://heybharat.design/og-image.jpg" />
+  <meta property="og:site_name" content="Bharat Arora" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bharat Arora — Graphic Designer & Illustrator" />
+  <meta name="twitter:description" content="Portfolio of Bharat Arora — graphic designer and illustrator based in India. Two years in-house at Dring designing party games, brand identity, packaging, and social creative." />
+  <meta name="twitter:image" content="https://heybharat.design/og-image.jpg" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#050505" />
+  <!-- ══════════════════════════════════════════ -->
+  <!-- Structured data — Person schema (helps Google show name, role,
+       and profile image in search results). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Bharat Arora",
+    "alternateName": "heybharat",
+    "url": "https://heybharat.design",
+    "image": "https://heybharat.design/myphoto.webp",
+    "jobTitle": "Graphic Designer",
+    "description": "Graphic designer and illustrator with 2+ years of experience in branding, packaging, and visual design.",
+    "sameAs": [
+      "https://www.behance.net/heybharatt",
+      "https://www.linkedin.com/in/heybharatt",
+      "https://www.instagram.com/heybharatt"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Freelance / Shoton Pictures"
+    },
+    "knowsAbout": [
+      "Graphic Design",
+      "Brand Identity",
+      "Packaging Design",
+      "Illustration",
+      "Visual Design"
+    ]
+  }
+  </script>
+</head>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║              HOW TO ADD IMAGES — index.html                      ║
+  ║                   (Homepage Work Cards)                          ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║                                                                  ║
+  ║  NAMING CONVENTION (use these EXACT filenames):                  ║
+  ║                                                                  ║
+  ║    Homepage card / Work-page cover:  {project}-cover.webp         ║
+  ║    Inner work-page block images:     {project}-01.webp, -02.webp   ║
+  ║    Instagram posts (1:1 square):     {project}-post-01.webp ...   ║
+  ║    Stories (9:16 portrait):          {project}-story-01.webp ...  ║
+  ║    Reels (9:16 portrait):            {project}-reel-01.webp ...   ║
+  ║    Website banners:                  {project}-banner-hero.webp   ║
+  ║    App screens:                      {project}-app-01.webp ...    ║
+  ║                                                                  ║
+  ║  HOW TO ADD:                                                     ║
+  ║  1. Save your image with the exact name from the table below.    ║
+  ║  2. Place it in the same folder as index.html.                   ║
+  ║  3. Inside the .work-card__media div, replace                    ║
+  ║       <span class="ph">...</span>                                ║
+  ║     with                                                         ║
+  ║       <img src="/FILENAME.webp" alt="Project name" />              ║
+  ║                                                                  ║
+  ║  IMAGE SLOTS ON THIS PAGE — 16:9 (recommended 1600×900):         ║
+  ║  ┌───────────────────────────────────────────────────────────┐   ║
+  ║  │  Card 1  first & last      →  firstandlast-cover.webp      │   ║
+  ║  │  Card 2  aquaflow          →  aquaflow-cover.webp          │   ║
+  ║  │  Card 3  snackify          →  snackify-cover.webp          │   ║
+  ║  │  Card 4  takeoff           →  takeoff-cover.webp           │   ║
+  ║  │  Card 5  naughty dares     →  naughtydares-cover.webp      │   ║
+  ║  └───────────────────────────────────────────────────────────┘   ║
+  ║                                                                  ║
+  ║  ABOUT SECTION PORTRAIT:                                         ║
+  ║    Filename:  myphoto.webp  (already wired up)                    ║
+  ║    Replace with your portrait, same filename — no code change.   ║
+  ║                                                                  ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+
+<body data-page="home">
+
+  <div data-mount="grid"></div>
+  <div data-mount="nav"></div>
+
+  <header class="hero">
+    <div class="shell">
+      <div class="hero__meta reveal">
+        <span>Hey, I'm Bharat</span>
+        <span class="right"><span class="dot"></span>available for new projects</span>
+      </div>
+      <h1 class="hero__title reveal">
+        <span class="reveal-blur" style="display:block;">a graphic designer</span>
+        <span class="reveal-blur" style="display:block;">with a focus on</span>
+        <span class="rot" data-rotator='["branding","visual identity","packaging","product design"]'>
+          <span class="rot__item">branding</span>
+        </span>
+      </h1>
+    </div>
+  </header>
+
+  <section class="works">
+    <div class="shell">
+
+      <!-- ═══════════════════════════════════════════════════════════════
+           DRING HUB — one card representing 2 years in-house at Dring
+           (previously shown as 3 separate cards: First & Last, Takeoff,
+           Naughty Dares). Clicking this opens /work/dring/ which shows
+           all three products AND the social + BTS work.
+
+           BANNER: /dring-cover.webp is in place and fills the slot.
+           ═══════════════════════════════════════════════════════════════ -->
+      <a href="/work/dring/" class="work-card work-card--dring">
+        <div class="work-card__top"><span>2024 — 2025</span><span>In-house Design</span></div>
+        <div class="work-card__title-row">
+          <span class="work-card__title">dring</span>
+          <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="work-card__media">
+          <img src="/dring-cover.webp" alt="Dring party card games, including First &amp; Last, at a house party" loading="lazy" decoding="async" />
+        </div>
+      </a>
+
+      <!-- ═══════════════════════════════════════════════════════════════
+           KIDLEY — client work via Shoton Pictures. Identity + packaging
+           system for a 40-year-old Ludhiana clothing manufacturer.
+           BANNER: drop /kidley-cover.webp in the root to fill.
+           ═══════════════════════════════════════════════════════════════ -->
+      <a href="/work/kidley/" class="work-card work-card--kidley">
+        <div class="work-card__top"><span>2025 — 2026</span><span>Branding &amp; Packaging</span></div>
+        <div class="work-card__title-row">
+          <span class="work-card__title">kidley</span>
+          <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="work-card__media">
+          <!-- ▼ KIDLEY  →  kidley-cover.webp  (16:9, 1600×900)
+               Once your file is in the root, replace the <span> below with:
+                 <img src="/kidley-cover.webp" alt="kidley" /> -->
+          <span class="ph" style="color:rgba(255,255,255,0.45)">.kidley</span>
+        </div>
+      </a>
+
+      <!-- ═══════════════════════════════════════════════════════════════
+           HEM & HAW — client work via Shoton Pictures. Social system and
+           campaign creative for an early-stage athleisure label.
+           BANNER: drop /hemhaw-cover.webp in the root to fill.
+           ═══════════════════════════════════════════════════════════════ -->
+      <a href="/work/hemhaw/" class="work-card work-card--hemhaw">
+        <div class="work-card__top"><span>2025 — 2026</span><span>Social &amp; Campaign Design</span></div>
+        <div class="work-card__title-row">
+          <span class="work-card__title">hem &amp; haw</span>
+          <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="work-card__media">
+          <img src="/hemhaw-cover.webp" alt="hem &amp; haw" loading="lazy" decoding="async" />
+        </div>
+      </a>
+
+      <a href="/work/aquaflow/" class="work-card work-card--white">
+        <div class="work-card__top"><span>2024</span><span>Branding and Identity</span></div>
+        <div class="work-card__title-row">
+          <span class="work-card__title">aquaflow</span>
+          <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+        </div>
+        <div class="work-card__media">
+          <!-- ▼ AQUAFLOW  →  aquaflow-cover.webp  (16:9, 1600×900)
+               Once your file is in this folder, replace the <span> below with:
+               <img src="/aquaflow-cover.webp" alt="aquaflow" /> -->
+          <span class="ph" style="color:rgba(255,255,255,0.6)">.aquaflow</span>
+        </div>
+      </a>
+
+      <div class="work-card-last-wrap">
+        <a href="/work/snackify/" class="work-card work-card--green">
+          <div class="work-card__top"><span>2024</span><span>Packaging Design</span></div>
+          <div class="work-card__title-row">
+            <span class="work-card__title">snackify</span>
+            <span class="arrow-icon"><svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg></span>
+          </div>
+          <div class="work-card__media">
+            <!-- ▼ SNACKIFY  →  snackify-cover.webp  (16:9, 1600×900)
+                 Once your file is in this folder, replace the <span> below with:
+                 <img src="/snackify-cover.webp" alt="snackify" /> -->
+            <span class="ph">.snackify</span>
+          </div>
+        </a>
+
+        <div class="works__see-more reveal">
+          <a href="/projects/" class="works__see-more-link">
+            <span>see all projects</span>
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       MORE WORK — horizontal preview strip of single-piece "selects".
+       Purpose: catch homepage visitors before they reach .about, showing
+       there IS more work beyond the 5 case studies above.
+       Cards are hardcoded here (5 real pieces from /selects/index.html).
+       When you add new selects, update this strip too OR leave it as-is —
+       it's a preview, not the full grid.
+       ═════════════════════════════════════════════════════════════════════ -->
+  <section class="selects-preview-section">
+    <div class="shell">
+      <div class="selects-preview-head">
+        <div class="selects-preview-head__left">
+          <span class="selects-preview-head__eyebrow reveal">.more work</span>
+          <h2 class="selects-preview-head__title reveal">single pieces — posters, social, illustrations.</h2>
+        </div>
+        <a href="/selects/" class="selects-preview-cta reveal">
+          <span>see everything</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <!-- ═════════════════════════════════════════════════════════════════
+           Rotating preview strip.
+           `data-selects-pool` holds all pieces JS can rotate through — 
+           when you add a new select on /selects/, ALSO add it here so it
+           shows up in the rotation. The strip auto-populates from this
+           pool; every ~3s, one card cross-fades to a new random piece.
+           Order doesn't matter — pieces are shuffled.
+           ═════════════════════════════════════════════════════════════════ -->
+      <div class="selects-preview-strip reveal" data-selects-strip>
+
+        <script type="application/json" data-selects-pool>
+        [
+          {"img":"pinkvilla-spotify-partnership","alt":"Pinkvilla × Spotify partnership"},
+          {"img":"pinkvilla-velora-launch","alt":"Velora perfume launch"},
+          {"img":"dring-pizza-hack","alt":"Dring's pizza re-heating hack"},
+          {"img":"personal-hell-typography","alt":"HELL typography experiment"},
+          {"img":"personal-ghost-regera-poster","alt":"Koenigsegg Ghost Regera poster"}
+        ]
+        </script>
+
+        <!-- Initial cards (JS re-populates from the pool on load) -->
+        <a href="/selects/" class="selects-preview-card" data-slot="0">
+          <img src="/selects-images/pinkvilla-spotify-partnership.webp" alt="Pinkvilla × Spotify partnership" loading="lazy" decoding="async" />
+        </a>
+
+        <a href="/selects/" class="selects-preview-card" data-slot="1">
+          <img src="/selects-images/pinkvilla-velora-launch.webp" alt="Velora perfume launch" loading="lazy" decoding="async" />
+        </a>
+
+        <a href="/selects/" class="selects-preview-card" data-slot="2">
+          <img src="/selects-images/dring-pizza-hack.webp" alt="Dring's pizza re-heating hack" loading="lazy" decoding="async" />
+        </a>
+
+        <a href="/selects/" class="selects-preview-card" data-slot="3">
+          <img src="/selects-images/personal-hell-typography.webp" alt="HELL typography experiment" loading="lazy" decoding="async" />
+        </a>
+
+        <a href="/selects/" class="selects-preview-card" data-slot="4">
+          <img src="/selects-images/personal-ghost-regera-poster.webp" alt="Koenigsegg Ghost Regera poster" loading="lazy" decoding="async" />
+        </a>
+
+        <a href="/selects/" class="selects-preview-card" data-fixed>
+          <div class="selects-preview-card__ph">
+            <span>+ many more</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <p class="section-label reveal">.about</p>
+      <div class="about-teaser__grid">
+        <div>
+          <p class="about-teaser__text reveal">i'm a graphic designer with over two years of experience, specializing in branding, typography, and visual design. i craft thoughtful and effective work that enhances brand identity and user experience.</p>
+        </div>
+        <div>
+          <div class="about-teaser__image reveal">
+            <!-- ▼ ABOUT TEASER PORTRAIT  →  myphoto.webp
+                 Replace the file (same name) with your own portrait.
+                 Recommended: square or tall crop, min 900px wide -->
+            <img alt="Portrait" loading="lazy" src="/myphoto.webp" decoding="async" />
+          </div>
+          <a href="/about/" class="btn-outline reveal">
+            about me
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div data-mount="cta"></div>
+  <div data-mount="footer"></div>
+
+  <script src="/layout.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>

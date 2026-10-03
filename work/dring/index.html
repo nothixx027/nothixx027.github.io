@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dring — In-house Design for a Party Game Brand</title>
+  <link rel="stylesheet" href="/style.css" />
+  <!-- ═════════════ SEO + FAVICON ═════════════ -->
+  <meta name="description" content="Two years in-house at Dring: three flagship party games (First & Last, Naughty Dares, Takeoff), plus every social static and campaign creative." />
+  <meta name="author" content="Bharat Arora" />
+  <link rel="canonical" href="https://heybharat.design/work/dring/" />
+  <!-- Open Graph (Facebook, LinkedIn) -->
+  <meta property="og:title" content="Dring — In-house Design for a Party Game Brand" />
+  <meta property="og:description" content="Two years in-house at Dring: three flagship party games (First & Last, Naughty Dares, Takeoff), plus every social static and campaign creative." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://heybharat.design/work/dring/" />
+  <meta property="og:image" content="https://heybharat.design/og-image.jpg" />
+  <meta property="og:site_name" content="Bharat Arora" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dring — In-house Design for a Party Game Brand" />
+  <meta name="twitter:description" content="Two years in-house at Dring: three flagship party games (First & Last, Naughty Dares, Takeoff), plus every social static and campaign creative." />
+  <meta name="twitter:image" content="https://heybharat.design/og-image.jpg" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#050505" />
+  <!-- ══════════════════════════════════════════ -->
+</head>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║         DRING HUB — /work/dring/                                     ║
+  ╠══════════════════════════════════════════════════════════════════════╣
+  ║                                                                      ║
+  ║  This page is a HUB, not a normal case study. It sits at the top     ║
+  ║  of the Dring work with three sub-projects (First & Last, Naughty    ║
+  ║  Dares, Takeoff) and a body of social + behind-the-scenes work.      ║
+  ║                                                                      ║
+  ║  SECTIONS:                                                           ║
+  ║    1. Hero + meta                                                    ║
+  ║    2. Bio paragraph                                                  ║
+  ║    3. PRODUCTS — 3 clickable tiles → individual case studies         ║
+  ║    4. SOCIAL MEDIA — grid of Instagram statics (11 pieces)           ║
+  ║    5. BEHIND THE SCENES — real-world product photos (3)              ║
+  ║    6. Next project card + back to projects                           ║
+  ║                                                                      ║
+  ║  HOW TO ADD MORE SOCIAL PIECES:                                      ║
+  ║    1. Compress at tinypng.com (target under 300 KB).                 ║
+  ║    2. Drop the image in /dring-work/ folder.                         ║
+  ║    3. Copy any <a class="dring-social-tile"> block below and update  ║
+  ║       the image path + alt.                                          ║
+  ║                                                                      ║
+  ║  HOW TO ADD A NEW PRODUCT TILE:                                      ║
+  ║    1. Add a new tile in the "products" grid below.                   ║
+  ║    2. Point href to the product's own work page (or leave empty if   ║
+  ║       no case study yet — see the "designed for" section for how).   ║
+  ║                                                                      ║
+  ║  BANNER SLOT:                                                        ║
+  ║    A 16:9 banner sits between the hero and the body copy.            ║
+  ║    /dring-cover.webp is in place. The onerror fallback stays         ║
+  ║    wired, so a missing file still paints a solid purple tile.        ║
+  ║                                                                      ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+
+<body data-page="projects" class="work-page work-page--dring" style="--accent: var(--dring-card);">
+
+  <div data-mount="grid"></div>
+  <div data-mount="nav"></div>
+
+  <!-- HERO -->
+  <section class="work-head">
+    <div class="shell">
+      <div class="work-head__top">
+        <h1 class="work-head__title reveal-blur">dring</h1>
+        <p class="work-head__desc reveal">Two years in-house at Dring — three flagship party games designed end-to-end, plus every static, social post, and campaign creative in between.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVER / BANNER SLOT — /dring-cover.webp
+       The onerror stays wired: if the file ever goes missing the img
+       hides itself and .is-empty paints a solid purple 16:9 tile. -->
+  <div class="work-cover reveal">
+    <img alt="Dring party card games, including First &amp; Last, at a house party" src="/dring-cover.webp" onerror="this.style.display='none'; this.parentElement.classList.add('is-empty');" decoding="async" />
+  </div>
+
+  <!-- BODY: bio + meta -->
+  <section class="shell">
+    <div class="work-body">
+      <div class="work-body__copy reveal">
+        <p>Dring makes competitive party games — the kind you break out when the room is loud and everyone's already had a drink. I joined as the in-house designer and stayed for two years, running everything visual: three full product launches (First &amp; Last, Naughty Dares, Takeoff), packaging systems, and a steady drumbeat of social creative that had to look right at thumbnail size.</p>
+      </div>
+      <aside class="work-meta reveal">
+        <div class="work-meta__row">
+          <div class="work-meta__label">years</div>
+          <div class="work-meta__value">2024 — 2025</div>
+        </div>
+        <div class="work-meta__row">
+          <div class="work-meta__label">role</div>
+          <div class="work-meta__value">Graphic Designer</div>
+        </div>
+        <div class="work-meta__row">
+          <div class="work-meta__label">tools</div>
+          <div class="work-meta__value">Illustrator, Photoshop</div>
+        </div>
+        <div class="work-meta__row">
+          <div class="work-meta__label">category</div>
+          <div class="work-meta__value">In-house, full-time</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PRODUCTS — three tiles linking to individual case studies
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="shell dring-section">
+    <div class="dring-section__head reveal">
+      <p class="dring-section__eyebrow">.products</p>
+      <h2 class="dring-section__title">Three products, launched end-to-end.</h2>
+      <p class="dring-section__desc">Packaging, brand mark, card design — every surface for each of these was done in-house.</p>
+    </div>
+
+    <div class="dring-products-grid reveal-stagger">
+
+      <a href="/work/firstandlast/" class="dring-product-tile" style="background: var(--orange); color: var(--orange-ink);">
+        <div class="dring-product-tile__thumb">
+          <img src="/firstandlast-cover.webp" alt="First &amp; Last" loading="lazy" decoding="async" />
+        </div>
+        <div class="dring-product-tile__body">
+          <span class="dring-product-tile__year">2025</span>
+          <h3 class="dring-product-tile__title">first &amp; last</h3>
+          <span class="dring-product-tile__cat">Party game · card deck</span>
+        </div>
+        <span class="dring-product-tile__arrow" aria-hidden="true">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
+        </span>
+      </a>
+
+      <a href="/work/naughtydares/" class="dring-product-tile" style="background: var(--naughtydares-card); color: var(--naughtydares-card-ink);">
+        <div class="dring-product-tile__thumb">
+          <img src="/naughtydares-cover.webp" alt="Naughty Dares" loading="lazy" decoding="async" />
+        </div>
+        <div class="dring-product-tile__body">
+          <span class="dring-product-tile__year">2024</span>
+          <h3 class="dring-product-tile__title">naughty dares</h3>
+          <span class="dring-product-tile__cat">Party game · couples</span>
+        </div>
+        <span class="dring-product-tile__arrow" aria-hidden="true">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
+        </span>
+      </a>
+
+      <a href="/work/takeoff/" class="dring-product-tile" style="background: var(--yellow-card); color: var(--yellow-card-ink);">
+        <div class="dring-product-tile__thumb">
+          <img src="/takeoff-cover.webp" alt="Takeoff" loading="lazy" decoding="async" />
+        </div>
+        <div class="dring-product-tile__body">
+          <span class="dring-product-tile__year">2024</span>
+          <h3 class="dring-product-tile__title">takeoff</h3>
+          <span class="dring-product-tile__cat">Party game · darts</span>
+        </div>
+        <span class="dring-product-tile__arrow" aria-hidden="true">
+          <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
+        </span>
+      </a>
+
+    </div>
+
+    <!-- "ALSO DESIGNED FOR" — products without case studies yet.
+         When you're ready to add more case studies later, replace
+         this section OR keep it as a "range" note. -->
+    <p class="dring-also-note reveal">also designed for: <em>Wild · Dialogue Baazi · Drama-Dol · Triple X · God of Mischief · Dring Pong · Blue Monday Beer Saturday Sunday · Horrible Friends · DRING OF</em></p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SOCIAL MEDIA STATICS — 11 pieces in a responsive grid
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="shell dring-section">
+    <div class="dring-section__head reveal">
+      <p class="dring-section__eyebrow">.social</p>
+      <h2 class="dring-section__title">Instagram statics.</h2>
+      <p class="dring-section__desc">Product launches, price drops, campaign creatives — every static designed to work at thumbnail scale.</p>
+    </div>
+
+    <div class="dring-social-grid reveal-stagger" data-lightbox-source>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Dring Wild" data-client="Wild" data-type="social launch" data-year="2024">
+        <img src="/dring-work/dring-wild-you-have-grown-up.webp" alt="Dring Wild — you have grown up and so has the game" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Dialogue Baazi — price drop campaign" data-client="Dialogue Baazi" data-type="campaign" data-year="2024">
+        <img src="/dring-work/dring-dialogue-baazi-price-drop.webp" alt="Dialogue Baazi — biggest price drop" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Drama-Dol — price drop" data-client="Drama-Dol" data-type="campaign" data-year="2024">
+        <img src="/dring-work/dring-drama-dol-craziest-price.webp" alt="Drama-Dol — craziest price drop ever" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Triple X — take control" data-client="Triple X" data-type="social launch" data-year="2024">
+        <img src="/dring-work/dring-triple-x-take-control.webp" alt="Triple X — take control, no hesitation" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Communication is Sexxxy" data-client="Triple X" data-type="poster" data-year="2024">
+        <img src="/dring-work/dring-communication-is-sexxxy.webp" alt="Communication is Sexxxy" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="God of Mischief" data-client="Triple X" data-type="social launch" data-year="2024">
+        <img src="/dring-work/dring-god-of-mischief-triple-x.webp" alt="God of Mischief — Triple X" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Dring Pong — thrill level infinite" data-client="Dring Pong" data-type="social launch" data-year="2024">
+        <img src="/dring-work/dring-pong-thrill-level.webp" alt="Dring Pong — thrill level infinite" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="First &amp; Last — quick reflexes" data-client="First & Last" data-type="social launch" data-year="2024">
+        <img src="/dring-work/dring-first-and-last-quick-reflexes.webp" alt="First &amp; Last — a game of quick reflexes" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Blue Monday Beer Saturday Sunday" data-client="Blue Monday BSS" data-type="social launch" data-year="2024">
+        <img src="/dring-work/dring-blue-monday-beer-saturday.webp" alt="Blue Monday Beer Saturday Sunday — hand-slapping mayhem" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Horrible Friends — UFO" data-client="Horrible Friends" data-type="social launch" data-year="2024">
+        <img src="/dring-work/dring-horrible-friends-ufo.webp" alt="Horrible Friends — find out what your friends really think of you" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="DRING OF — honesty and chaos" data-client="DRING OF" data-type="social launch" data-year="2024">
+        <img src="/dring-work/dring-of-honesty-and-chaos.webp" alt="DRING OF — the ultimate game of honesty and chaos" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Takeoff — the ultimate darts party game" data-client="Takeoff" data-type="social launch" data-year="2024">
+        <img src="/dring-work/takeoff-ultimate-darts.webp" alt="Takeoff — the ultimate darts party game" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Takeoff — friends playing" data-client="Takeoff" data-type="lifestyle" data-year="2024">
+        <img src="/dring-work/takeoff-friends-playing.webp" alt="Takeoff — friends playing at a party" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="First &amp; Last — think fast or drink fast" data-client="First &amp; Last" data-type="social launch" data-year="2025">
+        <img src="/dring-work/fl-think-fast.webp" alt="First & Last — think fast or drink fast" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="First &amp; Last — the ultimate race" data-client="First &amp; Last" data-type="social launch" data-year="2025">
+        <img src="/dring-work/fl-ultimate-race.webp" alt="First & Last — the ultimate race against time and your friends" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-social-tile" href="#" data-lightbox-item data-title="Naughty Dares — product feature" data-client="Naughty Dares" data-type="product" data-year="2024">
+        <img src="/dring-work/naughtydares-box-and-cards.webp" alt="Naughty Dares box with card fan on a light background" loading="lazy" decoding="async" />
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       BEHIND THE SCENES — real product-in-hand shots from the studio
+       ═══════════════════════════════════════════════════════════════ -->
+  <section class="shell dring-section">
+    <div class="dring-section__head reveal">
+      <p class="dring-section__eyebrow">.behind the scenes</p>
+      <h2 class="dring-section__title">Shipped, held, played.</h2>
+      <p class="dring-section__desc">Real photos from the studio — designs off the screen and into the world.</p>
+    </div>
+
+    <div class="dring-bts-grid reveal-stagger" data-lightbox-source>
+
+      <a class="dring-bts-tile dring-bts-tile--tall" href="#" data-lightbox-item data-title="First &amp; Last box at the Dring studio" data-client="First & Last" data-type="behind the scenes" data-year="2024">
+        <img src="/dring-work/dring-bts-first-and-last-wall.webp" alt="First &amp; Last box in front of the Dring studio wall" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-bts-tile" href="#" data-lightbox-item data-title="Naughty Dares on a workshop table" data-client="Naughty Dares" data-type="behind the scenes" data-year="2024">
+        <img src="/dring-work/dring-bts-naughty-dares-office.webp" alt="Naughty Dares box on a workshop table" loading="lazy" decoding="async" />
+      </a>
+
+      <a class="dring-bts-tile" href="#" data-lightbox-item data-title="Naughty Dares packaging + card deck flatlay" data-client="Naughty Dares" data-type="behind the scenes" data-year="2024">
+        <img src="/dring-work/dring-bts-naughty-dares-flatlay.webp" alt="Naughty Dares packaging, instruction booklet, and card deck on a dark surface" loading="lazy" decoding="async" />
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ─── NEXT PROJECT ─── -->
+    <!-- ────────────────────────────────────────────────────────────────
+       NEXT PROJECT — points to next in the loop.
+       Loop layout:
+         DRING (hub) → kidley → hem & haw → aquaflow → snackify
+                     → DRING (loops back)
+         Dring sub-products: firstandlast → naughtydares → takeoff
+                             → DRING (returns to hub)
+       ──────────────────────────────────────────────────────────────── -->
+  <section class="shell next-project-section">
+    <p class="next-project-label reveal">.next project</p>
+
+    <a href="/work/kidley/" class="next-project-card reveal"
+       style="background: var(--kidley-card); color: var(--kidley-card-ink);">
+      <div class="next-project-card__left">
+        <span class="next-project-card__eyebrow">up next</span>
+        <h2 class="next-project-card__title">
+          <span>kidley</span>
+          <span class="next-project-card__arrow" aria-hidden="true">
+            <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
+          </span>
+        </h2>
+        <span class="next-project-card__cat">Branding &amp; Packaging</span>
+      </div>
+      <div class="next-project-card__thumb">
+        <img src="/kidley-cover.webp" alt="kidley" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.style.background='rgba(0,0,0,0.15)';" />
+      </div>
+    </a>
+
+    <a href="/projects/" class="next-project-back reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span>back to all projects</span>
+    </a>
+  </section>
+
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       LIGHTBOX — shared overlay used by BOTH social and BTS grids.
+       Same component as on /selects/ page. JS in main.js populates
+       content dynamically and handles keyboard nav (arrows, Esc).
+       ═════════════════════════════════════════════════════════════════════ -->
+  <div class="lightbox" data-lightbox aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox__close" data-lightbox-close aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M6 18 18 6"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <div class="lightbox__inner">
+      <div class="lightbox__media" data-lightbox-media></div>
+      <aside class="lightbox__info" data-lightbox-info>
+        <p class="lightbox__type" data-lightbox-type></p>
+        <h2 class="lightbox__title" data-lightbox-title></h2>
+        <div class="lightbox__meta">
+          <div class="lightbox__meta-row">
+            <span class="lightbox__meta-label">client</span>
+            <span class="lightbox__meta-value" data-lightbox-client></span>
+          </div>
+          <div class="lightbox__meta-row">
+            <span class="lightbox__meta-label">year</span>
+            <span class="lightbox__meta-value" data-lightbox-year></span>
+          </div>
+        </div>
+        <p class="lightbox__desc" data-lightbox-desc></p>
+      </aside>
+    </div>
+  </div>
+
+  <div data-mount="cta"></div>
+  <div data-mount="footer"></div>
+  <script src="/layout.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>

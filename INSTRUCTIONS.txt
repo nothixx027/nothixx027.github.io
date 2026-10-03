@@ -1,0 +1,1359 @@
+════════════════════════════════════════════════════════════════════════════
+  HEYBHARAT.DESIGN — SITE INSTRUCTIONS
+  Last updated: 3 September 2026
+════════════════════════════════════════════════════════════════════════════
+
+This is your manual for the site. Anytime you (or anyone helping you) needs
+to add a project, swap an image, change a color, or fix something — start
+here. Written in plain language. No jargon you don't already know.
+
+If something changes about the site, update this file too so it stays
+accurate.
+
+
+════════════════════════════════════════════════════════════════════════════
+  1. WHAT THE SITE IS
+════════════════════════════════════════════════════════════════════════════
+
+Static HTML/CSS/JS portfolio site for Bharat Arora, graphic designer.
+Hosted on GitHub Pages with custom domain heybharat.design.
+
+No database, no backend, no build step. Just files you edit and push to
+GitHub. The site updates within 1–2 minutes after each push.
+
+
+════════════════════════════════════════════════════════════════════════════
+  2. FOLDER STRUCTURE (clean URLs)
+════════════════════════════════════════════════════════════════════════════
+
+This is exactly how files are organized in the GitHub repo:
+
+  /index.html                        →  heybharat.design
+  /CNAME                             →  contains "heybharat.design" (no www)
+  /style.css                         →  all styling for every page
+  /layout.js                         →  builds the nav, footer, CTA on every page
+  /main.js                           →  animations, cursor, menu toggle
+  /IMAGE-NAMING-GUIDE.txt            →  image file naming reference
+  /INSTRUCTIONS.txt                  →  THIS FILE
+  /build-preview.py                  →  builds preview.html (see Section 2b)
+  /preview.html                      →  BUILD ARTIFACT — do not commit or edit
+
+  /about/index.html                  →  heybharat.design/about
+  /contact/index.html                →  heybharat.design/contact
+  /projects/index.html               →  heybharat.design/projects
+  /services/index.html               →  heybharat.design/services
+  /resume/index.html                 →  heybharat.design/resume
+
+  /work/firstandlast/index.html      →  heybharat.design/work/firstandlast
+  /work/aquaflow/index.html          →  heybharat.design/work/aquaflow
+  /work/snackify/index.html          →  heybharat.design/work/snackify
+  /work/takeoff/index.html           →  heybharat.design/work/takeoff
+  /work/dring/index.html             →  heybharat.design/work/dring
+  /work/naughtydares/index.html      →  heybharat.design/work/naughtydares
+  /work/kidley/index.html            →  heybharat.design/work/kidley
+  /work/hemhaw/index.html            →  heybharat.design/work/hemhaw
+
+  /logos/shoton.svg                  →  client logo (whitened by CSS)
+  /logos/dring.svg
+  /logos/being-ingenious.svg
+  /logos/kidley.svg
+  /logos/hem-haw.svg
+  /logos/maac.svg
+  /logos/yamaha.svg
+
+  /hemhaw-extras/                    →  8 campaign statics (4:5) for the
+                                        Hem & Haw scroll strip
+  /hemhaw-cover.webp                 →  composite 16:9 built from the 4:5
+  /hemhaw-01.webp  /hemhaw-02.webp      originals (see 2026-09-03 entry)
+
+  /firstandlast-cover.webp           →  cover image (16:9)
+  /takeoff-cover.webp
+  /myphoto.webp                      →  portrait photo for about + homepage
+
+Why this structure?
+  Each page lives in its own folder as "index.html". GitHub Pages then
+  serves the folder as a clean URL (no .html extension). You get
+  /projects instead of /projects.html.
+
+Why .webp only, and no .jpg?
+  Every image on this site is a single .webp. There is no JPG twin and
+  no <picture> element anywhere — images are plain <img src="....webp">.
+
+  Two reasons. First, WebP is supported by every browser released since
+  2020, so the JPG fallback never actually got served to anyone. Second,
+  and this is the binding one: GitHub's web uploader takes a maximum of
+  100 files per drag-and-drop, and carrying both formats put the repo at
+  151. WebP-only puts it at 95.
+
+  RULE GOING FORWARD: export images as .webp and nothing else. Do not
+  add a .jpg twin back in, and do not wrap images in <picture>. Keep the
+  repo under 100 files — see the 2026-09-03 entry for the count.
+
+
+════════════════════════════════════════════════════════════════════════════
+  2b. PREVIEW — SEEING CHANGES BEFORE YOU PUSH
+════════════════════════════════════════════════════════════════════════════
+
+RULE: every time the site changes, rebuild the preview and look at it
+before pushing to GitHub. Never push a change you haven't seen.
+
+WHY YOU CAN'T JUST OPEN index.html
+  Every path on this site is absolute — /style.css, /logos/dring.svg,
+  /work/kidley/. Those only resolve on a real server. Double-clicking
+  index.html gives you an unstyled page with broken images.
+
+THE FIX
+  From inside the site folder, run:
+
+      python3 build-preview.py
+
+  That writes preview.html next to it. Open that file in any browser —
+  no server, no internet, no install. Tabs across the top switch between
+  all 15 pages, and links inside a page jump to the right tab.
+
+WHAT IT DOES
+  Bundles style.css, layout.js, main.js and every image into the one
+  file. Each page renders in its own iframe, so the JS behaves exactly
+  as it does live — nav, reveals, cursor, lightbox, all of it.
+
+TWO THINGS TO KNOW
+  1. Images over 900 KB are skipped to keep the file openable. If a
+     cover looks missing in preview but exists in the repo, that's why —
+     raise MAX_INLINE_BYTES at the top of the script, or (better)
+     compress the image, since it's too heavy for the live site anyway.
+  2. The script still contains logic to drop a .jpg when a matching
+     .webp exists. That's now a no-op, since there are no JPGs left in
+     the repo, but it's harmless and worth keeping in case one sneaks
+     back in.
+
+preview.html is a BUILD ARTIFACT. Don't commit it. Don't edit it —
+edit the real pages and re-run the script. Add it to .gitignore if
+you're using one.
+
+ALTERNATIVE (real local server)
+  If you'd rather browse the actual files, cd into the site folder and:
+      python3 -m http.server 8000
+  Then visit localhost:8000. This serves the true structure, so absolute
+  paths resolve normally. The preview file is for when you want one
+  thing you can open, keep, or send to someone.
+
+
+════════════════════════════════════════════════════════════════════════════
+  3. PAGES — WHAT'S WHERE
+════════════════════════════════════════════════════════════════════════════
+
+HOME (/)
+  Hero with rotating phrase ("branding", "visual identity", etc).
+  5 sticky work cards stacking as you scroll (first&last, aquaflow,
+  snackify, takeoff, naughty dares). "See all projects" button inside
+  the last card's empty space. About teaser with portrait. CTA section.
+
+PROJECTS (/projects)
+  Title + intro. Clients grid with 7 SVG logos (twinkle animation).
+  Full list of project cards with descriptions to the right.
+
+SELECTS (/selects)  — nav label "more work"
+  Masonry grid of individual one-off pieces — posters, social posts,
+  packaging, identity studies, illustrations. Filter chips at top:
+  All / Print / Social / Packaging / Identity / Illustration.
+  Click any piece to open a lightbox showing the piece full-size with
+  a sidebar of metadata (title, client, year, type, optional
+  description). Background grid blurs while lightbox is open.
+  Arrow keys navigate, Esc closes.
+
+  The page is also PREVIEWED on the homepage and on /projects/ via
+  a horizontal scrolling strip showing 5 pieces + a "see everything"
+  CTA. See "how to update the preview strip" note in section 5b.
+
+ABOUT (/about)
+  Title. Quick stats row (2+ years, India IST, available). Portrait +
+  three-number stats (27+ clients, 47+ projects, 5+ industries) + bio
+  copy. Career timeline (Shoton Pictures, Dring, Being Ingenious).
+  Tool stack grid (Photoshop, Illustrator, AE, Premiere, Lightroom,
+  Figma, Framer, HTML/CSS).
+
+SERVICES (/services)
+  Eyebrow "what i do (4)" + title "services." + four expandable rows:
+  (001) Packaging Design, (002) Visual Design, (003) Branding &
+  Identity, (004) Illustration. Each row collapses on click and
+  also opens on hover (desktop). Open row shows a square image,
+  description copy, and category tags.
+
+CONTACT (/contact)
+  Title is "get in [slideshow] touch" — a small 16:9 frame between
+  the words cycles through your project covers. Contact form +
+  socials list: email, behance, linkedin, instagram.
+
+  The form uses Web3Forms (free, no server needed). Submissions come
+  to the email address linked to the Web3Forms access key. To swap
+  the key or change the destination email:
+    1. Log in at web3forms.com with the email you registered.
+    2. Copy the new access key.
+    3. Paste it into contact/index.html — the hidden input:
+         <input type="hidden" name="access_key" value="YOUR-KEY-HERE" />
+    4. Commit and push. Live within seconds after deploy.
+
+RESUME (/resume)
+  Title + download PDF button (link points to /resume.pdf which
+  you'll need to upload separately).
+
+WORK PAGES (/work/projectname)
+
+  STANDARD LAYOUT (snackify, aquaflow, firstandlast, naughtydares,
+  takeoff — clean expression on /work/snackify):
+    1. Hero title + short description
+    2. Cover image (16:9)
+    3. Body copy + meta sidebar (year, timeframe, tools, category)
+    4. Block 01 (16:9 image) + caption
+    5. Middle paragraph
+    6. Block 02 (16:9 image) + caption
+    7. Closing paragraph
+    8. NEXT PROJECT card
+
+  DRING HUB LAYOUT (/work/dring — different from standard):
+    1. Hero title + description
+    2. Cover / banner slot (16:9, empty purple until you drop
+       /dring-cover.webp)
+    3. Body + meta (2024-2025, Graphic Designer, in-house)
+    4. PRODUCTS — 3 tiles linking to First & Last, Naughty Dares,
+       Takeoff case studies. Includes "also designed for" inline
+       note listing 9 more Dring products.
+    5. SOCIAL — grid of 11 Instagram statics from /dring-work/
+    6. BEHIND THE SCENES — 3 studio photos of shipped products
+    7. NEXT PROJECT card
+
+  Loop order:
+    Top-level:        dring → kidley → hem & haw → aquaflow → snackify
+                      → dring
+    Dring sub-tree:   firstandlast → naughtydares → takeoff → dring
+
+  If you add or remove a project, edit the next-project-card block
+  at the bottom of every affected work page's index.html to keep
+  the chain unbroken.
+
+
+════════════════════════════════════════════════════════════════════════════
+  4. IMAGE NAMING — STRICT RULES
+════════════════════════════════════════════════════════════════════════════
+
+All image filenames are LOWERCASE, hyphen-separated, no spaces.
+
+COVER IMAGES (used on homepage cards + projects page + work-page heros)
+  firstandlast-cover.webp     →  for /work/firstandlast
+  aquaflow-cover.webp         →  for /work/aquaflow
+  snackify-cover.webp         →  for /work/snackify
+  takeoff-cover.webp          →  for /work/takeoff
+  dring-cover.webp            →  for /work/dring
+  naughtydares-cover.webp     →  for /work/naughtydares
+  kidley-cover.webp           →  for /work/kidley
+  hemhaw-cover.webp           →  for /work/hemhaw
+
+  Recommended size: 1920×1080 (16:9 ratio)
+  Quality: JPEG 85, WebP 85
+  Target file size: under 500 KB each
+
+WORK PAGE INNER IMAGES (for the two body blocks)
+  firstandlast-01.webp, firstandlast-02.webp
+  firstandlast-keyvisual.webp  (small framed callout below hero)
+  aquaflow-01.webp, aquaflow-02.webp
+  snackify-01.webp, snackify-02.webp
+  takeoff-01.webp, takeoff-02.webp
+  dring-01.webp, dring-02.webp
+  naughtydares-01.webp, naughtydares-02.webp
+  kidley-01.webp, kidley-02.webp
+  hemhaw-01.webp, hemhaw-02.webp
+
+  Recommended size: 1920×1080 (16:9) for horizontal shots,
+  1200×1500 for portrait. Both fit the 16:9 image frame — portrait
+  images get centered with accent-colored side margins (no awkward
+  cropping).
+  Target file size: under 500 KB each
+
+INSTAGRAM POST GRIDS (work pages: first&last, takeoff, dring)
+  firstandlast-post-01.webp through firstandlast-post-06.webp 
+  takeoff-post-01.webp through takeoff-post-06.webp 
+  dring-post-01.webp through dring-post-06.webp 
+
+  Recommended size: 1080×1080 (square, 1:1)
+  Target file size: under 200 KB each
+
+DRING-SPECIFIC EXTRA IMAGES (work-dring.html has more sections)
+  dring-app-01.webp, dring-app-02.webp                        (16:9)
+  dring-banner-hero.webp, dring-banner-cta.webp               (16:6 wide)
+  dring-banner-feature-01.webp, dring-banner-feature-02.webp  (16:9)
+  dring-story-01.webp through dring-story-05.webp             (9:16 portrait)
+  dring-reel-01.webp through dring-reel-04.webp               (9:16 portrait)
+
+PORTRAIT (about section + about page)
+  myphoto.webp
+  Recommended size: 1200×1200 (square) or 1200×1500 (portrait)
+
+
+════════════════════════════════════════════════════════════════════════════
+  5. HOW TO ADD A NEW PROJECT (e.g. you just finished a Kidley campaign)
+════════════════════════════════════════════════════════════════════════════
+
+Say the new project is called "Kidley Tummy Tucker".
+
+STEP 1 — Make a folder
+  Inside /work/, create a new folder: /work/kidley-tummy-tucker/
+
+STEP 2 — Make the page
+  Copy any existing work page (e.g. /work/aquaflow/index.html) into the
+  new folder and rename it index.html. Edit:
+    - <title> at top
+    - Hero title (h1) and description
+    - Year, timeframe, tools, category in the side meta
+    - Two body copy paragraphs
+    - Two block captions
+    - Three "see also" cards at the bottom — pick 3 other projects to link
+    - All image src paths — change "aquaflow-..." to "kidley-tummy-tucker-..."
+
+STEP 3 — Add images (with proper names)
+  In the repo root, add:
+    kidley-tummy-tucker-cover.webp     (1920×1080)
+    kidley-tummy-tucker-01.webp         (1920×1080)
+    kidley-tummy-tucker-02.webp         (1920×1080)
+  Always compress them at TinyPNG.com before uploading.
+
+STEP 4 — Add a card on the projects page
+  Edit /projects/index.html. Find the .proj-section block. Copy any
+  existing .proj-row block. Paste it. Edit:
+    - href="/work/kidley-tummy-tucker/"
+    - year + category text
+    - title text
+    - .proj-card__media: replace the <span class="ph"> with
+      <img src="/kidley-tummy-tucker-cover.webp" alt="..." />
+    - .proj-row__desc text (the short description to the right)
+    - Color: add proj-row--orange / --white / --green / --yellow /
+      --dring / --gray (pick one — see Section 9 for color tokens)
+
+STEP 5 — (Optional) Add a card on the homepage
+  Edit /index.html. Same as Step 4 but for the .work-card blocks.
+  Homepage shows 5 cards max — if you want this one featured, swap it
+  in for an older one.
+
+STEP 6 — Commit and push
+  Commit message: "Add Kidley Tummy Tucker project"
+
+
+════════════════════════════════════════════════════════════════════════════
+  5b. HOW TO ADD A NEW SELECT (individual piece on /selects)
+════════════════════════════════════════════════════════════════════════════
+
+Selects are one-off pieces — a single poster, an Instagram post, a hang
+tag design — that don't deserve a full project page. They live on
+/selects/index.html as cards in a masonry grid.
+
+STEP 1 — Save your image
+  Drop it in /selects-images/ with a clear name:
+    /selects-images/{client}-{short-name}.webp
+  Examples:
+    /selects-images/hemhaw-reflective-poster.webp
+    /selects-images/kidley-hangtag-spring.webp
+    /selects-images/personal-illustration-01.webp
+
+  Compress at tinypng.com first. Target under 300 KB.
+  Any aspect ratio works — the masonry grid adapts.
+
+STEP 2 — Add a card to selects/index.html
+  Find the .selects-grid block. Copy any existing <div class="select">
+  block and paste it inside. Edit:
+    - data-type    : one of: print, social, packaging, identity, illustration
+                     (controls which filter shows it)
+    - data-title   : short title shown in lightbox header
+    - data-client  : "Hem & Haw" / "Kidley" / "Personal" / etc.
+    - data-year    : "2025"
+    - data-desc    : (optional) 1–2 sentence description shown in
+                     lightbox sidebar. Leave empty if not needed.
+  Replace the <div class="select__ph"> placeholder with an actual image:
+    <img src="/selects-images/{filename}.webp" alt="{title}" loading="lazy" />
+
+STEP 3 — Adding a new filter genre
+  If a piece doesn't fit print/social/packaging/identity/illustration:
+    1. Open selects/index.html.
+    2. Inside .selects-filter, add another <button class="filter-chip"
+       data-filter="newgenre" type="button">New Genre</button>.
+    3. Use data-type="newgenre" on the matching pieces.
+  No CSS or JS to change.
+
+STEP 4 — Commit and push
+  Commit message: "Add new select: [piece name]"
+
+STEP 5 (recommended) — Add it to the rotating preview strip
+  The homepage and /projects/ page have a "more work" preview strip
+  showing 5 pieces + a "+ many more" tile at the end. The strip
+  auto-rotates: every ~3 seconds one card cross-fades to a fresh
+  piece pulled from a pool defined in the HTML.
+
+  To make YOUR new piece show up in the rotation:
+
+    1. Open BOTH index.html AND projects/index.html.
+    2. Find the <script type="application/json" data-selects-pool>
+       block inside .selects-preview-strip.
+    3. Add a new JSON entry for your piece. Example:
+         {"img":"kidley-hangtag-spring","alt":"Kidley hang tag"}
+       (the "img" value is the filename WITHOUT extension —
+       /selects-images/kidley-hangtag-spring.webp must exist)
+    4. Don't touch the 5 initial <a class="selects-preview-card">
+       blocks below — they're just what shows on first paint.
+       Rotation swaps them out automatically.
+
+  ROTATION RULE: kicks in only when the pool has MORE than 5 pieces.
+  With exactly 5, all pieces stay visible (nothing to rotate to).
+  Add a 6th → rotation begins. Add a 20th → rotation cycles through
+  all of them evenly over time.
+
+  Reason to keep the pool in sync on both pages: the strip appears
+  on both /index and /projects, and they use the same rotation logic.
+  A different pool per page is fine too — just paste different JSON.
+
+
+════════════════════════════════════════════════════════════════════════════
+  6. HOW TO SWAP AN IMAGE
+════════════════════════════════════════════════════════════════════════════
+
+Simplest case: same filename, new content
+  Just upload the new file to GitHub, overwriting the old one. Hard
+  refresh the page (Ctrl+Shift+R) and you'll see the new image.
+
+Compressing before upload (ALWAYS DO THIS)
+  1. Open tinypng.com
+  2. Drop your raw images (any format, any size)
+  3. Download the compressed versions
+  4. Open squoosh.app and export as WebP at quality 80–85
+  5. Rename to match the naming rules in Section 4
+  6. Upload the .webp to the repo root — that file only. No JPG twin.
+
+Why this matters
+  Original camera photos are often 10–15 MB each. Compressed versions
+  are 200–500 KB with no visible quality drop. A 15 MB image takes
+  ~10 seconds to load; a 400 KB image takes ~0.2 seconds.
+
+For the services page images
+  Each service row has a small square image (180×180 max). Edit
+  /services/index.html → find the .service__media block for the
+  service you want to update → swap the <img src="..."> path to
+  point at your own file (e.g. /service-packaging.webp). Currently
+  uses Unsplash URLs as placeholders.
+
+
+════════════════════════════════════════════════════════════════════════════
+  7. HOW TO ADD A NEW CLIENT LOGO
+════════════════════════════════════════════════════════════════════════════
+
+STEP 1 — Get the logo as an SVG
+  Ask the client for a vector logo. SVG is the only format we use here.
+  PNG/JPG won't work for this section.
+
+STEP 2 — Clean the SVG (optional but recommended)
+  Open the SVG in a text editor. Make sure there's `fill="currentColor"`
+  on the <svg> tag, OR no fill specified at all. This lets the CSS
+  control the color. If there's a hardcoded fill like fill="#FF0000",
+  remove it.
+
+STEP 3 — Save it
+  Save the SVG to /logos/clientname.svg (lowercase, hyphens for spaces).
+
+STEP 4 — Add it to the grid
+  Edit /projects/index.html. Find the .clients__grid block. Add one
+  new line:
+    <div class="clients__item">
+      <img src="/logos/clientname.svg" alt="Client Name" loading="lazy" />
+    </div>
+
+STEP 5 — (If you exceed 10 logos) extend the twinkle delays
+  Edit style.css. Find the section ".clients__item:nth-child(N)" rules
+  that go from 1 to 10. Add 11, 12, etc with your own delay and
+  duration numbers (delays between 0s and 6s, durations between 6s
+  and 9s).
+
+
+════════════════════════════════════════════════════════════════════════════
+  8. STYLE & DESIGN TOKENS (style.css)
+════════════════════════════════════════════════════════════════════════════
+
+All design tokens are defined at the top of /style.css inside `:root`.
+
+COLORS
+  --bg:               #050505   (page background)
+  --ink:              #ffffff   (main text)
+  --ink-2:            rgba(255,255,255,0.55)   (muted text)
+  --ink-3:            rgba(255,255,255,0.35)   (very muted)
+  --line:             rgba(255,255,255,0.08)   (faint dividers, grid)
+  --line-2:           rgba(255,255,255,0.14)   (section borders)
+  --green:            #7DFF99   (resume link color)
+
+CARD COLORS
+  --orange:           #FF5C16   (first & last)
+  --orange-ink:       #1a0c00   (text on orange)
+  --aquaflow-ink:     #f4f1ea   (aquaflow bg color)
+  --green-card:       #2D6A4F   (snackify)
+  --green-card-ink:   #d5f5e3   (text on green-card)
+  --yellow-card:      #FFD400   (takeoff)
+  --yellow-card-ink:  #1a1500   (text on yellow-card)
+  --dring-card:       #6e44ff   (dring — purple)
+  --dring-card-ink:   #e0aaff   (text on dring — light purple)
+  --gray-card:        #2a2a2a   (legacy, unused)
+  --naughtydares-card:     #7a1d26   (naughty dares — wine burgundy)
+  --naughtydares-card-ink: #f0dbbb   (cream text on burgundy)
+  --kidley-card:      #1A2B4A   (kidley — brand navy)
+  --kidley-card-ink:  #ffffff   (white text on navy)
+  --hemhaw-card:      #101418   (hem & haw — near black)
+  --hemhaw-card-ink:  #C8FF3D   (hi-vis text, echoes reflective strip)
+
+TYPOGRAPHY
+  --font-sans:        Geist (display font)
+  --font-mono:        Geist Mono (labels, monospaced text)
+
+LAYOUT
+  --pad-x:            28px mobile, 56px desktop (page side padding)
+  --radius:           14px (rounded corners on cards & images)
+
+
+════════════════════════════════════════════════════════════════════════════
+  9. ANIMATIONS — WHAT'S RUNNING
+════════════════════════════════════════════════════════════════════════════
+
+HERO ROTATOR (homepage)
+  Rotates through "branding", "visual identity", "packaging", "product
+  design" with a blur+slide transition. Lives in main.js.
+  To change phrases: edit data-rotator JSON array in /index.html h1.
+
+REVEAL ANIMATIONS
+  Anything with class .reveal, .reveal-blur, or .reveal-stagger fades in
+  as you scroll to it. Powered by IntersectionObserver in main.js.
+
+STICKY WORK CARDS
+  Project cards on homepage and projects page use position: sticky to
+  stack at top:90px as you scroll. Set in style.css under .work-card.
+
+CUSTOM CURSOR
+  Desktop only. Mouse follows with mild lag (0.45 factor). Shows "Open"
+  label when hovering project cards. mix-blend-mode: difference inverts
+  whatever's behind it for visibility. Defined in main.js + style.css.
+
+GRID BACKGROUND
+  Static vertical lines (no animation). 4 columns mobile, 6 desktop.
+  Drawn with repeating-linear-gradient. Sits behind all content.
+
+CLIENTS TWINKLE
+  Logos on /projects fade between opacity 0.55 and 0.95 in soft pulses
+  with randomized delays per logo. Reads as "stars in night sky".
+  Each :nth-child(N) has its own delay + duration in style.css.
+
+CONTACT TITLE SLIDESHOW
+  16:9 frame between "get in" and "touch" crossfades through project
+  covers on a 7s loop. Currently shows firstandlast + takeoff. To add
+  more: add <img> tags inside .title-loop, set animation-delay so each
+  is offset evenly (formula: -(N × 7 / totalImages)).
+
+FOOTER WORDMARK SHIMMER
+  Giant ".heybharat" at bottom of footer has a slow white-gradient
+  sweep across it every 6 seconds. Pure decoration.
+
+
+════════════════════════════════════════════════════════════════════════════
+  10. PERFORMANCE — KEEP THE SITE FAST
+════════════════════════════════════════════════════════════════════════════
+
+Total site weight should stay under 3 MB. Current state: ~2 MB.
+
+THE GOLDEN RULES
+  1. NEVER upload an image larger than 500 KB.
+  2. ALWAYS compress at tinypng.com before adding.
+  3. Cover images: 1920×1080 max, JPEG quality 85.
+  4. For modern format gains: save WebP versions too via squoosh.app.
+
+IMAGE LOADING ATTRIBUTES
+  Every <img> tag (except the first one on each page) has:
+    - loading="lazy"     →  image only loads when user scrolls near it
+    - decoding="async"   →  browser decodes off the main thread
+  Don't remove these. They're what makes the site feel snappy.
+
+NO <picture> TAG — PLAIN <img> ONLY
+  This site used to wrap images in <picture> with a WebP source and a
+  JPG fallback. That's gone. Every image is now a single <img>:
+    <img src="/cover.webp" alt="..." loading="lazy" decoding="async" />
+  Don't reintroduce <picture>. It doubles the file count for a fallback
+  no browser since 2020 has needed, and the repo has to stay under
+  GitHub's 100-file upload cap. See Section 2 and the 2026-09-03 entry.
+
+DON'T USE THESE FORMATS
+  PNG — only for logos with transparency and the favicons. Not photos.
+  JPG — no longer used anywhere. Convert to WebP.
+  GIF — use MP4 video instead, or animated WebP.
+  TIFF, BMP, HEIC — never. Convert to WebP before uploading.
+
+
+════════════════════════════════════════════════════════════════════════════
+  11. DEPLOYING — HOW TO PUSH CHANGES TO GITHUB
+════════════════════════════════════════════════════════════════════════════
+
+BEFORE YOU PUSH — ALWAYS
+  Run `python3 build-preview.py` and open preview.html. Check the pages
+  you touched. Pushing an unreviewed change means the broken version is
+  live for however long it takes you to notice.
+
+THE EASIEST WAY (browser-only)
+  1. Edit files locally on your computer.
+  2. Go to your GitHub repo in the browser.
+  3. For each changed file: navigate to it, click the pencil icon, paste
+     the new content, scroll down, commit.
+  4. For new files: click "Add file" → "Upload files" → drag in.
+  5. For new folders: click "Add file" → "Create new file" → type
+     foldername/filename.ext in the name field. The slash makes a folder.
+
+GITHUB DESKTOP (better for bulk changes)
+  1. Download desktop.github.com
+  2. Clone the heybharat.design repo
+  3. Edit files in your local folder
+  4. Open GitHub Desktop → it shows what changed
+  5. Write a commit message → click "Commit to main" → click "Push origin"
+
+AFTER PUSHING
+  GitHub Pages rebuilds in 1–2 minutes. Visit heybharat.design and hard
+  refresh (Ctrl+Shift+R / Cmd+Shift+R). If you don't see the change,
+  wait another minute and try again.
+
+IF SOMETHING BREAKS
+  Go to your repo → click "Commits" → find the commit before things
+  broke → click "..." → "Revert". GitHub creates a revert commit that
+  undoes everything. Push it. Site goes back to the previous state.
+
+
+════════════════════════════════════════════════════════════════════════════
+  12. CUSTOM DOMAIN — heybharat.design
+════════════════════════════════════════════════════════════════════════════
+
+The domain is connected via a CNAME file at the root of the repo.
+
+CONTENTS OF /CNAME
+  heybharat.design
+
+That's it. One line. No https://, no www., no slash.
+
+If the CNAME file gets deleted, the custom domain stops working. To
+restore: Add file → Create new file → name "CNAME" (all caps, no
+extension) → contents "heybharat.design" → commit.
+
+In repo Settings → Pages, the custom domain field should show
+"heybharat.design" and "Enforce HTTPS" should be checked.
+
+
+════════════════════════════════════════════════════════════════════════════
+  13. COMMON FIXES
+════════════════════════════════════════════════════════════════════════════
+
+"I uploaded a file but the site shows the old one"
+  → Hard refresh: Ctrl+Shift+R (Windows) / Cmd+Shift+R (Mac).
+    Browser cached the old version.
+
+"GitHub Pages says my domain isn't configured"
+  → Settings → Pages → re-type "heybharat.design" → Save.
+    Also check /CNAME file exists (Section 12).
+
+"The site loads with no CSS"
+  → /style.css is missing from the repo root, OR
+  → You opened the .html file via file:// instead of a real URL.
+    Run a local server: cd into the folder and run
+    `python -m http.server 8000`, then visit localhost:8000.
+
+"Image isn't showing"
+  → Filename mismatch. Check Section 4 — names are case-sensitive on
+    GitHub. firstandlast-cover.webp ≠ FirstAndLast-Cover.webp.
+
+"GitHub complains my files are too heavy"
+  → Image over 50 MB. Compress at tinypng.com (Section 6). 100 MB is
+    the hard limit; anything over 50 MB triggers a warning.
+
+"Animations aren't working on my computer"
+  → You may have "Reduce motion" enabled in OS settings. Some
+    animations respect that and freeze. The contact title slideshow
+    is intentionally exempt — it always runs.
+
+"Cursor is doing weird things on text"
+  → The custom cursor uses mix-blend-mode: difference, which inverts
+    colors under it. That's intentional. To turn it off, comment out
+    the cursor block in main.js (around line 65).
+
+
+════════════════════════════════════════════════════════════════════════════
+  14. SOCIAL & EXTERNAL PROFILE URLs
+════════════════════════════════════════════════════════════════════════════
+
+These are the canonical URLs used in the contact page social rows and the
+footer "Follow us" column. Always use the clean versions (no tracking
+parameters).
+
+  Behance   →  https://www.behance.net/bharataroradesign
+  LinkedIn  →  https://www.linkedin.com/in/bharat-arora027
+  Instagram →  https://instagram.com/heybharat.design
+  Email     →  work@heybharat.design
+
+If you ever change any of these handles, update them in TWO places:
+  1. /contact/index.html  (the .socials block)
+  2. /layout.js           (the .footer__col "Follow us" list)
+
+
+════════════════════════════════════════════════════════════════════════════
+  15. FILES YOU CAN SAFELY DELETE LATER
+════════════════════════════════════════════════════════════════════════════
+
+If your repo is messy with old test files, these are safe to delete:
+  - first_last.webp          (old name, replaced by firstandlast-cover.webp)
+  - takeoff_main.webp        (old name, replaced by takeoff-cover.webp)
+  - any *.html file sitting at root that isn't /index.html or /CNAME
+    (these are leftovers from the pre-clean-URL structure)
+
+
+════════════════════════════════════════════════════════════════════════════
+  16. CHANGELOG — KEEP TRACK OF CHANGES
+════════════════════════════════════════════════════════════════════════════
+
+When you change the site, add a line here. Newest at the top.
+
+2026-08-16  Big fix + SEO pass — 6 things in one build:
+            (1) UNIVERSAL PADDING FIX. Every section now respects the
+            site's horizontal breathing space. The bug: .dring-section,
+            .extras-section, .next-project-section, .selects-preview-
+            section all used `padding: X 0 Y` shorthand which reset
+            left/right padding to 0, killing the .shell wrapper's
+            var(--pad-x). Rewrote all four to use padding-top +
+            padding-bottom only. Products grid, social grid, next-
+            project card, and preview strips now have proper side
+            margins on every page.
+            (2) FAVICON. Added favicon.svg (scalable), favicon.ico
+            (multi-size 16/32/48 for old browsers), .png variants
+            for 16/32/48/180/192/512, apple-touch-icon.png, and
+            site.webmanifest. All 13 pages reference them in <head>.
+            Source: your uploaded "b" mark (white on dark).
+            (3) COPYRIGHT + HEART CREDIT. Added a meta row above the
+            giant footer wordmark showing "© 2026 Bharat Arora. All
+            rights reserved." on the left and "designed with ♥ by
+            Bharat" on the right. Heart has a subtle beat animation.
+            (4) NAUGHTY DARES COLOR. Changed from generic gray
+            (--gray-card #2a2a2a) to a deep wine burgundy sampled
+            from the box packaging (--naughtydares-card #7a1d26)
+            with cream ink (--naughtydares-card-ink #f0dbbb).
+            Updated in 3 places: work page body accent, Dring hub
+            product tile, F&L next-project card.
+            (5) BROKEN COVER FALLBACK. Every next-project-card thumb
+            now has an onerror handler that hides the broken-image
+            icon and shows a subtle dark tile instead. Kicks in for
+            aquaflow, snackify, etc. that don't have cover files yet.
+            (6) SEO PASS. Added to every page: unique <title>, meta
+            description, meta author, canonical link, Open Graph
+            tags (og:title, og:description, og:image, og:url) for
+            LinkedIn/Facebook previews, Twitter Card tags. Homepage
+            also has JSON-LD Person schema. Site root now has
+            robots.txt and sitemap.xml (13 URLs).
+2026-08-14  Naughty Dares 16:9 banner added.
+            (1) /naughtydares-cover.webp replaced with real
+            1920×1080 banner (roses + pearls composition).
+            (2) Naughty Dares case study: cover restored to standard
+            <picture> block (was showing empty --accent placeholder).
+            (3) Removed Block 00 (roses shot as sub-image) since the
+            same photograph now works as the cover — no need to show
+            it twice on the page.
+2026-08-14  UNDO: covers restored to original 16:9 files.
+            Previous update wrongly replaced the 1920×1080 cover
+            images on Takeoff, First & Last, and Naughty Dares with
+            square 1080×1080 shots. The square images looked "half
+            cut" because the 16:9 cover frame uses object-fit:cover.
+            Fixes:
+            (1) Takeoff cover restored to /takeoff-cover.webp (16:9).
+                Clean product shot (square) moved to sub-image Block 00.
+            (2) F&L cover restored to /firstandlast-cover.webp (16:9).
+                Clean product shot moved to sub-image Block 00.
+            (3) Naughty Dares cover reverted to empty --accent
+                placeholder (no 16:9 cover ready yet). Roses shot
+                moved to sub-image Block 00.
+            (4) New CSS variant .work-block__img--square (aspect 1:1,
+                max-width 720px, object-fit:contain) applied to ALL
+                the square sub-images so nothing gets cropped.
+            (5) New CSS variant .work-cover--empty for the coloured
+                placeholder cover (used on Naughty Dares).
+2026-08-14  Naughty Dares case study rewritten.
+            (1) Cover = roses + pearls hero shot (was placeholder).
+            (2) Block 01 = candlelit table with card being read.
+            (3) Block 02 = campaign shot (card + lipstick + red glitter).
+            (4) Bio + captions rewritten with real card-game copy.
+            (5) Dring hub product tile for Naughty Dares now shows
+            the roses cover (was empty placeholder + broken-image
+            fallback).
+            (6) Bonus tile added to Dring hub social grid — the plain
+            box + card fan shot. Social grid grows from 15 to 16.
+            No extras strip on Naughty Dares — only 3 images total.
+            Add one later when more campaign creative comes in.
+2026-08-11  Takeoff + First & Last case studies + Dring hub — full
+            content pass.
+            (1) TAKEOFF case study rewritten with real party-game copy
+            (was leftover meditation-app text). Cover = clean product
+            shot, Block 01 = "what's inside the box", Block 02 =
+            party collage.
+            (2) FIRST & LAST case study rewritten with campaign copy.
+            Cover = clean product shot, Block 01 = 90 task cards,
+            Block 02 = friendly competition graphic.
+            (3) NEW "campaign creative" extras strip on both case
+            studies — horizontal scrolling row of 5 (Takeoff) and 4
+            (F&L) branded marketing graphics. Click any → opens in
+            lightbox with prev/next arrows and metadata.
+            (4) DRING HUB SOCIAL GRID expanded from 11 to 15 tiles —
+            added Takeoff "Ultimate Darts", Takeoff "friends playing",
+            F&L "Think Fast", and F&L "Ultimate Race".
+            (5) LOOP FIX: Takeoff was pointing back to naughtydares
+            (going backwards through the Dring sub-tree). Now correctly
+            closes the sub-tree by pointing to the Dring hub.
+            New CSS: .extras-section, .extras-strip, .extras-strip__card.
+            Images live in /takeoff-extras/ and /firstandlast-extras/.
+2026-08-03  Dring hub built + homepage restructure.
+            (1) NEW HUB PAGE at /work/dring/ replacing the old app-
+            focused Dring page. Sections: hero + meta (2024-2025,
+            Graphic Designer, in-house full-time), bio paragraph,
+            PRODUCTS grid with 3 clickable tiles (First & Last,
+            Naughty Dares, Takeoff → their existing case studies),
+            "also designed for" inline note listing 9 more Dring
+            products without case studies, SOCIAL grid with 11
+            Instagram statics, BEHIND-THE-SCENES with 3 studio
+            photos, next-project card, back link.
+            (2) HOMEPAGE reduced from 5 to 3 work cards — Dring
+            (purple, empty banner slot for now), Aquaflow, Snackify.
+            The 3 Dring product cards (First & Last, Takeoff,
+            Naughty Dares) are no longer surfaced at the top level.
+            (3) PROJECTS PAGE same restructure — 3 rows, Dring at
+            top with new description.
+            (4) NEXT-PROJECT LOOP updated to reflect new structure:
+              Top-level: dring → aquaflow → snackify → dring
+              Dring sub-products: firstandlast → naughtydares →
+              takeoff → dring (returns to hub)
+            (5) 14 new images added under /dring-work/: 11 social
+            statics + 3 behind-the-scenes shots, all JPG+WebP,
+            compressed at quality 90.
+            BANNER SLOT: drop /dring-cover.webp in root to
+            fill the empty Dring visual on homepage, projects, and
+            hub page cover. Placeholder shows purple tile until then.
+2026-07-29  Two fixes on top of the previous update:
+            (1) LOCAL PREVIEW BUG FIXED — the previous version of the
+            path-rewriting script used ' + BASE + ' string concat which
+            doesn't work inside template literals (backticks). All nav
+            links, footer links, and CTA links in layout.js rendered
+            as broken. Corrected to ${BASE} template-literal syntax.
+            Navigation now works in the local preview zip.
+            (2) The "more work" preview strip now auto-rotates. Every
+            ~3 seconds one card cross-fades to a fresh piece from a
+            pool defined in an inline JSON block inside each strip.
+            Rotation only activates when the pool has more than 5
+            pieces (otherwise all pieces stay visible — nothing to
+            rotate to). See Section 5b Step 5 for how to add new
+            pieces to the rotation.
+2026-07-02  Selects discoverability + work-page loop —
+            (1) Renamed nav "selects" → "more work" (both desktop and
+            mobile menus) so non-designers understand what it is. The
+            URL /selects/ is unchanged.
+            (2) Added a "more work" preview strip on the HOMEPAGE
+            between the last work card and .about — horizontal
+            scrolling row of 5 real selects + a "+ many more" CTA
+            tile. Same strip added to /projects/ after the last
+            project card. Catches visitors who never explored the
+            /selects/ page.
+            (3) Every work page's bottom section rebuilt — replaced
+            the 3-card "see also" row with a single big NEXT PROJECT
+            card that loops through all works:
+              firstandlast → aquaflow → snackify → takeoff →
+              naughtydares → dring → back to firstandlast.
+            Small "back to all projects" link sits below the next-
+            project card as a secondary option.
+            New CSS: .next-project-card, .selects-preview-section,
+            .selects-preview-strip, .selects-preview-cta.
+2026-07-02  Selects — added 5 real pieces to the top of the grid:
+            (1) Pinkvilla × Spotify partnership announcement (social,
+            2026), (2) Velora perfume launch — Pinkvilla Spotlight
+            (social, 2026), (3) Dring's pizza re-heating hack, a
+            three-panel illustrated tutorial (illustration, 2024),
+            (4) HELL typography experiment (illustration, 2022),
+            (5) Koenigsegg Ghost Regera spec poster (print, 2023,
+            personal fan piece — not commissioned by Koenigsegg).
+            Images compressed at quality 92 to keep them visually
+            crisp; both JPG and WebP variants sit in /selects-images/.
+            Six placeholders remain below the real pieces as visual
+            filler + reference examples until you fill them in.
+2026-06-25  Contact page — (1) Title font pushed bigger on mobile:
+            clamp(56px, 15vw, 90px) mobile / (90px, 13vw, 140px)
+            tablet / (140px, 11vw, 200px) desktop. Frame between
+            "get in" and "touch" shrinks on mobile (1.0em wide vs
+            1.6em desktop) so the bigger font still fits one line.
+            Letter-spacing tightened slightly (-0.045em) for the
+            same reason. (2) Contact form now actually sends emails
+            via Web3Forms. Uses fetch + JSON so the user stays on
+            page and gets inline "Sent ✓" feedback on the submit
+            button, or "Try again" on error. Access key baked into
+            hidden input (safe — Web3Forms is designed for public
+            keys). Includes a honeypot field to filter bots.
+            Handler lives in main.js under "Contact form submit".
+2026-06-25  Mobile + spacing fixes — (1) Contact title shrunk on mobile/
+            tablet via new clamp scales so "get in [slideshow] touch"
+            fits one line at any viewport. Same cap on desktop fixes
+            the overflow past the right edge. (2) Services page top
+            padding bumped to 140px mobile / 180px desktop so the
+            title clears the fixed nav with breathing room. Services
+            title size capped at clamp(56px, 14vw, 96px) mobile so it
+            doesn't burst into the nav. Service row titles shrunk and
+            left-aligned for clean stacking when they wrap. (3) Selects
+            lightbox now scrollable on mobile — media capped at 55vh,
+            info area sits below in normal flow. Desktop layout
+            unchanged (image + sidebar side-by-side). (4) Between-
+            section vertical padding reduced (.section from 100/140
+            to 70/100, .works bottom from 100 to 60) to tighten the
+            page reading rhythm without compressing card internals.
+2026-05-25  New SELECTS page (/selects) added for individual one-off
+            pieces. Masonry grid (CSS columns, 2/3/4 cols at mobile/
+            tablet/desktop), filterable by genre via chips at top
+            (All / Print / Social / Packaging / Identity / Illustration).
+            Click any piece → lightbox opens with full-size image,
+            sidebar showing title/client/year/type + optional desc;
+            background blurs via backdrop-filter. Esc, arrow keys,
+            outside click, and X all close the lightbox. Nav updated
+            in both top and mobile menus: now reads projects · selects
+            · about · services · contact · resume. Page comes with 8
+            placeholder cards to demo the layout — replace with real
+            pieces by editing data attributes (see Section 5b of this
+            file for the full how-to). Images live in /selects-images/.
+2026-05-25  Work page cleanup — First & Last and Takeoff stripped back
+            to the default Snackify layout. First & Last: removed the
+            reels shuffle-deck section, restored standard block 01 +
+            block 02 image placeholders. Takeoff: cleaned up formatting,
+            no structural change (already matched). Cover images for
+            both projects re-cropped to true 16:9 (1920×1080) so they
+            now center correctly inside the cover frame — no awkward
+            edge cropping. All reels-related CSS (~170 lines) and JS
+            (~65 lines) removed since no page uses them anymore. The
+            /reels/ folder and the unused /work-images/ folder were
+            deleted from the repo.
+2026-05-24  Multiple fixes — (1) Client logos sized up further (height
+            70/96/120px mobile/tablet/desktop, max-width 280px) with
+            deeper twinkle dim (0.5 → 1.0) for stronger visible shine.
+            (2) About page portrait now matches homepage exactly —
+            same 4/5 aspect ratio, no max-width cap, fills its grid
+            column. (3) First & Last work page reverted to clean
+            default layout — cover image only, no inner photos, no
+            key visual. Reels moved to a small "shuffle card pile"
+            at bottom: 3 cards stacked like a thrown hand, auto-
+            shuffle on scroll-in, fan out on hover, hover any single
+            card unmutes its video. Three unused photo files removed
+            (firstandlast-01, -02, -keyvisual). (4) Services dropdown
+            animation rewritten — smooth max-height + opacity + slide
+            cascade with staggered child reveal (was a hard snap).
+            (5) Contact social rows redesigned — bigger dark-gray
+            icon tiles (52×52, rounded 12px), bigger name text
+            (24-30px), each hover triggers: tile rotates -6° and
+            inverts to white, name gets growing underline, side
+            spotlight bar slides in, row slides 28px right.
+2026-05-24  First & Last work page built out with real content. Real
+            year (2025), 4-day timeframe, Illustrator + Photoshop,
+            category "Dring's Project". Hero copy describes the
+            90-card party game. Three Instagram reels embedded with
+            hover-to-unmute (mute on leave, tap-then-tap on mobile).
+            Key visual "THINK FAST OR DRINK FAST" callout below hero.
+            Two inner-block portrait photos (product in hand, social
+            creative) centered in 16:9 orange frames. See-also footer
+            now links to the other Dring projects (takeoff, dring,
+            naughty dares) since they're the same client. Added new
+            CSS for .work-keyvisual, .work-block__img--portrait,
+            .reels-section, .reels-grid, .reel; new JS for reel
+            hover-unmute in main.js.
+2026-05-19  Services page built out (was a placeholder). Four expandable
+            service rows: (001) Packaging Design, (002) Visual Design,
+            (003) Branding & Identity, (004) Illustration. Each row
+            uses native <details>/<summary> so click works on all
+            devices, with hover-to-open added in main.js for desktop.
+            Open row shows a square image, description, and category
+            tag pills. Images currently use Unsplash placeholders —
+            swap to /service-XXX.webp when ready.
+2026-05-19  About page: added three-stat row above bio paragraphs
+            (27+ clients, 47+ projects, 5+ industries). Industries
+            listed below the 5+ number: fashion & clothing, F&B,
+            ecommerce, marketing, real estate.
+2026-05-19  About page: portrait photo resized — column shrunk from
+            1fr/1.1fr to 0.7fr/1.3fr, photo capped at max-width 380px.
+            Photo and text content now top-aligned (was bottom-aligned)
+            so the new stats sit cleanly at the top of the right column.
+2026-05-19  Instagram handle updated to @heybharat.design (was
+            @bharataroradesign). Reflected in contact page socials,
+            footer Follow us list, and Section 14 of this file.
+2026-05-19  Client logos enlarged for visibility — height bumped from
+            60px → 56/70/86px (mobile/tablet/desktop). Max width per
+            logo raised 160px → 220px. The 3 empty grid slots are
+            now filled by repeating dring, yamaha, and maac so the
+            constellation reads as a full grid of 10.
+2026-05-18  Real social profiles wired in. Contact page socials list now
+            shows email + behance + linkedin + instagram (dribbble
+            removed, instagram handle updated). Footer "Follow us"
+            column now shows Behance + LinkedIn + Instagram (twitter
+            removed). All URLs are stripped of tracking parameters.
+            Behance: bharataroradesign. LinkedIn: bharat-arora027.
+            Instagram: bharataroradesign.
+2026-05-18  Initial instructions file created.
+2026-05-18  Switched to clean URL folder structure (no more .html in URLs).
+2026-05-18  Optimized cover images: 14–16 MB → 400 KB each. Added WebP
+            versions with <picture> fallback. Lazy loading on all images
+            below the fold.
+2026-05-18  Replaced text placeholder client labels on /projects with
+            real SVG logos (shoton, dring, being-ingenious, kidley,
+            hem-haw, maac, yamaha). Added soft star-twinkle animation
+            per logo with randomized timing.
+2026-05-18  Contact page: title is now "get in [slideshow] touch" with
+            an inline 16:9 image slideshow between the words. Words are
+            muted gray, turn white on title hover.
+2026-05-18  Cursor smoothing tightened (0.18 → 0.45) so the cursor's
+            mix-blend trail no longer flashes random text near the
+            footer brand link.
+2026-05-18  Footer wordmark ".heybharat" rebuilt: now center-aligned,
+            full text visible, white gradient shimmer animation on a
+            6s loop, pointer-events:none so it can't trigger hover.
+2026-05-18  Project section breathing room: max-width 1480px and 80px
+            padding on the projects page card list. Project card inner
+            bottom padding reduced (110px → 36px) — less empty space
+            below image inside each card.
+2026-05-18  Grid background simplified to static lines only (no light
+            beam animation). Vertical lines via repeating-linear-
+            gradient. All content sections z-index 5 so cards/cover
+            images never sit behind the grid.
+
+2026-09-03  Two client projects added — KIDLEY and HEM & HAW, both
+            done through Shoton Pictures.
+            (1) NEW PAGES at /work/kidley/ and /work/hemhaw/, both on
+            the standard work-page layout (cover + body/meta + block 01
+            + middle para + block 02 + closing + next-project).
+            (2) IMAGE SLOTS ARE STILL EMPTY. Both pages, plus their
+            homepage and projects-page cards, show a .ph placeholder
+            until you drop these six files in the repo ROOT:
+              kidley-cover / kidley-01 / kidley-02   (.jpg + .webp)
+              hemhaw-cover / hemhaw-01 / hemhaw-02   (.jpg + .webp)
+            Each slot has a ▼ comment with the exact <picture> block
+            to paste in. Same pattern aquaflow and snackify use.
+            (3) NEW COLOUR TOKENS — --kidley-card #1A2B4A with
+            --kidley-card-ink #FFD3C2 (navy + coral-cream, sampled
+            from the Kidley palette); --hemhaw-card #101418 with
+            --hemhaw-card-ink #C8FF3D (near-black + hi-vis, echoing
+            the reflective strip on the hero product). Modifiers added
+            for .work-card, .proj-card, .proj-row, .see-also-row, and
+            .work-page accents.
+            (4) LOOP UPDATED. Top level is now dring → kidley →
+            hem & haw → aquaflow → snackify → dring. Only the Dring
+            hub's next-project card changed target (aquaflow → kidley);
+            aquaflow and snackify keep their existing targets.
+            (5) Both cards sit directly after Dring on the homepage
+            and the projects page — real client work above the two
+            concept pieces. Sitemap grown from 13 to 15 URLs.
+            (6) COPY IS A FIRST DRAFT written from brand context, not
+            from a brief. Check the role, dates, and claims on both
+            pages before pushing.
+
+2026-09-03  Preview build added. New /build-preview.py bundles the whole
+            site — CSS, JS, images, all 15 pages — into a single
+            self-contained preview.html you can open in any browser with
+            no server. Tabs across the top switch pages; links inside a
+            page jump to the matching tab. Each page renders in its own
+            iframe so layout.js and main.js behave exactly as they do
+            live. Two size tricks keep the file openable: images over
+            900 KB are skipped, and where a .jpg and .webp are the same
+            picture only the .webp is bundled (32 MB → 7.3 MB).
+            preview.html is a build artifact — don't commit it, don't
+            edit it, re-run the script instead. Full how-to in the new
+            Section 2b. Standing rule from here on: rebuild the preview
+            and look at it before every push.
+
+2026-09-03  Cover banner ratio fixed site-wide + Kidley set to white.
+            (1) COVER RATIO BUG. Every work-page cover was rendering at
+            roughly 1.5:1 instead of 16:9, so a 1920x1080 cover lost
+            about 14% of its height to object-fit:cover — worst on
+            /work/takeoff, /work/firstandlast and /work/naughtydares,
+            where it read as almost square. Cause: .work-cover carried
+            BOTH the page's horizontal padding and aspect-ratio:16/9,
+            and with box-sizing:border-box the ratio sized the padded
+            box — leaving the visible image (width - 2*pad-x) wide at
+            full height. Fix: aspect-ratio moved off the container and
+            onto the image, the .ph tile, and .work-cover--empty::before.
+            Added a .work-cover picture rule so the <picture> wrapper
+            passes flex sizing through, and swapped the Dring hub's
+            empty-cover height:100% for aspect-ratio:16/9. Covers are
+            now a true 16:9 at every viewport width. No markup changed
+            and no image was re-cropped.
+            RULE: banners/covers are 16:9 (1920x1080). Square 1:1 shots
+            are for the numbered sub-blocks only, via
+            .work-block__img--square — that behaviour is unchanged.
+            (2) KIDLEY now uses white text. --kidley-card-ink is #ffffff
+            (was coral-cream #FFD3C2). Also updated the Kidley card
+            placeholder ink on the homepage and projects page, and the
+            work page's --accent, so meta labels, block numbers, and
+            rules stay legible on the dark background.
+
+2026-09-03  Hem & Haw page filled in with real work. Was placeholder-only;
+            now carries a cover, both numbered blocks, and an 8-piece
+            campaign strip.
+            (1) SOURCE ASSETS. Eight 1080x1440 (4:5) statics and posters:
+            three product statics (baggy lower male, baggy lower female,
+            reflective lower male), two dark-studio campaign frames
+            ("Your Pace.", "Reflect"), one daylight lifestyle profile
+            showing the side snap buttons, and two posters ("Outrun
+            Limits." for the running shorts, "But they can't stop us."
+            for women's running). All eight live uncropped in the new
+            /hemhaw-extras/ folder as .jpg + .webp.
+            (2) COVER AND BLOCKS ARE COMPOSITES. None of the source
+            images is 16:9, and centre-cropping a 4:5 poster to 16:9
+            cuts the headline off. So /hemhaw-cover, /hemhaw-01 and
+            /hemhaw-02 are 1920x1080 contact sheets built from the
+            originals at exactly 4:5 — nothing is cropped — laid on the
+            brand ground (#101418 for cover and 02, off-white #F4F4F2
+            for 01, matching the statics' own backgrounds). Cover is a
+            2-up of the dark-studio frames; 01 is a 3-up of the product
+            statics; 02 is a 3-up of the campaign posters. If a real
+            16:9 hero ever gets shot, just overwrite hemhaw-cover.
+            (3) EXTRAS STRIP + NEW CSS. The strip follows the Takeoff
+            pattern (horizontal scroll, click to open the shared
+            lightbox, arrows and Esc work). New modifier in style.css:
+            .extras-strip--portrait sets cards to 4:5 instead of the
+            default 1:1, since a square crop lops the type off the
+            posters. Takeoff and First & Last are untouched.
+            (4) PLACEHOLDERS CLEARED. The .ph tiles on the Hem & Haw
+            card are gone from both the homepage and /projects, and the
+            Kidley page's next-project thumbnail now resolves instead of
+            404-ing. Kidley itself is still placeholder-only.
+            (5) Block captions rewritten to match what's actually shown.
+
+2026-09-03  Dropped every .jpg. The repo carried each image twice — a
+            .jpg and a .webp of the same picture, served through a
+            <picture> element — which put it at 151 files. GitHub's web
+            uploader only accepts 100 files per drag-and-drop.
+            (1) WHAT CHANGED. Deleted all 56 .jpg files. Every one had a
+            .webp twin, so no image was lost. All 91 <picture> blocks
+            across the 15 pages collapsed to a plain <img> pointing at
+            the .webp; alt, loading, decoding and the onerror fallbacks
+            on the next-project thumbnails were all carried over intact.
+            (2) NO QUALITY LOSS. The .webp was already the file every
+            visitor received — a <source> beats the <img> fallback in
+            every browser made since 2020. The JPGs were dead weight
+            being uploaded and stored but never served.
+            (3) ALSO UPDATED. main.js (the Selects strip rotator built
+            its swap URLs from .jpg and set a <source> srcset that no
+            longer exists); the JSON-LD "image" field on the homepage;
+            and every paste-in comment block, so the templates for
+            Kidley and the other unshot covers now say .webp only.
+            (4) COUNT: 151 → 95 files. That's 5 spare. Section 2 of this
+            file now carries the rule: export .webp only, never re-add a
+            .jpg twin, never reintroduce <picture>.
+            (5) UNTOUCHED: the 7 already-missing assets stay missing —
+            resume.pdf, and the aquaflow / snackify / dring / kidley
+            covers referenced by next-project cards.
+
+2026-09-04  Removed two dead files. Neither favicon.ico (379 bytes) nor
+            favicon-48.png (1 KB) is referenced by anything (site.webmanifest asks for 192 and 512, the
+            HTML asks for the .svg plus 16 and 32). Neither was doing
+            any work. 95 -> 93 files.
+            VERIFIED at the same time, after the JPG removal: all 15
+            pages carry the same alt text they did before, none empty
+            (97 <img> tags: 95 with real alt text, plus the two
+            decorative title-loop images on /contact that correctly
+            carry alt="" so screen readers skip them). Every <title>, <meta> and <link>
+            in every <head> is byte-identical to the pre-change version.
+            Twelve of the fifteen pages are identical once the format
+            swap is normalised out; the only three that differ are the
+            homepage, /projects and /work/hemhaw, which is exactly where
+            the Hem & Haw work was added on 2026-09-03.
+            NOTE ON THE 100-FILE LIMIT: it applies to a single
+            drag-and-drop upload in the GitHub web UI, not to the repo.
+            A repo can hold thousands of files. If the count ever goes
+            over again, upload in two batches, or use GitHub Desktop,
+            and the limit stops mattering.
+
+2026-09-04b Four fixes, one of them a bug I caused on 2026-09-04.
+
+            (1) KIDLEY PAGE WAS BROKEN — MY FAULT. The regex that
+            collapsed <picture> blocks into plain <img> tags ran over the
+            whole file instead of respecting comment boundaries. Kidley's
+            header comment contains the sentence "paste the <picture>
+            block written just above it" — a bare <picture> with no
+            closing tag. The regex paired it with the </picture> in the
+            NEXT comment further down and deleted everything between:
+            the end of the header comment, the <body> tag, the entire
+            work-head section (the "kidley" h1 and its description), and
+            the opening of the cover div. With no <body> there was no
+            work-page class, so --accent never resolved and the
+            placeholder tiles rendered as nothing at all. That is the
+            blank you saw. The page has been rebuilt from the original
+            and reconverted with a comment-aware pass.
+            Worth recording why my check missed it: I verified the
+            conversion by normalising the old and new files with the SAME
+            regex, so both sides had the identical hole and compared
+            equal. The check has been redone properly — strip comments
+            first, then compare visible text — and all 15 pages are now
+            confirmed intact.
+
+            (2) SQUARE BLOCKS ARE NOW 16:9. Eight sub-images were
+            1080x1080 and sat in a 720px-wide contain frame, so they
+            were visibly narrower than every other block on the site.
+            They have been extended to 1920x1080 in the file itself:
+            the square sits sharp and uncropped in the centre, and the
+            sides are filled with a heavily blurred, darkened copy of
+            the same image — or a flat colour where the artwork already
+            had a uniform background (fl-whats-inside-the-box,
+            takeoff-whats-inside-the-box, both seamless).
+            Affected: fl-clean-product, fl-whats-inside-the-box,
+            fl-friendly-competition, takeoff-clean-product,
+            takeoff-whats-inside-the-box, takeoff-party-collage,
+            naughtydares-candle-scene, naughtydares-lipstick-card.
+            The --square class is gone from all HTML. The CSS rule stays
+            in style.css but is now unused; if a real 1920x1080 export
+            ever replaces one of these, it drops straight in.
+
+            (3) EXTRAS STRIP NOW LINES UP WITH THE PAGE. It used to
+            break out of .shell with a negative margin and pull itself
+            back with padding-left/right. The padding wasn't holding, so
+            the row sat flush against the page edge while its own
+            heading stayed inset — the only element on the site ignoring
+            the gutter. The negative margin and compensating padding are
+            both gone; it now sits inside .shell like everything else.
+
+            (4) THE STRIP ACTUALLY SCROLLS NOW. The scrollbar was hidden
+            (scrollbar-width: none), which on a desktop mouse left no
+            handle to drag and no sign there was anything further right.
+            The scrollbar is now styled and visible, tinted with the
+            page accent, and main.js adds click-and-drag plus
+            wheel-to-scroll. The drag has a 4px threshold so a plain
+            click still opens the lightbox, and the wheel hands scrolling
+            back to the page at either end rather than trapping it.
+            Snap softened from mandatory to proximity so dragging feels
+            free instead of magnetised.
+
+2026-09-04c Reverted the wheel handler added in 2026-09-04b. It made
+            things worse: hovering the strip froze the page scroll and
+            the row often didn't move either.
+            WHY IT FAILED. Two causes stacked. The handler called
+            preventDefault on a vertical wheel to redirect it sideways,
+            so the page stopped whenever the cursor passed over the
+            strip — hostile even when working. And scroll-snap was set
+            to proximity with snap-align on each card, so a small wheel
+            delta got snapped straight back to the card it started on:
+            page blocked, row apparently stuck.
+            WHAT REPLACED IT.
+            - No wheel handling at all. The page scrolls normally over
+              the strip. Trackpads already send deltaX for a real
+              sideways swipe and the browser handles that itself.
+            - scroll-snap removed entirely, from the container and the
+              cards. Nothing fights a drag or an arrow click now.
+            - Arrow buttons, injected by main.js so the page markup
+              stays clean. One card + gap per click, smooth scroll,
+              greyed out at each end, hidden entirely when the row
+              already fits or on touch devices where swiping is natural.
+            - Click-drag kept, with its 4px threshold so a plain click
+              still opens the lightbox.
+            - Styled scrollbar kept as the visible handle.
+
+2026-09-04d Dring cover added — /dring-cover.webp. Built from a group
+            shot of the games in play at a house party: 6016x4016 source
+            cropped to 16:9 from the base (the raised arms at the top
+            are the composition, so the trim came off the bottom) and
+            resampled to 1920x1080.
+            FILLS FIVE SLOTS AT ONCE, all previously broken or empty:
+            the Dring hub cover, the Dring cards on the homepage and
+            /projects (both were still .ph placeholder tiles), and the
+            next-project thumbnails on /work/snackify and /work/takeoff,
+            which were 404-ing.
+            ALT TEXT: "Dring party card games, including First & Last,
+            at a house party" — First & Last is the only game in the
+            frame Bharat designed, so it's the only one named. The other
+            boxes are visible but are not his work and are not credited
+            in alt text, captions or metadata anywhere.
+            The onerror fallback on the hub cover is deliberately kept:
+            if the file ever goes missing the img hides and .is-empty
+            paints the solid purple 16:9 tile, same as before.
+            94 files. Still missing: kidley-cover, aquaflow-cover,
+            snackify-cover, resume.pdf.
+
+2026-09-04e Attempted to make the homepage sticky cards fit a laptop
+            viewport by capping the card image's width against the space
+            left on screen. REVERTED IMMEDIATELY at Bharat's request —
+            it wrecked the cards. The cap made the image sit noticeably
+            narrower than the card with dead colour either side, which
+            broke the look far worse than the clipping it was meant to
+            solve.
+            The work-card CSS is byte-for-byte back to what it was:
+            .work-card, .work-card__media and .work-card-last-wrap all
+            verified identical to the pre-change file. No --card-chrome
+            variable, no max-height query, no svh units anywhere.
+            THE UNDERLYING ISSUE IS STILL OPEN. On a 1080p laptop only
+            about 60% of a card is visible before the next one slides
+            over it, because a full-width 16:9 image plus the sticky
+            offset, padding and title row comes to roughly 1190px. Any
+            future attempt needs to solve it WITHOUT shrinking the image
+            away from the card edges — likely by reworking the card
+            layout itself (image beside the title rather than under it),
+            not by capping the existing one.
+
+2026-10-03  About page reworked — .career and .stack removed, two new
+            sections in their place.
+            (1) REMOVED. The .career timeline (Shoton / DRING / Being
+            Ingenious) and the .stack tool grid (Photoshop, Illustrator,
+            After Effects, Premiere, Lightroom, Figma, Framer, HTML/CSS).
+            NOTE: the employment history now appears NOWHERE on the site.
+            /resume still points at /resume.pdf, which is not in the repo.
+            If recruiters are an audience, that history needs a home.
+            (2) ADDED — ".what i do". The four service lines, same names
+            and (001)-(004) numbering as /services, so the two pages
+            agree. Reuses .timeline / .timeline__row, so it needed no new
+            CSS at all.
+            (3) ADDED — ".off the clock". Personal, six short label+line
+            items in a reflowing grid. EVERY LINE IS A PLACEHOLDER written
+            as a starting point — they are not facts about Bharat and must
+            be swapped for real ones. Flagged in the page comment too.
+            (4) NEW CSS: .likes, .like__label, .like__text — about 25
+            lines at the end of style.css. auto-reflowing 1/2/3 columns,
+            built from the existing mono-label register.
+            (5) ORPHANED CSS: .stack, .tool, .tool__tile, .tool h3/p are
+            now unused — the stack grid was their only consumer. Left in
+            place rather than deleted, in case the section comes back.
+            .timeline is still used (the experience/location/freelance row
+            at the top, and now "what i do"), so it stays.
+
+2026-10-03b Dead code removed. No file count change — see below.
+            (1) CSS: 48 selectors dropped, 80,763 -> 75,615 bytes
+            (-5 KB). All verified unreferenced by any HTML class
+            attribute or JS selector first.
+              - .note-row and .note-row__* (whole component, no markup)
+              - .see-also, .see-also-row and all 15 of its modifiers and
+                children (whole component, no markup)
+              - .stack, .tool, .tool__tile and children (the about-page
+                tool grid, removed earlier today)
+              - .work-block__img--square (no longer used since the
+                square blocks were extended to 16:9 on 2026-09-04)
+              - .work-cover--empty (dead: the Dring fallback uses
+                .work-cover.is-empty, which is still live and kept)
+              - .work-page--bizzbuzz, --zengo, --roverride (projects
+                that do not exist on the site)
+              - the --orange, --yellow and --gray modifiers of
+                .work-card, .proj-card and .proj-row. Only dring,
+                kidley, hemhaw, white and green are in use. These are
+                one-liners; re-add if a project needs that colour.
+            VERIFIED: every remaining rule's declarations are byte-
+            identical to before, braces balanced, 30 custom properties
+            intact, and nothing outside the list above was dropped.
+            (2) JS: removed the "note row image follows cursor" block in
+            main.js — it queried .note-row, which exists nowhere, so it
+            could never fire. Also pulled .see-also-row and .note-row out
+            of the two selector lists that still named them. Syntax
+            checked with node --check.
+            (3) FILE COUNT STAYS AT 94. Audited and found nothing safe to
+            cut: all 70 assets are referenced, there are no duplicate
+            images (checked by md5), and no orphan files. The only
+            remaining candidate is favicon-16.png (353 bytes) — droppable
+            since browsers will downscale favicon-32, but that costs the
+            hand-tuned 16px rendering, so it was left alone.
+            94 is the floor without giving something up.
+
+[ADD NEW ENTRIES BELOW THIS LINE]
+
+
+════════════════════════════════════════════════════════════════════════════
+  END OF INSTRUCTIONS
+════════════════════════════════════════════════════════════════════════════

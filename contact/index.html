@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Bharat Arora</title>
+  <link rel="stylesheet" href="/style.css" />
+  <!-- ═════════════ SEO + FAVICON ═════════════ -->
+  <meta name="description" content="Get in touch with Bharat Arora for design collaboration. Email, LinkedIn, Behance, Instagram." />
+  <meta name="author" content="Bharat Arora" />
+  <link rel="canonical" href="https://heybharat.design/contact/" />
+  <!-- Open Graph (Facebook, LinkedIn) -->
+  <meta property="og:title" content="Contact — Bharat Arora" />
+  <meta property="og:description" content="Get in touch with Bharat Arora for design collaboration. Email, LinkedIn, Behance, Instagram." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://heybharat.design/contact/" />
+  <meta property="og:image" content="https://heybharat.design/og-image.jpg" />
+  <meta property="og:site_name" content="Bharat Arora" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Contact — Bharat Arora" />
+  <meta name="twitter:description" content="Get in touch with Bharat Arora for design collaboration. Email, LinkedIn, Behance, Instagram." />
+  <meta name="twitter:image" content="https://heybharat.design/og-image.jpg" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#050505" />
+  <!-- ══════════════════════════════════════════ -->
+</head>
+<body data-page="contact">
+
+  <div data-mount="grid"></div>
+  <div data-mount="nav"></div>
+
+  <section class="page-head">
+    <div class="shell">
+      <h1 class="page-head__title page-head__title--with-loop reveal-blur">
+        <span class="title-word">get in</span>
+        <!-- ╔═══════════════════════════════════════════════════════════╗
+             ║   INLINE TITLE SLIDESHOW — sits between "get in" and "touch"
+             ║   Crossfades through your project covers on a 7-second loop.
+             ║
+             ║   ADDING MORE IMAGES:
+             ║   1. Add an <img> tag inside .title-loop below.
+             ║   2. Set animation-delay so each image is evenly offset.
+             ║      Formula: delay = -(N × loopDuration / totalImages)
+             ║      where N is the image's index (0-based).
+             ║      Current: 2 images on a 7s loop → 0s and -3.5s.
+             ║      For 4 images: 0s, -1.75s, -3.5s, -5.25s.
+             ║
+             ║   Recommended: 16:9 images (1600×900) of your work covers.
+             ║   The frame is 16:9 to match project cover image ratios.
+             ╚═══════════════════════════════════════════════════════════╝ -->
+        <span class="title-loop" aria-hidden="true">
+          <img alt="" class="title-loop__img" style="animation-delay: 0s;" src="/firstandlast-cover.webp" decoding="async" />
+          <img alt="" class="title-loop__img" style="animation-delay: -3.5s;" src="/takeoff-cover.webp" loading="lazy" decoding="async" />
+        </span>
+        <span class="title-word">touch</span>
+      </h1>
+      <p class="page-head__sub reveal">let's collaborate. drop me a line about your project or reach out on social — i read every message</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="shell">
+      <div class="contact-grid">
+        <!-- ═══════════════════════════════════════════════════════════════
+             CONTACT FORM — posts to Web3Forms
+             The form submits via fetch to keep the user on the page and
+             show inline success/error feedback. Access key is public
+             (Web3Forms is designed this way). To change or rotate it,
+             update BOTH the hidden input value AND any docs mentioning it.
+
+             LOGIC LIVES IN main.js (search for "Contact form submit").
+             That handler:
+               1. Intercepts submit → prevents default redirect
+               2. Posts JSON to https://api.web3forms.com/submit
+               3. On success: shows "Sent ✓" state for ~2s, then resets
+               4. On error: shows "Try again" state briefly
+             ═══════════════════════════════════════════════════════════════ -->
+        <form class="contact-form reveal"
+              data-contact-form
+              action="https://api.web3forms.com/submit"
+              method="POST">
+          <!-- Web3Forms access key — public by design, safe to expose -->
+          <input type="hidden" name="access_key" value="88512c4e-381b-47a3-8309-98d7cec9d4c1" />
+          <!-- Optional: subject line for the emails you receive -->
+          <input type="hidden" name="subject" value="New enquiry from heybharat.design" />
+          <!-- Optional: sender name shown in your inbox -->
+          <input type="hidden" name="from_name" value="heybharat.design contact form" />
+          <!-- Honeypot to filter out bots (bots fill this; humans don't) -->
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="contact-form__field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required placeholder="Your name" />
+          </div>
+          <div class="contact-form__field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="hello@you.com" />
+          </div>
+          <div class="contact-form__field">
+            <label for="msg">Message</label>
+            <textarea id="msg" name="message" required placeholder="Tell me about your project…"></textarea>
+          </div>
+          <button type="submit" class="submit-btn" data-submit-btn>Submit</button>
+        </form>
+
+        <div class="socials reveal-stagger">
+          <a href="mailto:work@heybharat.design" class="social-row">
+            <span class="social-row__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            </span>
+            <div>
+              <div class="social-row__name">email</div>
+              <span class="social-row__handle">work@heybharat.design</span>
+            </div>
+          </a>
+          <a href="https://www.behance.net/bharataroradesign" target="_blank" rel="noopener" class="social-row">
+            <span class="social-row__icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 8.6H4v6.8h3.9c1.3 0 2.3-1 2.3-2.3 0-.8-.4-1.4-1-1.8.4-.3.7-.8.7-1.4 0-.8-.6-1.3-2.1-1.3zm-2.4 1.4h2.2c.5 0 .8.2.8.6s-.3.7-.8.7H5.4v-1.3zm2.3 4H5.4v-1.4h2.3c.5 0 .9.3.9.7 0 .5-.4.7-.9.7zm6.5-.8c0-2-1.2-3.3-3.1-3.3s-3.2 1.4-3.2 3.3 1.3 3.3 3.3 3.3c1.5 0 2.7-.8 3-2h-1.8c-.2.4-.6.7-1.2.7-.8 0-1.3-.5-1.5-1.3h4.4c0-.2.1-.4.1-.7zm-4.5-.6c.2-.7.7-1.1 1.4-1.1.8 0 1.3.4 1.4 1.1h-2.8zM13.4 8h4v1h-4z"/></svg>
+            </span>
+            <div>
+              <div class="social-row__name">behance</div>
+              <span class="social-row__handle">@bharataroradesign</span>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/bharat-arora027" target="_blank" rel="noopener" class="social-row">
+            <span class="social-row__icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM8.3 18.3H5.7v-8h2.6v8zM7 9.2c-.8 0-1.5-.7-1.5-1.5S6.2 6.2 7 6.2s1.5.7 1.5 1.5S7.8 9.2 7 9.2zm11.3 9.1h-2.6v-4.3c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.4h-2.6v-8h2.5v1.1h.1c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.2 1.8 3.2 4.1v4.2z"/></svg>
+            </span>
+            <div>
+              <div class="social-row__name">linkedin</div>
+              <span class="social-row__handle">@bharat-arora027</span>
+            </div>
+          </a>
+          <a href="https://instagram.com/heybharat.design" target="_blank" rel="noopener" class="social-row">
+            <span class="social-row__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <div class="social-row__name">instagram</div>
+              <span class="social-row__handle">@heybharat.design</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div data-mount="footer"></div>
+
+  <script src="/layout.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>

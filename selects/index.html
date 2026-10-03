@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>More Work — Bharat Arora</title>
+  <link rel="stylesheet" href="/style.css" />
+  <!-- ═════════════ SEO + FAVICON ═════════════ -->
+  <meta name="description" content="Single-piece design work by Bharat Arora — posters, social posts, illustrations, and campaign creatives." />
+  <meta name="author" content="Bharat Arora" />
+  <link rel="canonical" href="https://heybharat.design/selects/" />
+  <!-- Open Graph (Facebook, LinkedIn) -->
+  <meta property="og:title" content="More Work — Bharat Arora" />
+  <meta property="og:description" content="Single-piece design work by Bharat Arora — posters, social posts, illustrations, and campaign creatives." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://heybharat.design/selects/" />
+  <meta property="og:image" content="https://heybharat.design/og-image.jpg" />
+  <meta property="og:site_name" content="Bharat Arora" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="More Work — Bharat Arora" />
+  <meta name="twitter:description" content="Single-piece design work by Bharat Arora — posters, social posts, illustrations, and campaign creatives." />
+  <meta name="twitter:image" content="https://heybharat.design/og-image.jpg" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#050505" />
+  <!-- ══════════════════════════════════════════ -->
+</head>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║         HOW TO ADD A NEW SELECT — selects/index.html                 ║
+  ╠══════════════════════════════════════════════════════════════════════╣
+  ║                                                                      ║
+  ║  Each piece is one <div class="select"> block inside .selects-grid.  ║
+  ║  Copy any existing block and edit the data attributes + image src.   ║
+  ║                                                                      ║
+  ║  FILE NAMING:                                                        ║
+  ║    Drop image in: /selects-images/{client}-{short-name}.webp          ║
+  ║    Example: /selects-images/hemhaw-reflective-poster.webp             ║
+  ║    Compress at tinypng.com first — target under 300 KB per image.    ║
+  ║    Any aspect ratio is fine — the masonry grid adapts.               ║
+  ║                                                                      ║
+  ║  DATA ATTRIBUTES (each <div class="select">):                        ║
+  ║    data-type    →  one of: print, social, packaging, identity,       ║
+  ║                    illustration   (controls which filter shows it)   ║
+  ║    data-title   →  short title shown in lightbox header              ║
+  ║    data-client  →  client name (e.g. "Hem & Haw" or "Personal")      ║
+  ║    data-year    →  year (e.g. "2025")                                ║
+  ║    data-desc    →  OPTIONAL — 1–2 sentence description shown in      ║
+  ║                    lightbox sidebar. Leave empty if not needed.      ║
+  ║                                                                      ║
+  ║  ADDING A NEW FILTER GENRE:                                          ║
+  ║    1. Add <button class="filter-chip" data-filter="newtype">...      ║
+  ║       inside .selects-filter below.                                  ║
+  ║    2. Use data-type="newtype" on the matching pieces.                ║
+  ║                                                                      ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+
+<body data-page="selects">
+
+  <div data-mount="grid"></div>
+  <div data-mount="nav"></div>
+
+  <section class="page-head">
+    <div class="shell">
+      <h1 class="page-head__title reveal-blur">selects</h1>
+      <p class="page-head__sub reveal">a closer look at individual pieces — posters, social, packaging, identity, illustration.</p>
+    </div>
+  </section>
+
+  <section class="shell">
+    <div class="selects-filter reveal" role="tablist">
+      <button class="filter-chip is-active" data-filter="all"           type="button">All</button>
+      <button class="filter-chip"           data-filter="print"         type="button">Print</button>
+      <button class="filter-chip"           data-filter="social"        type="button">Social</button>
+      <button class="filter-chip"           data-filter="packaging"     type="button">Packaging</button>
+      <button class="filter-chip"           data-filter="identity"      type="button">Identity</button>
+      <button class="filter-chip"           data-filter="illustration"  type="button">Illustration</button>
+    </div>
+
+    <!-- MASONRY GRID — uses CSS columns. Each .select is one piece.
+         The grid is populated with empty placeholder cards for now;
+         replace each block with your real piece (see comment at top). -->
+    <div class="selects-grid reveal" data-selects-grid>
+
+      <!-- ═════════════ REAL PIECES ═════════════ -->
+
+      <div class="select"
+           data-type="social"
+           data-title="Pinkvilla × Spotify partnership announcement"
+           data-client="Pinkvilla"
+           data-year="2026"
+           data-desc="A brand partnership announcement paired with a nostalgic Bollywood lyric — 'yeh dosti hum nahi todenge' as the emotional anchor.">
+        <img src="/selects-images/pinkvilla-spotify-partnership.webp" alt="Pinkvilla × Spotify partnership announcement" loading="lazy" decoding="async" />
+      </div>
+
+      <div class="select"
+           data-type="social"
+           data-title="Velora perfume launch — Pinkvilla Spotlight"
+           data-client="Pinkvilla"
+           data-year="2026"
+           data-desc="A launch announcement for Velora Extrait de Parfum. Warm cinematic light, quiet type, product front and centre.">
+        <img src="/selects-images/pinkvilla-velora-launch.webp" alt="Velora perfume launch — Pinkvilla Spotlight" loading="lazy" decoding="async" />
+      </div>
+
+      <div class="select"
+           data-type="illustration"
+           data-title="Dring's pizza re-heating hack"
+           data-client="Dring"
+           data-year="2024"
+           data-desc="A three-panel hand-drawn illustration explaining how to reheat leftover pizza. Every frame drawn from scratch — no assets, no templates.">
+        <img src="/selects-images/dring-pizza-hack.webp" alt="Dring's pizza re-heating hack — hand-drawn illustration" loading="lazy" decoding="async" />
+      </div>
+
+      <div class="select"
+           data-type="illustration"
+           data-title="HELL — typographic experiment"
+           data-client="Personal"
+           data-year="2022"
+           data-desc="A typography study built around distortion — the letters melt into a molten trail below their own weight.">
+        <img src="/selects-images/personal-hell-typography.webp" alt="HELL — typographic experiment" loading="lazy" decoding="async" />
+      </div>
+
+      <div class="select"
+           data-type="print"
+           data-title="Koenigsegg Ghost Regera — spec poster"
+           data-client="Personal"
+           data-year="2023"
+           data-desc="A fan-made hypercar poster in 3D-mockup format. Studio lighting, floating stones, glass panel display — a tribute layout, not commissioned work.">
+        <img src="/selects-images/personal-ghost-regera-poster.webp" alt="Koenigsegg Ghost Regera — spec poster" loading="lazy" decoding="async" />
+      </div>
+
+      <!-- ═════════════ PLACEHOLDER PIECES — replace with your real work as you have it ═════════════ -->
+
+      <div class="select"
+           data-type="print"
+           data-title="Reflective Lower campaign poster"
+           data-client="Hem &amp; Haw"
+           data-year="2025"
+           data-desc="A safety-first visual for nighttime runners. Stripes do the talking; the type stays out of the way.">
+        <div class="select__ph" style="aspect-ratio: 3/4; background: linear-gradient(135deg, #1a1a1a, #2a2a2a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="social"
+           data-title="Bamboo cotton series — story set"
+           data-client="Kidley"
+           data-year="2025"
+           data-desc="Three-frame story explaining what bamboo cotton actually does on a kid's skin.">
+        <div class="select__ph" style="aspect-ratio: 9/16; background: linear-gradient(135deg, #2a1f1a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="packaging"
+           data-title="Hang tag system"
+           data-client="Kidley"
+           data-year="2025"
+           data-desc="Category-coloured hang tags with a shared layout, built for the vendor to print at scale without supervision.">
+        <div class="select__ph" style="aspect-ratio: 1/1; background: linear-gradient(135deg, #1a2a1a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="identity"
+           data-title="Wordmark exploration"
+           data-client="Personal"
+           data-year="2024"
+           data-desc="">
+        <div class="select__ph" style="aspect-ratio: 4/5; background: linear-gradient(135deg, #1a1a2a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="social"
+           data-title="Performance Shorts launch carousel"
+           data-client="Hem &amp; Haw"
+           data-year="2025"
+           data-desc="">
+        <div class="select__ph" style="aspect-ratio: 1/1; background: linear-gradient(135deg, #2a2a1a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <div class="select"
+           data-type="packaging"
+           data-title="Label refresh"
+           data-client="Preet Tractors"
+           data-year="2025"
+           data-desc="">
+        <div class="select__ph" style="aspect-ratio: 4/5; background: linear-gradient(135deg, #2a1a1a, #1a1a1a);">.placeholder</div>
+      </div>
+
+      <!-- ═════════════ END — paste your real pieces at the TOP of this grid ═════════════ -->
+
+    </div>
+
+    <p class="selects-empty" data-selects-empty>No pieces match this filter yet.</p>
+  </section>
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       LIGHTBOX — opened by main.js when a piece is clicked
+       Content is populated dynamically. Background grid gets blurred.
+       Close: click outside, press Esc, click X button, or use arrows.
+       ═════════════════════════════════════════════════════════════════════ -->
+  <div class="lightbox" data-lightbox aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lightbox__close" data-lightbox-close aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M6 18 18 6"/></svg>
+    </button>
+
+    <button class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+
+    <div class="lightbox__inner">
+      <div class="lightbox__media" data-lightbox-media>
+        <!-- image is injected here at runtime -->
+      </div>
+      <aside class="lightbox__info" data-lightbox-info>
+        <p class="lightbox__type" data-lightbox-type></p>
+        <h2 class="lightbox__title" data-lightbox-title></h2>
+        <div class="lightbox__meta">
+          <div class="lightbox__meta-row">
+            <span class="lightbox__meta-label">client</span>
+            <span class="lightbox__meta-value" data-lightbox-client></span>
+          </div>
+          <div class="lightbox__meta-row">
+            <span class="lightbox__meta-label">year</span>
+            <span class="lightbox__meta-value" data-lightbox-year></span>
+          </div>
+        </div>
+        <p class="lightbox__desc" data-lightbox-desc></p>
+      </aside>
+    </div>
+  </div>
+
+  <div data-mount="cta"></div>
+  <div data-mount="footer"></div>
+
+  <script src="/layout.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>
