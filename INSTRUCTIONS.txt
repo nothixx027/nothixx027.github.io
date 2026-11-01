@@ -1351,6 +1351,204 @@ When you change the site, add a line here. Newest at the top.
             hand-tuned 16px rendering, so it was left alone.
             94 is the floor without giving something up.
 
+2026-10-03c SITE IS LIVE AND VERIFIED. Every page checked on the live
+            domain: home, projects, more work, about, services, contact,
+            resume, and all 8 work pages. Titles, headings, images and
+            the nav all correct. The new about page (.what i do /
+            .off the clock) is live; .career and .stack are gone.
+
+            ⚠️  DEPLOYMENT GOTCHA — READ THIS BEFORE EVERY UPLOAD.
+            Two uploads failed before this one, for the same reason both
+            times: THE FOLDERS DID NOT SURVIVE. All 94 files landed flat
+            in the repo root. Because 15 of them are named index.html —
+            one per page — they overwrote each other, and the about
+            page's copy won. The result: heybharat.design/ served the
+            about page, /projects/ 404'd, and clicking the .heybharat
+            logo (href="/") looped back to about forever. Nothing was
+            wrong with the code.
+            THE CAUSE: dragging files straight out of the .zip preview
+            window, or selecting the files INSIDE the folders rather
+            than the folders themselves. GitHub's web uploader only
+            keeps folder structure when handed real folders from a real
+            extracted location.
+            THE FIX, AND THE WAY TO UPLOAD FROM NOW ON: GitHub Desktop.
+            Clone the repo, delete everything in the local folder except
+            the hidden .git, copy the new files in, commit, push. It
+            cannot flatten folders, it handles deletions of removed
+            files in the same commit, and it has no 100-file limit.
+            HOW TO VERIFY BEFORE CHECKING THE SITE: the repo file list
+            on github.com should show 13 FOLDERS first (about, contact,
+            dring-work, firstandlast-extras, hemhaw-extras, logos,
+            projects, resume, selects, selects-images, services,
+            takeoff-extras, work), then the loose root files. A wall of
+            94 loose files with no folders means it flattened again.
+
+            STILL MISSING (4 assets, all degrade gracefully, none break
+            a page):
+              /resume.pdf        — /resume links to it; the link 404s
+              /kidley-cover.webp — Kidley page + its next-project card
+              /aquaflow-cover.webp
+              /snackify-cover.webp
+            The three covers sit behind onerror handlers that hide the
+            image and grey the tile, so no broken-image icons appear.
+            Kidley's three in-page slots still show .ph colour tiles.
+
+2026-11-02  Six changes: experience claims out, AquaFlow rebuilt as a
+            personal project with video, unfinished work moved last.
+
+            (1) NO MORE "X YEARS OF EXPERIENCE" ANYWHERE. Removed
+            "Two years in-house at Dring" (project description, work-head
+            copy, body copy, and three meta/OG/Twitter descriptions),
+            "2+ years" (homepage JSON-LD, about meta) and "over two
+            years" (homepage teaser, about bio). The about page's
+            ".experience / 2+ years" stat became ".focus / Brand &
+            Packaging" so the three-stat row keeps its shape.
+            KEPT ON PURPOSE: the year chips on cards (2024 — 2025 etc.)
+            and the per-project "timeframe" rows (21 days). Those date
+            the WORK, which is normal and useful; it was the seniority
+            claims that made the portfolio read junior. Kidley's "Forty
+            years of manufacturing" also stays — that is the client's
+            history, not Bharat's.
+
+            (2) AQUAFLOW IS NOW A PERSONAL PROJECT, AND HONEST. The old
+            copy invented a client: a delivery service, van livery, a
+            booking app, "12 retail partners across two cities", "second
+            most-stocked still water in independent cafes within four
+            months". None of that was real and all of it was a liability
+            in an interview. Rewritten around what the banners actually
+            show: a self-initiated bottled water brand whose label runs
+            as a SERIES — llama and cactus, hiker in the pines, a
+            whitewashed village, a whale under a crescent moon — one
+            wordmark, one grid, a different landscape per bottle. Card
+            category on the homepage and /projects now reads "Personal
+            Project"; the work-page meta row says type: Personal project.
+
+            (3) FOUR NEW AQUAFLOW ASSETS (repo root):
+              /aquaflow-reel.mp4    1920x1080, 7.9s, 12 MB, loops
+              /aquaflow-cover.webp  bottle on a rock (card thumbnail too)
+              /aquaflow-01.webp     key visual, llama label + hiker
+              /aquaflow-02.webp     three bottles (doubles as video poster)
+            VIDEO ENCODE: the source was 32.7 MB at 33 Mbps — near-master,
+            far too heavy for a web hero. Re-encoded h264 CRF 27, preset
+            slow, faststart, AAC 128k -> 12 MB. CRF 20/24/27/30 were
+            compared frame by frame at 2x; 27 is the last setting that
+            holds the fine bubble detail and the logo edges. CRF 30 began
+            smearing condensation droplets. Water is the hardest content
+            there is for a codec, which is why even CRF 20 only reached
+            30 MB. If you ever re-encode, compare frames — do not trust
+            the file size alone.
+
+            (4) THE REEL PLAYS IN TWO PLACES on /work/aquaflow: as the
+            hero cover and again as block 03. Same file, so the browser
+            downloads it once.
+            ⚠️  IT STARTS MUTED, AND THAT IS NOT A CHOICE. Chrome, Safari
+            and Firefox all refuse autoplay-with-sound until the visitor
+            has interacted with the page; a video that demanded audio up
+            front would be blocked outright and not play at all. So it
+            autoplays muted, loops forever, and the round "sound off"
+            button bottom-right turns audio on in one tap. The button is
+            deliberately visible rather than hover-only. main.js keeps
+            only one of the two players unmuted at a time, and nudges the
+            video back into play if the browser pauses it — but never
+            while the tab is in the background.
+            Markup: .reel / .reel__video / .reel__sound. CSS and JS are
+            both commented where they live.
+
+            (5) UNFINISHED WORK NOW SITS LAST. Card order on the homepage
+            AND /projects is: dring, hem & haw, aquaflow, then kidley and
+            snackify. The two without imagery show a "case study in
+            progress" tile instead of an empty colour block — a fine
+            diagonal hatch plus a mono pill, drawn entirely in CSS with
+            currentColor so it picks up each card's own colour. No image
+            file, so it costs nothing against the 100-file budget.
+            Class: .coming / .coming__pill, plus .coming--thumb for the
+            smaller next-project thumbnail.
+            RULE: when a project's images land, move its row back above
+            the unfinished ones and swap the tile for an <img>.
+            NEXT-PROJECT LOOP rewired to match: dring -> hem & haw ->
+            aquaflow -> kidley -> snackify -> dring. The Dring sub-tree
+            (first & last -> naughty dares -> takeoff -> dring) is
+            unchanged.
+            Also added position:relative to .next-project-card__thumb —
+            without it the absolutely-positioned tile spread across the
+            whole card instead of staying in the thumbnail.
+
+            (6) FILE COUNT: 98. Four new assets took it from 94 to 98,
+            and nothing was removed. Two spare before the 100-file
+            drag-and-drop cap — and remember that cap is per upload, not
+            per repo, and does not apply at all through GitHub Desktop.
+            kidley-cover.webp and snackify-cover.webp are no longer
+            referenced by anything, since those slots are CSS tiles now.
+            Still missing: /resume.pdf only.
+
+            (7) PREVIEW BUILDER. build-preview.py now swaps each <video>
+            for its poster frame, with a small "video — plays on the live
+            site" marker. A 12 MB clip cannot be inlined into a
+            single-file preview; this keeps preview.html openable (9.8 MB)
+            and the page layout still reviewable. Live site unaffected.
+
+            VERIFIED: all 15 pages crawled in a real browser — zero
+            console errors, zero failed requests. Sound toggle tested:
+            unmuting one player re-mutes the other.
+
+2026-11-02b Three corrections to the same day's work.
+
+            (1) THE REEL NO LONGER APPEARS TWICE on /work/aquaflow.
+            It was the hero AND block 03, which added nothing. Block 03
+            is now the three-bottles still.
+
+            (2) THE REEL PLAYS ON THE HOMEPAGE CARD, and all three
+            stills are now used inside the project. Previously the
+            rock-and-mountain shot (/aquaflow-cover.webp) existed only
+            as the homepage thumbnail and never appeared in the case
+            study, while two others were repeated.
+            Now:  homepage card      -> the reel, playing
+                  project hero       -> the reel, playing, sound toggle
+                  project block 01   -> aquaflow-cover (rock + stream)
+                  project block 02   -> aquaflow-01 (llama label + hiker)
+                  project block 03   -> aquaflow-02 (three bottles)
+            THE CARD VIDEO IS LAZY. It carries preload="none" and a
+            poster, so the 12 MB file is NOT fetched when the homepage
+            loads; an IntersectionObserver in main.js starts it when the
+            card scrolls into view and pauses it when it leaves.
+            Verified: zero .mp4 requests on page load. It stays muted
+            with no sound button, because the card is a link and a
+            control there would fight the click.
+            Class: .card-reel, [data-card-reel].
+
+            (3) WORK CARDS NOW FIT A LAPTOP SCREEN. Measured rather
+            than guessed: on a 1440x900 viewport the card was 877px tall
+            plus a 100px sticky offset = 977px, so 77px of it could
+            never be on screen at once and the next card began sliding
+            over the image before you had seen it.
+            THE FIX trims the CHROME, never the image. Two scoped
+            blocks at the end of style.css:
+              @media (min-width:1024px) and (max-height:1000px)
+                sticky 100 -> 70, padding 36/44/44 -> 24/40/28,
+                title clamp 52-86 -> 40-58, arrow 72 -> 52,
+                media margin 22 -> 14.
+                Result at 1440x900: 884px total. Fits, 16px spare.
+              @media (min-width:1024px) and (max-height:840px)
+                the above plus --pad-x 100 -> 190 on .works only.
+                Result at 1440x800: 766px. Fits.
+            WHY THE GUTTER AND NOT A WIDTH CAP: an earlier attempt
+            (2026-09-04e, reverted the same day) capped the image's
+            max-width, which left dead card colour down both sides and
+            looked broken. Widening the page gutter narrows the whole
+            card instead, so the image still runs edge to edge inside
+            it — smaller, never letterboxed.
+            TALL MONITORS ARE UNTOUCHED. Above 1000px of viewport
+            height neither block applies and the card keeps its original
+            spacing. Below ~740px it still overflows a little; fixing
+            that would mean shrinking the card past the point where it
+            looks deliberate.
+            If you change the title size, padding or sticky offset,
+            re-measure — those five numbers are what make it fit.
+
+            VERIFIED: all 15 pages well-formed (HTML parser), every
+            internal link 200, no broken images, next-project loop
+            closes, file count 98.
+
 [ADD NEW ENTRIES BELOW THIS LINE]
 
 

@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aquaflow — Branding & Identity Case Study</title>
+  <title>AquaFlow — Bottled Water Brand (Personal Project)</title>
   <link rel="stylesheet" href="/style.css" />
   <!-- ═════════════ SEO + FAVICON ═════════════ -->
-  <meta name="description" content="Aquaflow — a branding and identity project by Bharat Arora." />
+  <meta name="description" content="AquaFlow — a self-initiated bottled water brand by Bharat Arora. One wordmark, a series of illustrated labels, a different landscape on every bottle." />
   <meta name="author" content="Bharat Arora" />
   <link rel="canonical" href="https://heybharat.design/work/aquaflow/" />
   <!-- Open Graph (Facebook, LinkedIn) -->
-  <meta property="og:title" content="Aquaflow — Branding & Identity Case Study" />
-  <meta property="og:description" content="Aquaflow — a branding and identity project by Bharat Arora." />
+  <meta property="og:title" content="AquaFlow — Bottled Water Brand (Personal Project)" />
+  <meta property="og:description" content="AquaFlow — a self-initiated bottled water brand by Bharat Arora. One wordmark, a series of illustrated labels, a different landscape on every bottle." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://heybharat.design/work/aquaflow/" />
   <meta property="og:image" content="https://heybharat.design/og-image.jpg" />
   <meta property="og:site_name" content="Bharat Arora" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Aquaflow — Branding & Identity Case Study" />
-  <meta name="twitter:description" content="Aquaflow — a branding and identity project by Bharat Arora." />
+  <meta name="twitter:title" content="AquaFlow — Bottled Water Brand (Personal Project)" />
+  <meta name="twitter:description" content="AquaFlow — a self-initiated bottled water brand by Bharat Arora. One wordmark, a series of illustrated labels, a different landscape on every bottle." />
   <meta name="twitter:image" content="https://heybharat.design/og-image.jpg" />
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -33,17 +33,22 @@
 
 <!--
   ╔══════════════════════════════════════════════════════════════════╗
-  ║         HOW TO ADD IMAGES — work-aquaflow.html                   ║
+  ║         AQUAFLOW — personal project, not client work             ║
   ╠══════════════════════════════════════════════════════════════════╣
   ║                                                                  ║
-  ║  IMAGE SLOTS — drop these EXACT filenames in the same folder:    ║
+  ║  ASSETS, all in the repo ROOT:                                   ║
+  ║    /aquaflow-reel.mp4   hero video, 1920x1080, 7.9s, loops       ║
+  ║    /aquaflow-cover.webp bottle on rock (card thumbnail too)      ║
+  ║    /aquaflow-01.webp    key visual, llama label + hiker          ║
+  ║    /aquaflow-02.webp    three bottles, three labels (video poster)║
   ║                                                                  ║
-  ║    COVER (16:9, 1920×1080)    →  aquaflow-cover.webp              ║
-  ║    BLOCK 01 (16:9, 1600×900)  →  aquaflow-01.webp                 ║
-  ║    BLOCK 02 (16:9, 1600×900)  →  aquaflow-02.webp                 ║
+  ║  THE VIDEO: autoplays, loops forever, starts MUTED because every ║
+  ║  browser blocks audio until the visitor interacts with the page. ║
+  ║  The round speaker button is the unmute; one tap turns sound on. ║
+  ║  Only one of the two players can be unmuted at a time — main.js  ║
+  ║  mutes the other. Markup is .reel; styles are in style.css.      ║
   ║                                                                  ║
-  ║  HOW: find the ▼ comment, remove <span class="ph">,              ║
-  ║  and replace with <img src="/FILENAME.webp" alt="..." />           ║
+  ║  Keep the copy honest: no client, no brief, no invented metrics. ║
   ║                                                                  ║
   ╚══════════════════════════════════════════════════════════════════╝
 -->
@@ -57,21 +62,36 @@
     <div class="shell">
       <div class="work-head__top">
         <h1 class="work-head__title reveal-blur">aquaflow</h1>
-        <p class="work-head__desc reveal">A bottled water delivery service that sources water from the purest mountain streams</p>
+        <p class="work-head__desc reveal">A self-initiated bottled water brand. One wordmark, and a series of illustrated labels — a different landscape on every bottle.</p>
       </div>
     </div>
   </section>
 
+  <!-- HERO: the reel. Autoplays muted and loops; the button turns sound on. -->
   <div class="work-cover reveal">
-    <!-- ▼ AQUAFLOW — COVER  →  aquaflow-cover.webp  (16:9, 1920×1080)
-         Replace: <img src="/aquaflow-cover.webp" alt="aquaflow cover" /> -->
-    <span class="ph">.aquaflow</span>
+      <div class="reel" data-reel>
+        <video class="reel__video" poster="/aquaflow-02.webp" preload="metadata"
+               autoplay loop muted playsinline
+               aria-label="AquaFlow bottles floating in water">
+          <source src="/aquaflow-reel.mp4" type="video/mp4" />
+        </video>
+        <button class="reel__sound" type="button" data-reel-sound aria-pressed="false">
+          <span class="reel__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 9v6h4l5 4V5L8 9H4z"/>
+              <path class="reel__wave" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>
+              <path class="reel__slash" d="M17 9.5l4 5M21 9.5l-4 5"/>
+            </svg>
+          </span>
+          <span class="reel__lbl">sound off</span>
+        </button>
+      </div>
   </div>
 
   <section class="shell">
     <div class="work-body">
       <div class="work-body__copy reveal">
-        <p>Aquaflow began with a simple ambition: to deliver water that tastes the way nature intended. Sourced from the purest mountain streams, the brand challenges the assumption that bottled water must be sterile and impersonal. The visual identity reflects calm, craft, and origin — built around a single typographic mark and a flexible system.</p>
+        <p>AquaFlow started as a personal exercise: take the most generic object on a shelf — a 500 mL water bottle — and make it something a person would want to keep. The answer turned out to be the label.</p>
       </div>
       <aside class="work-meta reveal">
         <div class="work-meta__row">
@@ -79,8 +99,8 @@
           <div class="work-meta__value">2024</div>
         </div>
         <div class="work-meta__row">
-          <div class="work-meta__label">timeframe</div>
-          <div class="work-meta__value">21 days</div>
+          <div class="work-meta__label">type</div>
+          <div class="work-meta__value">Personal project</div>
         </div>
         <div class="work-meta__row">
           <div class="work-meta__label">tools</div>
@@ -88,7 +108,7 @@
         </div>
         <div class="work-meta__row">
           <div class="work-meta__label">category</div>
-          <div class="work-meta__value">Branding and Identity</div>
+          <div class="work-meta__value">Branding &amp; Packaging</div>
         </div>
       </aside>
     </div>
@@ -98,18 +118,16 @@
     <div class="work-block reveal">
       <div class="work-block__num">01</div>
       <div class="work-block__img">
-        <!-- ▼ AQUAFLOW — BLOCK 01  →  aquaflow-01.webp  (16:9)
-             Replace: <img src="/aquaflow-01.webp" alt="aquaflow bottle labels" /> -->
-        <span class="ph">.aquaflow 01</span>
+        <img src="/aquaflow-cover.webp" alt="AquaFlow bottle on a rock beside a mountain stream, with the wordmark alongside" loading="lazy" decoding="async" />
       </div>
-      <p class="work-block__caption">Final bottle labels paired with the primary color system.</p>
+      <p class="work-block__caption">Mountain Minerals Water, 500 mL — the wordmark in its own landscape.</p>
     </div>
   </section>
 
   <section class="shell">
     <div class="work-body" style="padding:60px 0;">
       <div class="work-body__copy reveal" style="font-size:clamp(18px,3.4vw,22px);">
-        <p>We built the identity around clarity. A single deep blue used at scale, a grid system that adapts across bottle sizes, delivery vans, and the booking app. No mountain photography clichés — just type, color, and restraint.</p>
+        <p>The wordmark carries the idea in two halves — a clean geometric sans for <em>Aqua</em>, a wet brush script for <em>Flow</em>. Still water and moving water in one lockup. Everything else on the bottle stays quiet so the illustration has room to work.</p>
       </div>
       <div></div>
     </div>
@@ -119,48 +137,57 @@
     <div class="work-block reveal">
       <div class="work-block__num">02</div>
       <div class="work-block__img">
-        <!-- ▼ AQUAFLOW — BLOCK 02  →  aquaflow-02.webp  (16:9)
-             Replace: <img src="/aquaflow-02.webp" alt="aquaflow van livery" /> -->
-        <span class="ph">.aquaflow 02</span>
+        <img src="/aquaflow-01.webp" alt="AquaFlow key visual — llama and cactus label, with an illustrated hiker drinking from a bottle" loading="lazy" decoding="async" />
       </div>
-      <p class="work-block__caption">Delivery van livery applied across the fleet.</p>
+      <p class="work-block__caption">A llama in the Andes, a hiker in the pines, a village by the sea — same grid, same type, different place.</p>
+    </div>
+  </section>
+
+  <section class="shell">
+    <div class="work-body" style="padding:60px 0;">
+      <div class="work-body__copy reveal" style="font-size:clamp(18px,3.4vw,22px);">
+        <p>Running the label as a series rather than a single locked design means the shelf does the selling. Six bottles side by side read as a set, and the empty one on a desk stops looking like rubbish.</p>
+      </div>
+      <div></div>
+    </div>
+  </section>
+
+  <section class="shell">
+    <div class="work-block reveal">
+      <div class="work-block__num">03</div>
+      <div class="work-block__img">
+        <img src="/aquaflow-02.webp" alt="Three AquaFlow bottles floating in water, each with a different illustrated label" loading="lazy" decoding="async" />
+      </div>
+      <p class="work-block__caption">Three of the series together — the set is the point.</p>
     </div>
   </section>
 
   <section class="shell">
     <div class="work-body" style="padding:60px 0 0;">
       <div class="work-body__copy reveal" style="font-size:clamp(18px,3.4vw,22px);">
-        <p>The result is a brand that feels confident without shouting. Aquaflow now stocks 12 retail partners across two cities and became the second most-stocked still water in independent cafés in its launch market within four months.</p>
+        <p>No client, no brief, no sign-off. That is the whole reason the label series survived — it is the sort of idea that gets negotiated away early, and here there was nobody to negotiate with.</p>
       </div>
       <div></div>
     </div>
   </section>
 
-  <!-- ────────────────────────────────────────────────────────────────
-       NEXT PROJECT — points to next in the loop.
-       Loop layout:
-         DRING (hub) → kidley → hem & haw → aquaflow → snackify
-                     → DRING (loops back)
-         Dring sub-products: firstandlast → naughtydares → takeoff
-                             → DRING (returns to hub)
-       ──────────────────────────────────────────────────────────────── -->
   <section class="shell next-project-section">
     <p class="next-project-label reveal">.next project</p>
 
-    <a href="/work/snackify/" class="next-project-card reveal"
-       style="background: var(--green-card); color: var(--green-card-ink);">
+    <a href="/work/kidley/" class="next-project-card reveal"
+       style="background: var(--kidley-card); color: var(--kidley-card-ink);">
       <div class="next-project-card__left">
         <span class="next-project-card__eyebrow">up next</span>
         <h2 class="next-project-card__title">
-          <span>snackify</span>
+          <span>kidley</span>
           <span class="next-project-card__arrow" aria-hidden="true">
             <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30h32M34 18l12 12-12 12"/></svg>
           </span>
         </h2>
-        <span class="next-project-card__cat">Packaging Design</span>
+        <span class="next-project-card__cat">Branding &amp; Packaging</span>
       </div>
       <div class="next-project-card__thumb">
-        <img src="/snackify-cover.webp" alt="snackify" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.style.background='rgba(0,0,0,0.15)';" />
+        <div class="coming coming--thumb"><span class="coming__pill">in progress</span></div>
       </div>
     </a>
 

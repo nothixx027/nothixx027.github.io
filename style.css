@@ -2143,6 +2143,9 @@ body.lightbox-open {
   margin-top: 4px;
 }
 .next-project-card__thumb {
+  /* position:relative so an absolutely-positioned .coming tile is bounded
+     by the thumbnail instead of spreading across the whole card. */
+  position: relative;
   aspect-ratio: 16/9;
   border-radius: 10px;
   overflow: hidden;
@@ -2447,4 +2450,184 @@ body.lightbox-open {
   letter-spacing: -0.015em;
   color: var(--ink);
   max-width: 34ch;
+}
+
+/* ============================================================
+   COMING-SOON TILE — for case studies whose imagery isn't ready.
+   Pure CSS, no image file, so it costs nothing against the repo's
+   file budget. Everything is drawn with currentColor, so the tile
+   picks up whichever card it sits in (navy Kidley, green Snackify)
+   without a per-card override.
+   Used in: /index.html and /projects/ cards, and the next-project
+   thumbnail on the page before an unfinished one.
+   ============================================================ */
+.coming {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/* Fine diagonal hatch — reads as "reserved", not "broken". */
+.coming::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.055;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 22px,
+    currentColor 22px 44px
+  );
+}
+.coming__pill {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  color: inherit;
+  opacity: 0.62;
+  white-space: nowrap;
+}
+@media (min-width: 1024px) { .coming__pill { font-size: 13px; padding: 11px 20px; } }
+
+/* Smaller variant for the next-project thumbnail, which is a narrow box. */
+.coming--thumb { position: absolute; inset: 0; border-radius: inherit; }
+.coming--thumb::before {
+  background: repeating-linear-gradient(135deg, transparent 0 11px, currentColor 11px 22px);
+}
+.coming--thumb .coming__pill { font-size: 11px; padding: 7px 13px; }
+
+/* ============================================================
+   REEL — looping project video with a sound toggle.
+
+   It autoplays MUTED and loops forever. Muted is not a choice:
+   every browser blocks audio on autoplay until the visitor has
+   interacted with the page, so a video that asked for sound up
+   front would simply be refused permission and not play at all.
+   The round button is the unmute, and it is deliberately legible
+   rather than hidden on hover — a control nobody finds is the
+   same as no control.
+
+   Sits in two places on /work/aquaflow: inside .work-cover as the
+   hero, and as block 03. Both use the same file, so the browser
+   downloads it once. main.js keeps only one of them unmuted.
+   ============================================================ */
+.reel {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 16/9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #0d1b26;
+}
+.reel--block { border-radius: 8px; }
+
+.reel__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.reel__sound {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px 0 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 0.25s var(--e-out), border-color 0.25s var(--e-out);
+}
+@media (min-width: 1024px) {
+  .reel__sound { right: 18px; bottom: 18px; height: 42px; font-size: 12.5px; padding: 0 17px 0 13px; }
+}
+@media (hover: hover) {
+  .reel__sound:hover { background: rgba(0, 0, 0, 0.68); border-color: rgba(255, 255, 255, 0.6); }
+}
+.reel__sound:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.reel__ico svg { width: 17px; height: 17px; display: block; }
+@media (min-width: 1024px) { .reel__ico svg { width: 19px; height: 19px; } }
+
+/* Muted is the default state: slash shown, waves hidden. The two
+   swap when main.js sets aria-pressed="true". */
+.reel__wave  { opacity: 0; transition: opacity 0.2s var(--e-out); }
+.reel__slash { opacity: 1; transition: opacity 0.2s var(--e-out); }
+.reel__sound[aria-pressed="true"] .reel__wave  { opacity: 1; }
+.reel__sound[aria-pressed="true"] .reel__slash { opacity: 0; }
+
+/* Video standing in for a still on a work card (the AquaFlow reel on the
+   homepage). Matches .work-card__media img exactly so the card geometry
+   is unchanged — only the content inside the frame moves. */
+.card-reel {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+/* ============================================================
+   SHORT-SCREEN WORK CARDS
+   The sticky stack only reads right if a whole card fits on screen
+   at once; otherwise the next card starts sliding over the current
+   one before its image has been seen. Measured on a 1440x900
+   viewport: card 877px + 100px sticky offset = 977px, i.e. 77px too
+   tall. The image is not the thing to cut — it is the work — so this
+   trims the chrome around it instead: sticky offset, padding, title
+   size and the gap above the image.
+
+   Deliberately scoped to short viewports. On a tall monitor nothing
+   here applies and the card keeps its original generous spacing.
+
+   Nav is fixed at 22px top with ~18px bottom padding, so a 70px
+   sticky offset still clears it.
+   ============================================================ */
+@media (min-width: 1024px) and (max-height: 1000px) {
+  .work-card {
+    top: 70px;
+    padding: 24px 40px 28px;
+  }
+  .work-card__top { padding-bottom: 12px; margin-bottom: 14px; }
+  .work-card__title { font-size: clamp(40px, 3.6vw, 58px); }
+  .work-card .arrow-icon { width: 52px; height: 52px; }
+  .work-card__media { margin-top: 14px; }
+
+  .work-card-last-wrap { top: 70px; }
+  .work-card-last-wrap .work-card { padding-bottom: 92px; }
+  .work-card-last-wrap .works__see-more { bottom: 22px; }
+}
+
+/* Very short screens (a 1366x768 laptop lands near 650px of viewport).
+   No amount of chrome-trimming fits a full-width 16:9 image there, so
+   widen the page gutter instead: the whole card narrows, and the image
+   narrows with it — still edge to edge inside the card, never
+   letterboxed with dead colour at the sides. */
+@media (min-width: 1024px) and (max-height: 840px) {
+  .works { --pad-x: 190px; }
+  .work-card { top: 62px; padding: 20px 36px 24px; }
+  .work-card__title { font-size: clamp(36px, 3.1vw, 50px); }
+  .work-card .arrow-icon { width: 46px; height: 46px; }
+  .work-card-last-wrap { top: 62px; }
 }

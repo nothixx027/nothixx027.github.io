@@ -546,6 +546,94 @@
     strip.addEventListener('pointerleave', release);
   });
 
+  // ============== Card reels: load and play only when seen ==============
+  // A card video would otherwise pull its whole file down on page load, which
+  // for the AquaFlow reel is 12 MB spent before the visitor has scrolled to
+  // it. preload="none" in the markup holds the download back; this starts it
+  // the moment the card comes into view and pauses when it leaves, so an
+  // offscreen card costs nothing and a background tab stops decoding.
+  (function () {
+    const cards = document.querySelectorAll('[data-card-reel]');
+    if (!cards.length) return;
+
+    if (!('IntersectionObserver' in window)) {   // very old browser: just play
+      cards.forEach((v) => { v.preload = 'auto'; v.play().catch(() => {}); });
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const v = entry.target;
+        if (entry.isIntersecting) {
+          if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); }
+          v.play().catch(() => {});
+        } else if (!v.paused) {
+          v.pause();
+        }
+      });
+    }, { rootMargin: '200px 0px', threshold: 0.15 });
+
+    cards.forEach((v) => { v.muted = true; io.observe(v); });
+  })();
+
+  // ============== Reels: loop forever + sound toggle ==============
+  // The <video> carries autoplay/loop/muted/playsinline in the markup, so
+  // it loops with no JS at all. This adds three things on top:
+  //   1. the sound button,
+  //   2. a guard so only one reel is ever unmuted,
+  //   3. a nudge back into play if the browser pauses it (tab switch,
+  //      battery saver, an autoplay refusal on a cold load).
+  //
+  // Audio cannot start on its own. Chrome, Safari and Firefox all refuse
+  // autoplay with sound until the visitor has interacted with the page,
+  // so the reel begins muted and the button is the way in. Trying to
+  // force it would get the whole video blocked, not just the audio.
+  document.querySelectorAll('[data-reel]').forEach((reel) => {
+    const video = reel.querySelector('video');
+    const btn   = reel.querySelector('[data-reel-sound]');
+    if (!video || !btn) return;
+    const label = btn.querySelector('.reel__lbl');
+
+    const paint = () => {
+      const on = !video.muted;
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.setAttribute('aria-label', on ? 'Turn video sound off' : 'Turn video sound on');
+      if (label) label.textContent = on ? 'sound on' : 'sound off';
+    };
+
+    // .muted changes fire volumechange, so muting a sibling repaints it too.
+    video.addEventListener('volumechange', paint);
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (video.muted) {
+        document.querySelectorAll('[data-reel] video').forEach((other) => {
+          if (other !== video) other.muted = true;
+        });
+        video.muted = false;
+        video.volume = 1;
+      } else {
+        video.muted = true;
+      }
+      video.play().catch(() => {});
+      paint();
+    });
+
+    // Keep the loop alive, but never fight a background tab.
+    video.addEventListener('pause', () => {
+      if (!video.ended && document.visibilityState === 'visible') {
+        video.play().catch(() => {});
+      }
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') video.play().catch(() => {});
+    });
+
+    video.play().catch(() => {});
+    paint();
+  });
+
   // ============== Grid ripple on click ==============
   // Background click anywhere (but not on interactive elements)
   document.addEventListener('click', (e) => {

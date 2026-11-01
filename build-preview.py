@@ -106,6 +106,27 @@ def build_page(rel_html: str) -> str:
     # Drop favicon/manifest links — they only cause 404 noise in preview.
     html = re.sub(r'<link\s+rel="(icon|apple-touch-icon|manifest)"[^>]*>', "", html)
 
+    # Videos can't be inlined — /aquaflow-reel.mp4 alone is 12 MB and would
+    # make preview.html unopenable. Swap each <video> for its poster frame so
+    # the layout, the caption and the page flow are all still reviewable.
+    # The live site is unaffected; this only touches the preview build.
+    def video_to_poster(m):
+        block = m.group(0)
+        poster = re.search(r'poster="([^"]+)"', block)
+        alt = re.search(r'aria-label="([^"]+)"', block)
+        if not poster:
+            return ""
+        return (
+            f'<img class="reel__video" src="{poster.group(1)}" '
+            f'alt="{alt.group(1) if alt else ""}" />'
+            '<span style="position:absolute;left:12px;top:12px;z-index:3;'
+            'font-family:ui-monospace,monospace;font-size:11px;color:#fff;'
+            'background:rgba(0,0,0,.55);border-radius:999px;padding:6px 12px">'
+            'video — plays on the live site</span>'
+        )
+
+    html = re.sub(r"<video\b.*?</video>", video_to_poster, html, flags=re.S)
+
     # Internal links can't navigate inside an iframe, so hand them to the
     # parent switcher instead of letting them dead-end.
     html = html.replace(
